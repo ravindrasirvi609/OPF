@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Animated Registration Form</title>
+  <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <!-- <img class="wave" src="../../assets/wave.png"> -->
+  <div class="container">
+    <div class="img">
+      <img src="../../assets/OPF Logo Mail.png">
+    </div>
+    <div class="login-content">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <img src="../../assets/avatar.svg">
+        <h2 class="title">Register</h2>
+        <div class="input-div one"
+          [class.focus]="registrationForm.controls['username'].touched && registrationForm.controls['username'].invalid">
+          <div class="i">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="div">
+            <h5>Username</h5>
+            <input type="text" class="input" formControlName="username">
+          </div>
+        </div>
+        <div class="input-div one"
+          [class.focus]="registrationForm.controls['email'].touched && registrationForm.controls['email'].invalid">
+          <div class="i">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="div">
+            <h5>Email</h5>
+            <input type="email" class="input" formControlName="email">
+          </div>
+        </div>
+        <div class="input-div pass"
+          [class.focus]="registrationForm.controls['password'].touched && registrationForm.controls['password'].invalid">
+          <div class="i">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="div">
+            <h5>Password</h5>
+            <input type="password" class="input" formControlName="password">
+          </div>
+        </div>
+        <div class="input-div pass"
+          [class.focus]="registrationForm.controls['confirmPassword'].touched && registrationForm.controls['confirmPassword'].invalid">
+          <div class="i">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="div">
+            <h5>Confirm Password</h5>
+            <input type="password" class="input" formControlName="confirmPassword">
+          </div>
+        </div>
+        <input type="submit" class="btn" value="Register" [disabled]="registrationForm.invalid">
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

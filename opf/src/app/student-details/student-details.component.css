@@ -1,0 +1,56 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.login-content img {
+  height: 80px;
+}
+
+.login-content h2 {
+  margin: 1rem 0;
+  color: #333;
+  font-size: 2.2rem;
+}
+
+.student-info {
+  margin-top: 2rem;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.info-label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.info-value {
+  font-weight: normal;
+}
