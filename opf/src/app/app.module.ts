@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

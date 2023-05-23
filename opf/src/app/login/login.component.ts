@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-login',
@@ -9,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
     const inputs = document.querySelectorAll<HTMLInputElement>(".input");
@@ -35,7 +39,10 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+    ) { }
 
 
   onSubmit() {
@@ -43,11 +50,32 @@ export class LoginComponent implements OnInit {
       return;
     }
     
+  
     // Perform login logic here
-    const username = this.loginForm?.value.username;
+    const email = this.loginForm?.value.email;
     const password = this.loginForm?.value.password;
-    console.log('Username:', username);
+
+    this.authService.login(email, password ).subscribe(
+      (response) => {        
+        this.router.navigate(['/student-details']);
+        console.log('Login successful:', response);
+        alert("okay")
+      },
+      (error) => {
+        console.log('Login error:', error);
+        alert("not okay")
+      }
+    );
+
+    console.log('email:', email);
     console.log('Password:', password);
     // Add your login functionality
   }
+
+  
 }
+
+  function login() {
+    throw new Error('Function not implemented.');
+  }
+

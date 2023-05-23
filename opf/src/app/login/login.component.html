@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Animated Login Form</title>
 	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
@@ -20,13 +19,13 @@
 				<img src="../../assets/avatar.svg">
 				<h2 class="title">Welcome</h2>
 				<div class="input-div one"
-					[class.focus]="loginForm.controls['username'].touched && loginForm.controls['username'].invalid">
+					[class.focus]="loginForm.controls['email'].touched && loginForm.controls['email'].invalid">
 					<div class="i">
 						<i class="fas fa-user"></i>
 					</div>
 					<div class="div">
-						<h5>Username</h5>
-						<input type="text" class="input" formControlName="username">
+						<h5>email</h5>
+						<input type="text" class="input" formControlName="email">
 					</div>
 				</div>
 				<div class="input-div pass"
@@ -41,8 +40,7 @@
 				</div>
 				<a routerLink="/registration" routerLinkActive="active">Register New User</a>
 				<a routerLink="/forget-password" routerLinkActive="active">Forgot Password?</a>
-				<a routerLink="/student-details" routerLinkActive="active"><input type="submit" class="btn"
-						value="Login" [disabled]="loginForm.invalid"> </a>
+				<a><input type="submit" class="btn" value="Login" [disabled]="loginForm.invalid"> </a>
 			</form>
 
 		</div>

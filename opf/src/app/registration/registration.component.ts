@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegistrationComponent {
   registrationForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
@@ -30,6 +33,24 @@ export class RegistrationComponent {
     const email = this.registrationForm?.value.email;
     const password = this.registrationForm?.value.password;
     const confirmPassword = this.registrationForm?.value.confirmPassword;
+    this.authService.register({
+      username,
+      email,
+      password,
+      confirmPassword
+    }).subscribe(
+      (response) => {
+        // Handle successful registration
+        alert("okay")
+        console.log('Registration successful:', response);
+        // You can navigate to a success page or perform any other actions
+      },
+      (error) => {
+        // Handle registration error
+        console.log('Registration error:', error);
+        // You can display an error message to the user or perform any other actions
+      }
+    );
     console.log('Username:', username);
     console.log('Email:', email);
     console.log('Password:', password);
