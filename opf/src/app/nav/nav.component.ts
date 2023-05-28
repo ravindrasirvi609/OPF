@@ -2,17 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-student-details',
-  templateUrl: './student-details.component.html',
-  styleUrls: ['./student-details.component.css']
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
 })
-export class StudentDetailsComponent implements OnInit {
-  student = {
-    name: 'John Doe',
-    age: 18,
-    grade: '12th',
-    address: '123 Main St, City'
-  };
+export class NavComponent implements OnInit {
   isMenuOpen: boolean = false;
   isLoggedIn: boolean = false;
 
@@ -31,5 +25,4 @@ export class StudentDetailsComponent implements OnInit {
     // Redirect the user to the login page
     this.router.navigate(['/login']);
   }
-  
 }

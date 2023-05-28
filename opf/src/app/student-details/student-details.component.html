@@ -1,27 +1,55 @@
-<div class="container">
-    <!-- <div class="img">
-        <img src="../../assets/OPF Logo Mail.png">
-    </div> -->
-    <div class="login-content">
-        <img src="../../assets/avatar.svg">
-        <h2 class="title">Student Details</h2>
-        <div class="student-info">
-            <div class="info-row">
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-100">
+  <body class="h-full">
+  ```
+-->
+<div class="min-h-full">
+  <div class="fixed top-0 left-0 w-full bg-gray-100 p-4 z-50">
+    <app-nav>
+
+    </app-nav>
+  </div>
+  <div>
+    <header class="bg-white shadow">
+      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+      </div>
+    </header>
+    <main>
+      <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <!-- Your content -->
+        <div class="container">
+          <!-- <div class="img">
+                <img src="../../assets/OPF Logo Mail.png">
+            </div> -->
+          <div class="login-content">
+            <img src="../../assets/avatar.svg">
+            <h2 class="title">Student Details</h2>
+            <div class="student-info">
+              <div class="info-row">
                 <div class="info-label">Name:</div>
                 <div class="info-value">{{ student.name }}</div>
-            </div>
-            <div class="info-row">
+              </div>
+              <div class="info-row">
                 <div class="info-label">Age:</div>
                 <div class="info-value">{{ student.age }}</div>
-            </div>
-            <div class="info-row">
+              </div>
+              <div class="info-row">
                 <div class="info-label">Grade:</div>
                 <div class="info-value">{{ student.grade }}</div>
-            </div>
-            <div class="info-row">
+              </div>
+              <div class="info-row">
                 <div class="info-label">Address:</div>
                 <div class="info-value">{{ student.address }}</div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </main>
+  </div>
+
 </div>

@@ -21,10 +21,13 @@ connect('mongodb://127.0.0.1:27017', { useNewUrlParser: true, useUnifiedTopology
 // Import route files
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const studentData = require('./routes/studentdata');
 
 // Set up routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/student', studentData);
+
 
 
 const PORT = process.env.PORT || 3000;
