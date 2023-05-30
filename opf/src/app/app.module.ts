@@ -17,8 +17,9 @@ import { ReportsComponent } from './reports/reports.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NavComponent } from './nav/nav.component';
 import { MainComponent } from './main/main.component';
-
-
+import { ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -42,9 +43,17 @@ import { MainComponent } from './main/main.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      toastComponent: ToastNoAnimation,
+      preventDuplicates: true,
+      closeButton: true,
+      timeOut: 3000,
+    }),
+    ToastNoAnimationModule,
+    
   ],
-  providers: [],
+  providers: [ToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

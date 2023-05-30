@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const studentSchema = new mongoose.Schema({
+const studentSchemaa = new mongoose.Schema({
     firstName: {
         type: String
     },
@@ -9,7 +9,7 @@ const studentSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true
+        unique: false
     },
     mobileNo: {
         type: String
@@ -24,8 +24,7 @@ const studentSchema = new mongoose.Schema({
         type: String
     },
     region: {
-        type: String,
-        required: true
+        type: String
     },
     postalCode: {
         type: String
@@ -41,6 +40,6 @@ const studentSchema = new mongoose.Schema({
     }
 });
 
-const StudentModel = mongoose.model('Student', studentSchema);
+const StudentModel = mongoose.model('Studentss', studentSchemaa);
 
 module.exports = StudentModel;
