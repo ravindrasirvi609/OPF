@@ -20,6 +20,8 @@ import { MainComponent } from './main/main.component';
 import { ToastrService } from 'ngx-toastr';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PaymentComponent } from './payment/payment.component';
+import { WindowRefService } from './window-ref.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReportsComponent,
     UserProfileComponent,
     NavComponent,
-    MainComponent
+    MainComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToastNoAnimationModule,
     
   ],
-  providers: [ToastrService],
+  providers: [WindowRefService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

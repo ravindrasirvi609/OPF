@@ -15,10 +15,14 @@
                     <div class="sm:col-span-3">
                         <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First
                             name</label>
-                        <div class="mt-2">
+                        <div class="mt-2 has-validation">
                             <input type="text" name="first-name" id="first-name" autocomplete="given-name"
                                 formControlName="firstName"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                        <div
+                            *ngIf="form.controls['firstName'].invalid && (form.controls['firstName'].touched || form.controls['firstName'].dirty)">
+                            <p class="text-red-600">First name is required.</p>
                         </div>
                     </div>
 
@@ -30,6 +34,10 @@
                                 formControlName="lastName"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         </div>
+                        <div
+                        *ngIf="form.controls['lastName'].invalid && (form.controls['lastName'].touched || form.controls['lastName'].dirty)">
+                        <p class="text-red-600">Last name is required.</p>
+                    </div>
                     </div>
 
                     <div class="sm:col-span-4">
@@ -181,3 +189,8 @@
         </div>
     </form>
 </div>
+
+
+<app-payment>
+    
+</app-payment>
