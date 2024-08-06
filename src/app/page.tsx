@@ -22,14 +22,12 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Header />
       <main>
         <Hero />
         <FeaturedResearch />
         <InnovationShowcase />
         <ContactCTA />
       </main>
-      <Footer />
     </>
   );
 }
