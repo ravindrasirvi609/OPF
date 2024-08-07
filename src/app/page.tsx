@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Header from "./components/Header";
 import Hero from "./components/Hero";
 import FeaturedResearch from "./components/FeaturedResearch";
 import InnovationShowcase from "./components/InnovationShowcase";
 import ContactCTA from "./components/ContactCTA";
-import Footer from "./components/Footer";
+import AboutOpf from "./components/AboutOpf";
+import Statistics from "./components/Statistics";
 
 export const metadata: Metadata = {
   title: "Operant Pharmacy Federation - Advancing Pharmacy Through Innovation",
@@ -24,8 +24,11 @@ export default function Home() {
     <>
       <main>
         <Hero />
+        <AboutOpf />
         <FeaturedResearch />
         <InnovationShowcase />
+        <Statistics />
+
         <ContactCTA />
       </main>
     </>

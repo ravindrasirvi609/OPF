@@ -39,8 +39,6 @@ export default function Hero() {
         delay: 1,
       });
     }, heroRef);
-
-    return () => ctx.revert();
   }, []);
 
   return (
@@ -58,13 +56,13 @@ export default function Hero() {
               Discover groundbreaking research and cutting-edge pharmaceutical
               innovations.
             </p>
-            <button className="bg-[#154c8c] text-white px-8 py-4 rounded-full text-lg font-semibold hero-text hover:bg-[#1a5fa6] transition duration-300">
+            <button className="bg-[#154c8c] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#1a5fa6] transition duration-300">
               Explore Our Work
             </button>
           </div>
           <div className="w-full lg:w-1/2 hero-image">
             <Image
-              src="/opfyy.png"
+              src="https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?q=80&w=3274&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Pharmaceutical Research"
               className="rounded-lg shadow-2xl"
               width={600}
