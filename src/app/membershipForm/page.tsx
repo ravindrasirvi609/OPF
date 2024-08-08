@@ -9,7 +9,7 @@ const plans = [
   {
     id: "student",
     name: "Student Member",
-    price: 2124,
+    price: 1,
     icon: <FaGraduationCap />,
   },
   { id: "lifetime", name: "Patron Lifetime", price: 5000, icon: <FaUser /> },
@@ -159,8 +159,15 @@ const MembershipForm: React.FC = () => {
         handler: async (response: { razorpay_payment_id: string }) => {
           try {
             await axios.post("/api/save-transaction", {
-              ...formData,
-              paymentId: response.razorpay_payment_id,
+              razorpayOrderId: orderResponse.data.id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: "TODO_PLACEHOLDER", // Replace with actual signature
+              amount: orderResponse.data.amount / 100,
+              currency: orderResponse.data.currency,
+              planName: selectedPlan?.name,
+              customerName: formData.fullName,
+              customerEmail: formData.email,
+              customerPhone: formData.phone,
             });
             alert("Payment successful! Your membership is now active.");
             router.push("/membership-success");

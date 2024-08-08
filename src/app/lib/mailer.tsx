@@ -1,10 +1,9 @@
 import { render } from "@react-email/render";
-import { Text } from "@react-email/components";
+import { Text, Link, Heading, Button } from "@react-email/components";
 import EmailTemplate from "./EmailTemplate";
-import AbstractModel from "@/Model/AbstractModel";
-import RegistrationModel from "@/Model/RegistrationModel";
+import registrationModel from "@/Models/registrationModel";
 
-type EmailType = "SUBMITTED" | "UPDATE_STATUS" | "REGISTRATION_SUCCESS";
+type EmailType = "MEMBERSHIP_ACTIVE" | "MEMBERSHIP_RENEWAL";
 
 interface SendEmailParams {
   _id: string;
@@ -16,13 +15,9 @@ export const sendEmail = async ({
   emailType,
 }: SendEmailParams): Promise<any> => {
   try {
-    if (
-      !["SUBMITTED", "UPDATE_STATUS", "REGISTRATION_SUCCESS"].includes(
-        emailType
-      )
-    ) {
+    if (!["MEMBERSHIP_ACTIVE", "MEMBERSHIP_RENEWAL"].includes(emailType)) {
       throw new Error(
-        "Invalid emailType. It should be either 'SUBMITTED', 'UPDATE_STATUS', or 'REGISTRATION_SUCCESS'."
+        "Invalid emailType. It should be either 'MEMBERSHIP_ACTIVE' or 'MEMBERSHIP_RENEWAL'."
       );
     }
 
@@ -35,133 +30,120 @@ export const sendEmail = async ({
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-    let abstract;
-    let registration;
-    let submissionDetailsUrl: string;
+    let membership;
     let EMAIL: string;
 
-    if (emailType === "REGISTRATION_SUCCESS") {
-      registration = await RegistrationModel.findOne({ _id });
-      if (!registration) {
-        throw new Error(`No registration found for id ${_id}`);
+    if (emailType === "MEMBERSHIP_ACTIVE") {
+      membership = await registrationModel.findOne({ _id });
+      if (!membership) {
+        throw new Error(`No membership found for id ${_id}`);
       }
-      submissionDetailsUrl = `${baseUrl}/abstractForm/${registration._id}`;
-      EMAIL = registration.email;
+      EMAIL = membership.email;
     } else {
-      abstract = await AbstractModel.findOne({ _id });
-      if (!abstract) {
-        throw new Error(`No abstract found for id ${_id}`);
+      membership = await registrationModel.findOne({ _id });
+      if (!membership) {
+        throw new Error(`No membership found for id ${_id}`);
       }
-      submissionDetailsUrl = `${baseUrl}/abstractForm/${abstract._id}`;
-      EMAIL = abstract.email;
+      EMAIL = membership.email;
     }
 
     let content: React.ReactNode;
     let subject: string = "";
     let buttonText: string = "";
     let buttonUrl: string = "";
-    if (emailType === "SUBMITTED") {
+    if (emailType === "MEMBERSHIP_ACTIVE") {
       content = (
         <>
-          <Text>Thank you for your submission!</Text>
+          <Heading>Congratulations, you are now an active OPF member!</Heading>
+          <Text>Dear {membership.fullName},</Text>
           <Text>
-            Your abstract has been successfully submitted. Your temporary
-            abstract code is: <strong>{abstract.temporyAbstractCode}</strong>
+            We are pleased to inform you that your OPF membership is now active.
           </Text>
-          <Text>
-            If you need to make any changes or have any questions, please
-            don&apos;t hesitate to contact us.
-          </Text>
-        </>
-      );
-      subject = `Abstract Submission Confirmation - ${abstract.temporyAbstractCode}`;
-      buttonText = "View Submission Details";
-      buttonUrl = submissionDetailsUrl;
-    } else if (emailType === "UPDATE_STATUS") {
-      let statusSpecificContent: React.ReactNode = null;
-      let codeToShow = abstract.temporyAbstractCode;
-      let statusForSubject = abstract.Status;
-
-      if (abstract.Status === "Accepted") {
-        codeToShow = abstract.AbstractCode;
-        statusSpecificContent = (
-          <>
-            <Text>Congratulations! Your abstract has been accepted.</Text>
-            <Text>
-              Your official abstract code is:{" "}
-              <strong>{abstract.AbstractCode}</strong>
-            </Text>
-          </>
-        );
-      } else if (abstract.Status === "Rejected" && abstract.rejectionComment) {
-        statusSpecificContent = (
-          <>
-            <Text>
-              We regret to inform you that your abstract has not been accepted.
-            </Text>
-            <Text>Reason for rejection: {abstract.rejectionComment}</Text>
-          </>
-        );
-      }
-
-      content = (
-        <>
-          <Text>
-            There has been an update to your abstract submission (Code:{" "}
-            <strong>{codeToShow}</strong>).
-          </Text>
-          <Text>
-            Current Status: <strong>{abstract.Status}</strong>
-          </Text>
-          {statusSpecificContent}
-          <Text>
-            If you have any questions about this update, please contact our
-            support team.
-          </Text>
-        </>
-      );
-      subject = `Abstract ${statusForSubject} - ${codeToShow}`;
-      buttonText = "View Submission Details";
-      buttonUrl = submissionDetailsUrl;
-    } else if (emailType === "REGISTRATION_SUCCESS") {
-      content = (
-        <>
-          <Text>Dear {registration.name},</Text>
-          <Text>
-            We are pleased to inform you that your registration for the
-            conference has been successfully completed.
-          </Text>
-          <Text>Your registration details:</Text>
+          <Text>Your membership details:</Text>
           <ul>
             <li>
-              Registration Code:{" "}
-              <strong>{registration.registrationCode}</strong>
+              Membership ID: <strong>{membership.memberId}</strong>
             </li>
             <li>
-              Registration Type:{" "}
-              <strong>{registration.registrationType}</strong>
+              Membership Plan: <strong>{membership.selectedPlan}</strong>
             </li>
             <li>
-              Payment Status: <strong>Completed</strong>
+              Membership Status: <strong>Active</strong>
+            </li>
+            <li>
+              Membership Start Date:{" "}
+              <strong>{membership.createdAt.toLocaleDateString()}</strong>
             </li>
           </ul>
           <Text>
-            If you have any questions or need further assistance, please
-            don&apos;t hesitate to contact us.
+            As an active OPF member, you can now enjoy the benefits and
+            privileges that come with your membership. We look forward to your
+            continued involvement and support in our endeavors.
           </Text>
-          <Text>We look forward to seeing you at the conference!</Text>
+          <Text>
+            If you have any questions or need further assistance, please don't
+            hesitate to contact us at{" "}
+            <Link href="mailto:opf@pharmanecia.org">opf@pharmanecia.org</Link>.
+          </Text>
+          <Text>
+            Thank you for being a part of the Operant Pharmacy Federation (OPF).
+          </Text>
+          <a href={`${baseUrl}/member-dashboard`}>View Member Dashboard</a>
         </>
       );
-      subject = `Registration Successful - ${registration.registrationCode}`;
-      buttonText = "View Registration Details";
-      buttonUrl = submissionDetailsUrl;
+      subject = `Welcome to OPF! Your Membership is Now Active`;
+      buttonText = "View Member Dashboard";
+      buttonUrl = `${baseUrl}/member-dashboard`;
+    } else if (emailType === "MEMBERSHIP_RENEWAL") {
+      content = (
+        <>
+          <Heading>Time to Renew Your OPF Membership</Heading>
+          <Text>Dear {membership.fullName},</Text>
+          <Text>
+            We hope this email finds you well. This is a friendly reminder that
+            your OPF membership is due for renewal.
+          </Text>
+          <Text>Your membership details:</Text>
+          <ul>
+            <li>
+              Membership ID: <strong>{membership.memberId}</strong>
+            </li>
+            <li>
+              Membership Plan: <strong>{membership.selectedPlan}</strong>
+            </li>
+            <li>
+              Membership Expiration Date:{" "}
+              <strong>{membership.expirationDate.toLocaleDateString()}</strong>
+            </li>
+          </ul>
+          <Text>
+            To ensure that you continue to enjoy the benefits of being an OPF
+            member, we kindly request you to renew your membership at your
+            earliest convenience.
+          </Text>
+          <Text>
+            Renewing your membership is quick and easy. Simply visit the member
+            dashboard and follow the prompts to complete the renewal process.
+          </Text>
+          <Button href={`${baseUrl}/member-dashboard`}>Renew Membership</Button>
+          <Text>
+            We value your continued support and participation in the Operant
+            Pharmacy Federation. If you have any questions or need assistance,
+            please don't hesitate to contact us at{" "}
+            <Link href="mailto:opf@pharmanecia.org">opf@pharmanecia.org</Link>.
+          </Text>
+          <Text>Thank you for being a part of the OPF community.</Text>
+        </>
+      );
+      subject = `Time to Renew Your OPF Membership`;
+      buttonText = "Renew Membership";
+      buttonUrl = `${baseUrl}/member-dashboard`;
     }
 
     const emailHtml = render(
       <EmailTemplate
         content={content}
         subject={subject}
-        qrCodeUrl={abstract?.qrCodeUrl || registration?.qrCodeUrl}
         buttonText={buttonText}
         buttonUrl={buttonUrl}
       />
@@ -174,7 +156,7 @@ export const sendEmail = async ({
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        from: "psc@pharmanecia.org",
+        from: "opf@pharmanecia.org",
         to: EMAIL,
         subject: subject,
         html: emailHtml,

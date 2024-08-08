@@ -1,9 +1,28 @@
+import { sendEmail } from "@/app/lib/mailer";
 import { connect } from "@/dbConfig/dbConfig";
 import Membership from "@/Models/registrationModel";
 import Transaction from "@/Models/TransactionModel";
 import { NextResponse } from "next/server";
 
 connect();
+
+async function generateMembershipId(year: number) {
+  const latestMembership = await Membership.findOne(
+    {},
+    {},
+    { sort: { createdAt: -1 } }
+  );
+  const currentYear = new Date().getFullYear();
+  let nextId = 1;
+
+  if (latestMembership && latestMembership.memberId) {
+    const lastId = parseInt(latestMembership.memberId.slice(3, 7), 10);
+    nextId = lastId + 1;
+  }
+
+  const yearPrefix = currentYear.toString().slice(2);
+  return `OPF${yearPrefix}${nextId.toString().padStart(3, "0")}`;
+}
 
 export async function POST(request: Request) {
   try {
@@ -33,14 +52,22 @@ export async function POST(request: Request) {
       customerPhone,
     });
 
+    await transaction.save();
+
     // Find the membership and update the status
     const membership = await Membership.findOne({ email: customerEmail });
     if (membership) {
       membership.membershipStatus = "Active";
       membership.isValidMembership = true;
+      membership.memberId = await generateMembershipId(
+        new Date().getFullYear()
+      );
       await membership.save();
     } else {
       // Create a new Membership document
+      const newMembershipId = await generateMembershipId(
+        new Date().getFullYear()
+      );
       await Membership.create({
         email: customerEmail,
         phone: customerPhone,
@@ -49,8 +76,14 @@ export async function POST(request: Request) {
         paymentId: razorpayPaymentId,
         membershipStatus: "Active",
         isValidMembership: true,
+        memberId: newMembershipId,
       });
     }
+
+    await sendEmail({
+      _id: membership?._id,
+      emailType: "MEMBERSHIP_ACTIVE",
+    });
 
     return NextResponse.json(
       { success: true, message: "Transaction saved" },
