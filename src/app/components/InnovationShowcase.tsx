@@ -101,7 +101,7 @@ const partners = [
   {
     name: "SHRI VISHNU COLLEGE OF PHARMACY",
     type: "academic",
-    logo: "/logo/vipe.png",
+    logo: "/logo/vishnu.png",
   },
 
   {
@@ -133,6 +133,11 @@ const partners = [
     name: "St. Joseph’s College of Pharmacy, Cherthala",
     type: "academic",
     logo: "/logo/joseph.png",
+  },
+  {
+    name: "NIRMALA COLLEGE OF HEALTH SCIENCE, KERALA",
+    type: "academic",
+    logo: "/logo/nirmalahealth.png",
   },
 ];
 
