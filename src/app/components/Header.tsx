@@ -53,7 +53,7 @@ export default function Header() {
         <nav className="flex justify-between items-center h-16 sm:h-20">
           <Link
             href="/"
-            className="text-2xl font-bold header-anim flex items-center text-white"
+            className="text-2xl font-bold header-anim flex items-center text-[#80b142]"
           >
             <FaFlask className="mr-2" />
             <span className="hidden sm:inline">
@@ -71,7 +71,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-white text-2xl focus:outline-none"
+            className="lg:hidden text-[#80b142] text-2xl focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <FaTimes /> : <FaBars />}
@@ -100,7 +100,7 @@ function NavLink({ href, icon, text, mobile = false }: any) {
     <Link
       href={href}
       className={`
-         flex items-center text-white hover:bg-[#1a5fa6] hover:text-white
+         flex items-center text-[#80b142] hover:bg-[#1a5fa6] hover:text-white
         transition duration-300 rounded-md
         ${
           mobile
