@@ -57,7 +57,6 @@ const membershipSchema = new mongoose.Schema(
     },
     profilePictureUrl: {
       type: String,
-      trim: true,
     },
     membershipId: {
       type: String,
