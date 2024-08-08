@@ -31,7 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={nunito.className}>
         <Header />
-        <main className="pt-16 sm:pt-20">{children}</main>
+        <main className="pt-16 sm:pt-20 bg-gradient-to-r from-[#80b142] to-[#154c8c]">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

@@ -1,8 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import {
   FaUserPlus,
   FaNetworkWired,
@@ -12,8 +10,24 @@ import {
 } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import Link from "next/link";
+import axios from "axios";
 
-const benefits = [
+// Define interfaces for the data structures
+interface Benefit {
+  icon: JSX.Element;
+  text: string;
+}
+
+interface Member {
+  membershipId: string;
+  fullName: string;
+  affiliation: string;
+  profilePictureUrl?: string;
+  isValidMembership: boolean;
+}
+
+// Benefits data
+const benefits: Benefit[] = [
   {
     icon: <FaNetworkWired />,
     text: "Access to exclusive pharmaceutical research and innovations",
@@ -36,29 +50,22 @@ const benefits = [
   },
 ];
 
-const members = [
-  {
-    id: "OPF001",
-    name: "Dr. Emily Johnson",
-    image: "/images/emily-johnson.jpg",
-    designation: "Senior Pharmacist",
-  },
-  {
-    id: "OPF002",
-    name: "Dr. Michael Chen",
-    image: "/images/michael-chen.jpg",
-    designation: "Research Director",
-  },
-  {
-    id: "OPF003",
-    name: "Dr. Sarah Patel",
-    image: "/images/sarah-patel.jpg",
-    designation: "Clinical Pharmacist",
-  },
-  // Add more members as needed
-];
+const Memberships: React.FC = () => {
+  const [members, setMembers] = useState<Member[]>([]);
 
-const Memberships = () => {
+  useEffect(() => {
+    const fetchMemberships = async () => {
+      try {
+        const response = await axios.get("/api/membershipList");
+        setMembers(response.data);
+      } catch (error) {
+        console.error("Error fetching memberships:", error);
+      }
+    };
+
+    fetchMemberships();
+  }, []);
+
   return (
     <div className="bg-gradient-to-b from-gray-100 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -101,25 +108,27 @@ const Memberships = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {members.map((member) => (
               <div
-                key={member.id}
+                key={member.membershipId}
                 className="member-card bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105"
               >
                 <div className="relative h-56 w-full">
                   <Image
-                    src={member.image}
-                    alt={member.name}
+                    src={member.profilePictureUrl || "/images/placeholder.jpg"}
+                    alt={member.fullName}
                     layout="fill"
                     objectFit="cover"
                   />
                 </div>
                 <div className="p-6">
                   <h3 className="font-semibold text-xl text-[#154c8c] mb-2 flex items-center">
-                    {member.name}
-                    <MdVerified className="text-[#80b142] ml-2" />
+                    {member.fullName}
+                    {member.isValidMembership && (
+                      <MdVerified className="text-[#80b142] ml-2" />
+                    )}
                   </h3>
-                  <p className="text-gray-600 mb-2">{member.designation}</p>
+                  <p className="text-gray-600 mb-2">{member.affiliation}</p>
                   <p className="text-sm text-gray-500 bg-gray-100 p-2 rounded-md inline-block">
-                    Member ID: {member.id}
+                    Member ID: {member.membershipId}
                   </p>
                 </div>
               </div>

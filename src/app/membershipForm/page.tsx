@@ -63,6 +63,8 @@ const MembershipForm: React.FC = () => {
     profilePicture: null,
   });
   const [errors, setErrors] = useState<Errors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMakingPayment, setIsMakingPayment] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -99,6 +101,7 @@ const MembershipForm: React.FC = () => {
     if (!validateForm()) return;
 
     try {
+      setIsSubmitting(true);
       let profilePictureUrl = "";
       if (formData.profilePicture) {
         profilePictureUrl = await uploadFile(formData.profilePicture);
@@ -120,6 +123,8 @@ const MembershipForm: React.FC = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("There was an error submitting your form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -134,17 +139,18 @@ const MembershipForm: React.FC = () => {
   };
 
   const makePayment = async () => {
-    const res = await initializeRazorpay();
-
-    if (!res) {
-      alert("Razorpay SDK failed to load. Are you online?");
-      return;
-    }
-
-    const selectedPlan = plans.find(
-      (plan) => plan.id === formData.selectedPlan
-    );
     try {
+      setIsMakingPayment(true);
+      const res = await initializeRazorpay();
+
+      if (!res) {
+        alert("Razorpay SDK failed to load. Are you online?");
+        return;
+      }
+
+      const selectedPlan = plans.find(
+        (plan) => plan.id === formData.selectedPlan
+      );
       // Call the /api/razorpay-order endpoint to get the order details
       const orderResponse = await axios.post("/api/razorpay-order", {
         amount: selectedPlan?.price || 0,
@@ -190,11 +196,13 @@ const MembershipForm: React.FC = () => {
     } catch (error) {
       console.error("Error initializing Razorpay:", error);
       alert("Failed to initialize payment. Please try again.");
+    } finally {
+      setIsMakingPayment(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-xl">
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-xl my-8">
       <h2 className="text-3xl font-bold text-center text-[#154c8c] mb-8">
         OPF Membership Application
       </h2>
@@ -369,8 +377,11 @@ const MembershipForm: React.FC = () => {
           <button
             type="submit"
             className="w-full bg-[#154c8c] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#80b142] transition duration-300"
+            disabled={isSubmitting || isMakingPayment}
           >
-            Submit Application and Proceed to Payment
+            {isSubmitting
+              ? "Submitting..."
+              : "Submit Application and Proceed to Payment"}
           </button>
         </div>
       </form>
@@ -408,7 +419,7 @@ const InputField: React.FC<InputFieldProps> = ({
       id={name}
       value={value}
       onChange={onChange}
-      className={`mt-1 block w-full p-2 bg-[#cde2fa] rounded-md border-[#154c8c] shadow-sm focus:border-[#80b142] focus:ring focus:ring-[#80b142] focus:ring-opacity-50 ${
+      className={`mt-1 block w-full p-2 text-black bg-[#ecf5ff] rounded-md border-[#154c8c] shadow-sm focus:border-[#80b142] focus:ring focus:ring-[#80b142] focus:ring-opacity-50 ${
         error ? "border-red-500" : ""
       }`}
     />
