@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { FaGraduationCap, FaIndustry, FaGlobe, FaUser } from "react-icons/fa";
+import { useFirebaseStorage } from "../hooks/useFirebaseStorage";
 
 const plans = [
   {
@@ -37,6 +38,7 @@ interface FormData {
   affiliation: string;
   qualifications: string;
   selectedPlan: string;
+  profilePicture: File | null;
 }
 
 interface Errors {
@@ -45,6 +47,8 @@ interface Errors {
 
 const MembershipForm: React.FC = () => {
   const router = useRouter();
+  const { uploadFile, uploadProgress, isUploading, error } =
+    useFirebaseStorage();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     phone: "",
@@ -56,14 +60,31 @@ const MembershipForm: React.FC = () => {
     affiliation: "",
     qualifications: "",
     selectedPlan: "",
+    profilePicture: null,
   });
-
   const [errors, setErrors] = useState<Errors>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFormData((prev) => ({ ...prev, profilePicture: file }));
+    setErrors((prev) => ({ ...prev, profilePicture: "" }));
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    setFormData((prev) => ({ ...prev, profilePicture: file }));
+    setErrors((prev) => ({ ...prev, profilePicture: "" }));
   };
 
   const validateForm = (): boolean => {
@@ -78,6 +99,8 @@ const MembershipForm: React.FC = () => {
     if (!formData.address) newErrors.address = "Address is required";
     if (!formData.pincode) newErrors.pincode = "Pincode is required";
     if (!formData.selectedPlan) newErrors.selectedPlan = "Please select a plan";
+    if (!formData.profilePicture)
+      newErrors.profilePicture = "Profile picture is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -87,8 +110,16 @@ const MembershipForm: React.FC = () => {
     if (!validateForm()) return;
 
     try {
+      let profilePictureUrl = "";
+      if (formData.profilePicture) {
+        profilePictureUrl = await uploadFile(formData.profilePicture);
+      }
+
       // Call Form-Submit API
-      const formSubmitResponse = await axios.post("/api/form-submit", formData);
+      const formSubmitResponse = await axios.post("/api/form-submit", {
+        ...formData,
+        profilePictureUrl,
+      });
 
       if (formSubmitResponse.data.success) {
         // If form submission is successful, proceed with Razorpay
@@ -104,7 +135,6 @@ const MembershipForm: React.FC = () => {
 
   const initializeRazorpay = () => {
     const options = {
-      key: "YOUR_RAZORPAY_KEY",
       amount:
         (plans.find((plan) => plan.id === formData.selectedPlan)?.price || 0) *
         100,
@@ -144,6 +174,58 @@ const MembershipForm: React.FC = () => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="mt-8">
+          <h3 className="text-2xl font-semibold text-[#80b142] mb-4">
+            Profile Picture
+          </h3>
+          <div
+            className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+              formData.profilePicture
+                ? "border-[#80b142] bg-[#e6f3d5]"
+                : "border-gray-200 hover:border-[#80b142]"
+            }`}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
+            {formData.profilePicture ? (
+              <div className="flex items-center justify-center">
+                <img
+                  src={URL.createObjectURL(formData.profilePicture)}
+                  alt="Profile Picture"
+                  className="max-h-48 rounded-lg"
+                />
+              </div>
+            ) : (
+              <div className="flex items-center justify-center text-gray-500">
+                <span>Drag and drop your profile picture here or</span>
+                <label className="ml-2 text-[#80b142] underline cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                  Browse
+                </label>
+              </div>
+            )}
+          </div>
+          {errors.profilePicture && (
+            <p className="mt-2 text-red-500">{errors.profilePicture}</p>
+          )}
+          {isUploading && (
+            <div className="mt-2">
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                <div
+                  className="bg-[#80b142] h-2.5 rounded-full"
+                  style={{ width: `${uploadProgress}%` }}
+                ></div>
+              </div>
+              <p className="text-gray-500">Uploading profile picture...</p>
+            </div>
+          )}
+          {error && <p className="mt-2 text-red-500">{error}</p>}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField
             label="Email"
