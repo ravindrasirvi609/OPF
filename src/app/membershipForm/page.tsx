@@ -89,18 +89,7 @@ const MembershipForm: React.FC = () => {
 
   const validateForm = (): boolean => {
     const newErrors: Errors = {};
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.phone) newErrors.phone = "Phone is required";
-    if (!formData.fullName) newErrors.fullName = "Full Name is required";
-    if (!formData.aadharCard)
-      newErrors.aadharCard = "Aadhar Card Number is required";
-    if (!formData.dateOfBirth)
-      newErrors.dateOfBirth = "Date of Birth is required";
-    if (!formData.address) newErrors.address = "Address is required";
-    if (!formData.pincode) newErrors.pincode = "Pincode is required";
-    if (!formData.selectedPlan) newErrors.selectedPlan = "Please select a plan";
-    if (!formData.profilePicture)
-      newErrors.profilePicture = "Profile picture is required";
+    // Validation logic
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -120,10 +109,11 @@ const MembershipForm: React.FC = () => {
         ...formData,
         profilePictureUrl,
       });
+      console.log("formSubmitResponse", formSubmitResponse);
 
       if (formSubmitResponse.data.success) {
         // If form submission is successful, proceed with Razorpay
-        initializeRazorpay();
+        await makePayment();
       } else {
         alert("Error submitting form. Please try again.");
       }
@@ -134,37 +124,66 @@ const MembershipForm: React.FC = () => {
   };
 
   const initializeRazorpay = () => {
-    const options = {
-      amount:
-        (plans.find((plan) => plan.id === formData.selectedPlan)?.price || 0) *
-        100,
-      currency: "INR",
-      name: "OPF Membership",
-      description: `${formData.selectedPlan} Membership`,
-      handler: async (response: { razorpay_payment_id: string }) => {
-        try {
-          await axios.post("/api/save-transaction", {
-            ...formData,
-            paymentId: response.razorpay_payment_id,
-          });
-          alert("Payment successful! Your membership is now active.");
-          router.push("/membership-success");
-        } catch (error) {
-          console.error("Error saving transaction:", error);
-          alert(
-            "Payment successful, but there was an error saving your details. Please contact support."
-          );
-        }
-      },
-      prefill: {
-        name: formData.fullName,
-        email: formData.email,
-        contact: formData.phone,
-      },
-    };
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
 
-    const razorpay = new (window as any).Razorpay(options);
-    razorpay.open();
+  const makePayment = async () => {
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const selectedPlan = plans.find(
+      (plan) => plan.id === formData.selectedPlan
+    );
+    try {
+      // Call the /api/razorpay-order endpoint to get the order details
+      const orderResponse = await axios.post("/api/razorpay-order", {
+        amount: selectedPlan?.price || 0,
+      });
+
+      const options = {
+        amount: orderResponse.data.amount,
+        currency: orderResponse.data.currency,
+        name: "OPF Membership",
+        description: `${selectedPlan?.name} Membership`,
+        order_id: orderResponse.data.id,
+        handler: async (response: { razorpay_payment_id: string }) => {
+          try {
+            await axios.post("/api/save-transaction", {
+              ...formData,
+              paymentId: response.razorpay_payment_id,
+            });
+            alert("Payment successful! Your membership is now active.");
+            router.push("/membership-success");
+          } catch (error) {
+            console.error("Error saving transaction:", error);
+            alert(
+              "Payment successful, but there was an error saving your details. Please contact support."
+            );
+          }
+        },
+        prefill: {
+          name: formData.fullName,
+          email: formData.email,
+          contact: formData.phone,
+        },
+      };
+
+      const razorpay = new (window as any).Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Error initializing Razorpay:", error);
+      alert("Failed to initialize payment. Please try again.");
+    }
   };
 
   return (
