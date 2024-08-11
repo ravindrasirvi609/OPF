@@ -34,10 +34,10 @@ export async function POST(request: Request) {
       profilePictureUrl,
     });
 
-    await newMembership.save();
+    const response = await newMembership.save();
 
     return NextResponse.json(
-      { success: true, message: "Form submitted successfully" },
+      { success: true, message: "Form submitted successfully", data: response },
       { status: 200 }
     );
   } catch (error) {

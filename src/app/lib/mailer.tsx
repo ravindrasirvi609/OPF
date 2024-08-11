@@ -88,7 +88,9 @@ export const sendEmail = async ({
           <Text>
             Thank you for being a part of the Operant Pharmacy Federation (OPF).
           </Text>
-          <a href={`${baseUrl}/member-dashboard`}>View Member Dashboard</a>
+          <a href={`${baseUrl}/members/${membership._id}`}>
+            View Member Dashboard
+          </a>
         </>
       );
       subject = `Welcome to OPF! Your Membership is Now Active`;
@@ -125,7 +127,7 @@ export const sendEmail = async ({
             Renewing your membership is quick and easy. Simply visit the member
             dashboard and follow the prompts to complete the renewal process.
           </Text>
-          <Button href={`${baseUrl}/member-dashboard`}>Renew Membership</Button>
+          <Button href={`${baseUrl}/membershipForm`}>Renew Membership</Button>
           <Text>
             We value your continued support and participation in the Operant
             Pharmacy Federation. If you have any questions or need assistance,
@@ -137,7 +139,7 @@ export const sendEmail = async ({
       );
       subject = `Time to Renew Your OPF Membership`;
       buttonText = "Renew Membership";
-      buttonUrl = `${baseUrl}/member-dashboard`;
+      buttonUrl = `${baseUrl}/membershipForm`;
     }
 
     const emailHtml = render(

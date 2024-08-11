@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   FaGraduationCap,
@@ -87,9 +88,11 @@ const AboutOpf = () => {
               pharmacy journey, OPF is your gateway to excellence in pharmacy
               practice. Join us in shaping a healthier future for all.
             </p>
-            <button className="bg-[#80b142] hover:bg-[#6c9638] text-white font-bold py-3 px-6 rounded-full transition duration-300">
-              Become a Member
-            </button>
+            <Link href={"/membershipForm"}>
+              <button className="bg-[#80b142] hover:bg-[#6c9638] text-white font-bold py-3 px-6 rounded-full transition duration-300">
+                Become a Member
+              </button>
+            </Link>
           </div>
         </div>
       </div>
