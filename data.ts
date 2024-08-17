@@ -1,0 +1,411 @@
+export const conferences = [
+  {
+    id: 1,
+    heading: "Pharmanecia'18 International Conference",
+    subHeading: "V. V. Institute of Pharmaceutical Sciences, Gudlavalleru",
+    title:
+      "Pharmanecia'18 International Conference on Pharmaceutical & Clinical Research in India: Current Scenario, Opportunities, Challenges & Future Perspectives",
+    collaborator: "V. V. Institute of Pharmaceutical Sciences, Gudlavalleru",
+    activity: "Pharmanecia 1.E International Conference",
+    date: "25 & 26 September 2018",
+    description:
+      "V. V. Institute of Pharmaceutical Sciences, Gudlavalleru, in collaboration with Operant Pharmacy Federation(OPF) organized a two day International Conference Pharmanecia'18 on 25 & 26 September, 2018. The theme of the Conference was \"Pharmaceutical and Clinical Research in India: Current Scenario, Challenges, Opportunities and Future Perspectives'.",
+    objectives: [
+      "Evaluate the existing state of pharmaceutical and clinical research in India.",
+      "Discuss recent advancements and trends in the industry.",
+      "Explore new opportunities and emerging markets within the pharmaceutical sector.",
+      "Propose strategies to overcome these challenges.",
+      "Promote best practices for ensuring quality and compliance in research.",
+      "Discuss global standards and ethical considerations in clinical trials.",
+    ],
+    keyTakeaways: [
+      "In-depth Industry Insight: Comprehensive understanding of the current state, advancements, and trends in pharmaceutical and clinical research in India.",
+      "New Opportunities Identified: Exploration of emerging markets and business opportunities to drive industry growth.",
+      "Enhanced Quality and Compliance: Emphasis on best practices and global standards to ensure high-quality, ethical research.",
+    ],
+  },
+  {
+    id: 2,
+    heading: "1st World Congress",
+    subHeading: "Innovine Worldwide",
+    title: "1st World Congress on Pharmaceutical Sciences",
+    collaborator: "Innovine Worldwide",
+    activity: "World Congress",
+    date: "2 & 3 December 2019",
+    description: "",
+    objectives: [
+      "Promote the latest research findings and foster interdisciplinary collaboration among researchers and professionals.",
+      "Explore cutting-edge techniques and showcase successful case studies in drug discovery and development.",
+      "Examine and propose improvements to regulatory landscapes, discussing global harmonization of regulations.",
+      "Promote best practices to ensure the quality, safety, and efficacy of pharmaceutical products.",
+    ],
+    keyTakeaways: [
+      "Enhanced dissemination of latest research findings leading to heightened collaboration among professionals and researchers across disciplines.",
+      "Exposure to cutting-edge techniques and successful case studies fosters innovation in drug discovery and development.",
+      "Identified areas for regulatory enhancement, advocating for global harmonization of regulations to streamline processes.",
+      "Emphasis on best practices reinforces commitment to ensuring the quality, safety, and efficacy of pharmaceutical products, benefitting patient welfare and industry integrity.",
+    ],
+  },
+  {
+    id: 3,
+    heading: "PharmaNEST 1.E International Conference",
+    subHeading: "VES College of Pharmacy, Chembur, Mumbai",
+    title:
+      "PharmaNEST International Conference on Shaping the future of Pharma Industry: New Era Innovation in Biotechnology, Pharmaceutical Sciences and Biosciences",
+    collaborator: "VES College of Pharmacy, Chembur, Mumbai",
+    activity: "1st PharmaNEST International Conference",
+    date: "09 January 2020",
+    description: "",
+    objectives: [
+      "Foster innovation and collaboration in biotechnology, pharmaceutical sciences, and biosciences.",
+      "Explore cutting-edge advancements and trends shaping the future of the pharma industry.",
+      "Discuss strategies for adapting to the evolving landscape and regulatory frameworks.",
+      "Promote interdisciplinary approaches to drive progress and address global healthcare challenges.",
+    ],
+    keyTakeaways: [
+      "Enhanced Collaboration: Strengthened partnerships across biotechnology, pharmaceutical sciences, and biosciences sectors.",
+      "Innovation Drive: Focused on implementing cutting-edge advancements to shape the future of the pharma industry.",
+      "Regulatory Adaptation: Strategies formulated to navigate evolving regulatory landscapes effectively.",
+      "Global Healthcare Solutions: Emphasis on interdisciplinary approaches to address pressing healthcare challenges worldwide.",
+    ],
+  },
+  {
+    id: 4,
+    heading: "PharmaNEST 2.E International Conference",
+    subHeading: "Radisson Blu, Indore",
+    title:
+      "PharmaNEST 2.E International Conference on Post Covid Era of Pharmaceutical Industries",
+    collaborator: "Radisson Blu, Indore",
+    activity: "2nd PharmaNEST International Conference",
+    date: "2nd April 2022",
+    description: "",
+    objectives: [
+      "Explore the impact of COVID-19 on the pharmaceutical industry and strategize for the post-pandemic landscape.",
+      "Identify challenges and opportunities for pharmaceutical companies in the wake of the COVID-19 pandemic.",
+      "Discuss innovative approaches and technologies to adapt to the new normal in pharmaceutical operations and supply chains.",
+      "Foster collaboration and knowledge exchange among industry stakeholders to navigate the post-COVID era successfully.",
+    ],
+    keyTakeaways: [
+      "Resilience and Adaptation: Industries highlighted their ability to adapt and innovate in response to the challenges posed by the pandemic.",
+      "Digital Transformation: Emphasis on the accelerated adoption of digital technologies to optimize operations and engage with stakeholders.",
+      "Supply Chain Optimization: Strategies were devised to enhance supply chain resilience and mitigate disruptions.",
+      "Collaboration and Knowledge Sharing: Enhanced collaboration among industry stakeholders to address common challenges and capitalize on emerging opportunities in the post-COVID era.",
+    ],
+  },
+  {
+    id: 5,
+    heading: "PharmaNEST 3.E International Conference",
+    subHeading: "JSS College of Pharmacy, Ooty",
+    title:
+      "PharmaNEST 3.E International Conference on Professional Development and Advanced Training in Artificial Intelligence Driven Drug Design, Discovery and Development",
+    collaborator: "JSS College of Pharmacy, Ooty",
+    activity: "3rd PharmaNEST International Conference",
+    date: "14 & 15 October 2022",
+    description:
+      "The eminent scientists Dr. Rajesh Ramasamy Associate Professor, University Putra, Malaysia, Dr. Ahmed Hegazy, Managing Director, Vigilant Health, UAE, Dr. Cini Mathew John, Research Scientist, University of Calgary, Canada, Dr. Raghu S, Vice - President, Schrodinger LLC, Bangalore, Dr. Harishchander Anandaram,, Assistant Professor, Amrita Vishwa Vidyapeetham, Coimbatore, Dr. Sarmistha Deb, CSO, DiponEd BioIntelligence, Bangalore , KA, India, Dr. Sangamesh P Founder & CEO, Saskia Labs Pvt. Ltd., Bangalore, Dr. Sudharsan P, Principal Scientist, Schrodinger LLC, Bangalore, Dr. Shailendra K. Saxena vice dean and professor at King George's Medical University, Lucknow, are delivered scientific talks on the theme of the conference.",
+    objectives: [
+      "Recognize strategies for continuous learning and professional development",
+      "Identify professional development opportunities designed for pharmacy professionals",
+    ],
+    keyTakeaways: [
+      "Empowerment Through Continuous Learning: Participants recognized the importance of ongoing education and skill development to thrive in the dynamic field of pharmacy.",
+      "Tailored Professional Development: Insights were gained into specialized opportunities and resources designed to enhance the expertise and career growth of pharmacy professionals.",
+      "Lifelong Learning Culture: A commitment was fostered towards cultivating a culture of continuous learning and personal growth within the pharmacy community.",
+      "Networking for Growth: Attendees leveraged networking opportunities to discover and access diverse avenues for professional development and advancement in pharmacy.",
+    ],
+  },
+  {
+    id: 6,
+    heading: "National Conference",
+    subHeading: "Vinayaka Mission's College of Pharmacy, Salem",
+    title:
+      "National Conference on Role of Interdisciplinary Research towards the New Developments in Pharmaceutical Sciences",
+    collaborator: "Vinayaka Mission's College of Pharmacy, Salem",
+    activity: "National Conference",
+    date: "28 & 29 October 2022",
+    description:
+      "The National Conference on Role of Interdisciplinary Research towards New Developments in Pharmaceutical Sciences spurred collaborative dialogue among experts. Insights highlighted the transformative potential of interdisciplinary approaches in driving innovation and addressing challenges. Participants emphasized the importance of cross-disciplinary collaboration for future advancements, fostering a culture of collaboration and innovation in pharmaceutical research.",
+    objectives: [
+      "Facilitate discussions on the role of interdisciplinary research in advancing pharmaceutical sciences.",
+      "Explore new developments and innovations in pharmaceutical sciences resulting from interdisciplinary collaboration.",
+      "Identify challenges and opportunities in interdisciplinary research within the pharmaceutical field.",
+      "Foster collaboration between researchers from diverse disciplines to address current and emerging issues in pharmaceutical sciences.",
+    ],
+    keyTakeaways: [
+      "Synergistic Insights: Participants gained a deeper understanding of how interdisciplinary research can lead to novel discoveries and innovative solutions in pharmaceutical sciences.",
+      "Collaborative Potential: Recognized the power of collaboration across diverse disciplines to tackle complex challenges and drive meaningful progress in the field.",
+      "Cross-Pollination of Ideas: Encouraged the exchange of ideas and methodologies between different areas of expertise, sparking creativity and fostering innovation.",
+      "Future Directions: Identified promising avenues for future interdisciplinary research endeavors, laying the foundation for impactful advancements in pharmaceutical sciences.",
+    ],
+  },
+  {
+    id: 7,
+    heading: "Pharmanecia 3.E International Conference",
+    subHeading:
+      "Dr. D. Y. Patil Institute of Pharmaceutical Sciences & Research, Pune",
+    title:
+      "Pharmanecia 3.E International Conference on Emerging Trends Pharmaceutical Research",
+    collaborator:
+      "Dr. D. Y. Patil Institute of Pharmaceutical Sciences & Research, Pune",
+    activity: "3rd Pharmanecia International Conference",
+    date: "25 February 2023",
+    description:
+      "The International Conference on Emerging Trends in Pharmaceutical Research was held on February 25, 2023, at Dr. D. Y. Patil Medical College, Hospital & Research Centre, Pimpri, Pune, India. The conference was jointly organized by the Dr. D. Y. Patil Institute of Pharmaceutical Sciences and Research and Dr. D. Y. Patil Medical College, Hospital & Research Centre, Pimpri, Pune, India, and Hosted by the Operant Pharmacy Federation and was attended by over 200 delegates from India and abroad. The Pharmanecia 3.E International Conference on Emerging Trends in Pharmaceutical Research was a grand success, bringing together esteemed guests, delegates, researchers, and students from various parts of India.",
+    objectives: [
+      "Emerging trends in drug discovery and development",
+      "Discuss the New technologies for drug delivery",
+      "Discuss Personalized medicine",
+      "Pharmacogenomics",
+      "Clinical trials",
+      "Regulatory affairs",
+      "Career Opportunities in Research & Development",
+    ],
+    keyTakeaways: [
+      "The need for new approaches to drug discovery and development",
+      "The importance of clinical trials in ensuring the safety and efficacy of new drugs",
+      "The need for pharmacovigilance to monitor the safety of drugs after they are approved for use",
+      "The potential of new technologies, such as artificial intelligence and machine learning, to revolutionize pharmaceutical research.",
+    ],
+  },
+  {
+    id: 8,
+    heading: "International Conference",
+    subHeading: "Modern College of Pharmacy, Pune",
+    title:
+      "International Conference on Emerging trends in Pharmaceutical-Care in Digital Era",
+    collaborator: "Modern College of Pharmacy, Pune",
+    activity: "International Conference",
+    date: "27 February 2023",
+    description:
+      "The International Conference on Emerging Trends in Pharmaceutical Care in the Digital Era was held on February 27, 2023, at Modern College of Pharmacy, Nigdi, Pune, India. The conference was organized by the Modern College of Pharmacy, Nigdi, Pune, and Hosted by the Operant Pharmacy Federation and was attended by over 150 delegates from India. The presence of dignitaries, an impressive lineup of scholars from across the various parts of the nation, the support of the sponsor and all academic institutes, an array of carefully-selected, well-researched and well-presented scientific papers on the subjects relevant to the theme of the conference, all came together to aid the Pharmaceutical care conference and to admirably conclude this huge event. The conference was applauded for the concurrent 3 scientific sessions, followed by scientific discussions and scientific poster presentation besides the Inaugural and Valedictory sessions. This Conference has, without a shade of doubt, made the academic fraternity specially PharmD. students richer, with novel literature in the form of scholarly works and scientific talks by eminent resource experts.",
+    objectives: [
+      "Virtual Reality and augmented reality in pharmacy education and Training",
+      "Patient engagement and digital interventions for medication adherence",
+      "Digital therapeutics and their role in disease management",
+      "Wearable devices and sensors for monitoring patient health and medication usage",
+      "Regulatory Considerations and ethical issues in digital pharmaceutical care",
+      "Digital marketing and e-commerce in the pharmaceutical industry",
+      "Emerging Trends in clinical trials and drug development in the digital era",
+    ],
+    keyTakeaways: [
+      "Digital technologies have immense potential in transforming pharmaceutical care.",
+      "Knowledge exchange and collaboration among researchers, practitioners, and students.",
+      "Practical applications of digital technologies are showcased through presentations and case studies.",
+      "Networking opportunities to connect with peers, professionals, and potential collaborators.",
+      "Professional development through workshops, panel discussions, and keynote presentations.",
+      "Potential influence on policy and regulatory decisions regarding digital integration in pharmaceutical care.",
+      "Focus on enhancing patient care through the use of digital tools.",
+      "Advancements in research and proposals for future investigation.",
+      "Embracing a forward-looking vision to explore emerging trends.",
+      "Lasting impact on the field, driving innovation and improving patient outcomes",
+    ],
+  },
+  {
+    id: 9,
+    heading: "Pharmanecia 3.1 International Conference",
+    subHeading: "Priyadarshini College of Pharmacy, Tumkuru",
+    title:
+      "Pharmanecia 3.1 International Conference on Current Trends and Career Prospectives in Pharmacovigilance and Molecular Modelling",
+    collaborator: "Priyadarshini College of Pharmacy, Tumkuru",
+    activity: "International Conference",
+    date: "4 March 2023",
+    description:
+      "The Pharmanecia 3.1 International Conference provided a comprehensive platform for experts and professionals to delve into the current trends and career prospects within pharmacovigilance and molecular modeling. Attendees gained valuable insights into emerging methodologies and advancements in these fields, fostering innovation and efficiency in research practices. The conference also facilitated networking opportunities, allowing participants to forge collaborations and partnerships for future endeavors. Overall, the event served as a catalyst for knowledge exchange and career development, empowering individuals to contribute effectively to the advancement of pharmacovigilance and molecular modeling disciplines.",
+    objectives: [
+      "Convene experts and professionals to discuss current trends and career prospects in pharmacovigilance and molecular modeling.",
+      "Explore advancements in pharmacovigilance methodologies and molecular modeling techniques.",
+      "Provide a platform for sharing insights on the evolving landscape of pharmacovigilance and molecular modeling.",
+      "Facilitate discussions on the role of pharmacovigilance and molecular modeling in drug safety and efficacy assessment.",
+      "Promote networking opportunities and career development strategies for individuals interested in pharmacovigilance and molecular modeling fields.",
+    ],
+    keyTakeaways: [
+      "Emerging Trends: Insights into the latest trends and developments in pharmacovigilance and molecular modeling, equipping attendees with valuable knowledge for future endeavors.",
+      "Career Prospects: Participants gained a deeper understanding of career opportunities and pathways within the fields, enhancing their professional outlook.",
+      "Enhanced Methodologies: Knowledge sharing on advanced methodologies and techniques in pharmacovigilance and molecular modeling, fostering innovation and efficiency in research.",
+      "Networking and Collaboration: Strengthened connections and collaborations among professionals, paving the way for future collaborations and advancements in the field.",
+    ],
+  },
+  {
+    id: 10,
+    heading: "International Conference",
+    subHeading: "R. D. National College, Bandra, Mumbai",
+    title:
+      "International Conference on Upcoming Tecgnologies in Basic and Applied Sciences",
+    collaborator: "R. D. National College, Bandra, Mumbai",
+    activity: "International Conference",
+    date: "18 August 2023",
+    description:
+      "The National Seminar on Pharmaceutical Education for Tomorrow successfully convened academicians, scientists, industrialists, and experts from diverse regions, fostering a dynamic exchange of knowledge and ideas. Discussions centered on the latest advances in AI-driven discovery of novel catalysts and materials, unveiling promising avenues for innovation within the pharmaceutical industry. The seminar served as a platform to nurture collaboration between researchers and practitioners in the field of AI in chemistry, encouraging synergistic efforts towards transformative breakthroughs. Furthermore, interdisciplinary dialogues were facilitated, allowing participants to delve into the challenges and opportunities inherent in this rapidly evolving field. Overall, the seminar provided invaluable insights and networking opportunities, empowering attendees to embrace a forward-thinking approach to pharmaceutical education and innovation.",
+    objectives: [
+      "To bring together Academicians, Scientists, Industrialists and experts from different parts of the country to exchange knowledge and ideas.",
+      "Discuss the latest advances in AI-driven Discovery of Novel Catalysts and Materials.",
+      "Foster collaboration between researchers and practitioners in the field of AI in chemistry.",
+      "To facilitate interdisciplinary discussions on the challenges and opportunities in the field.",
+    ],
+    keyTakeaways: [
+      "Collaborative Exchange: Strengthened networks among academia, industry, and experts nationwide, fostering knowledge sharing and idea exchange.",
+      "Cutting-Edge Insights: Delved into the latest advancements in AI-driven discovery of catalysts and materials, unveiling new possibilities for innovation.",
+      "Enhanced Collaboration: Facilitated partnerships between researchers and practitioners, driving collaborative efforts to leverage AI in chemistry.",
+      "Interdisciplinary Dialogue: Engaged in fruitful discussions on the challenges and opportunities at the intersection of AI and chemistry, paving the way for interdisciplinary solutions.",
+    ],
+  },
+  {
+    id: 11,
+    heading: "National Seminar",
+    subHeading: "V. V. Institute of Pharmaceutical Sciences, Gudlavalleru",
+    title:
+      "National Seminar on Pharmaceutical Education for Tomorrow: Fostering Learning and Innovation",
+    collaborator: "V. V. Institute of Pharmaceutical Sciences, Gudlavalleru",
+    activity: "National Conference",
+    date: "14 September 2023",
+    description:
+      'The National Seminar held at V. V. Institute of Pharmaceutical Sciences in collaboration with Operant Pharmacy Federation (OPF) on the theme "Pharmaceutical Education for Tomorrow: Fostering, Learning, and Innovation" marked a significant milestone in advancing the discourse within the pharmacy field. The success of this event can be attributed to its ability to deliver positive outcomes that resonate with the needs and aspirations of professionals in the pharmaceutical sciences.',
+    objectives: [
+      "Foster discussions on evolving trends and challenges in pharmaceutical education to meet future industry demands.",
+      "Explore innovative teaching methodologies and technologies for enhanced learning experiences in pharmacy education.",
+      "Identify strategies to promote critical thinking, creativity, and problem-solving skills among pharmacy students.",
+      "Facilitate networking opportunities for educators to share best practices and collaborate on curriculum development.",
+      "Promote a forward-thinking approach towards pharmaceutical education to prepare students for the demands of tomorrow's industry.",
+    ],
+    keyTakeaways: [
+      "Knowledge Enrichment: One of the primary achievements of the seminar was the enrichment of knowledge among the attending delegates. The carefully curated sessions and presentations provided insightful perspectives on the current trends in pharmaceutical sciences. This knowledge infusion is crucial for professionals to stay abreast of the ever-evolving landscape of the pharmaceutical industry.",
+      "Exploring Opportunities: Beyond knowledge acquisition, the seminar served as a platform for delegates to explore and understand the diverse opportunities available in the pharmacy profession. By bringing together experts, researchers, and industry leaders, the event created an environment conducive to learning about emerging avenues, potential career paths, and innovative approaches within the field. This exposure is instrumental in empowering individuals to make informed decisions about their professional trajectories.",
+      "Networking and Collaboration: The seminar also fostered an atmosphere of networking and collaboration. Attendees had the opportunity to connect with peers, mentors, and industry professionals, facilitating the exchange of ideas and experiences. Such interactions are invaluable for building a robust professional network, opening doors to collaboration, and fostering a sense of community within the pharmaceutical sector.",
+      "Impacts on the Pharmacy Field: The positive outcomes of this seminar are expected to have far-reaching impacts on the pharmacy field. Professionals who attended are now better equipped to contribute to the advancement of pharmaceutical sciences through informed decision-making, innovative practices, and a deeper understanding of the industry's dynamics.",
+    ],
+  },
+  {
+    id: 12,
+    heading: "PharmaNEST4.E International Research Conference",
+    subHeading: "Nirmala College of Pharmacy, Guntur",
+    title:
+      "PharmaNEST4.E International Research Conference on Synergizing Pharma IT: Navigating Pharmacovigilance, Medical Scribe, Medical Writing and Medical Coding for Enhancing Patient Safety and Regulatory Compliance",
+    collaborator: "Nirmala College of Pharmacy, Guntur",
+    activity: "4th PharmaNEST International Conference",
+    date: "15 & 16 September 2023",
+    description:
+      "The PharmaNEST4.E International Research Conference provided a platform for exploring synergies between Pharma IT and key healthcare domains like pharmacovigilance, medical scribing, writing, and coding. Discussions focused on enhancing patient safety and regulatory compliance, emphasizing the critical role of technology in optimizing healthcare practices and ensuring quality standards.",
+    objectives: [
+      "Foster Knowledge Exchange",
+      "Explore Innovations in Pharmaceutical Sciences",
+      "Address Industry Challenges",
+      "Emphasize the Role of IT in Pharmaceuticals",
+      "Discuss Precision Medicine Applications",
+      "Examine Digital Health Integration",
+      "To bring together Academicians, Scientists, Industrialists and experts from different parts of the country to exchange knowledge and ideas.",
+      "Identify the challenges and opportunities facing the field of Pharmaceuticals.",
+      "Foster collaboration between researchers and practitioners in the field of IT in Pharmacy.",
+      "To facilitate interdisciplinary discussions on the challenges and opportunities in the field.",
+      "To promote networking and collaboration among researchers, industry experts, and practitioners.",
+      "Address Medication Safety and Pharmacovigilance",
+      "Explore Opportunities for Sustainable Pharmacy Practices",
+      "Promote Lifelong Learning and Continuous Professional Development",
+      "Facilitate Networking and Collaboration",
+      "Enhance Regulatory Compliance and Ethics",
+    ],
+    keyTakeaways: [
+      "Foster Knowledge Exchange",
+      "Explore Innovations in Pharmaceutical Sciences",
+      "Address Industry Challenges",
+      "Emphasize the Role of IT in Pharmaceuticals",
+      "Discuss Precision Medicine Applications",
+      "Examine Digital Health Integration",
+      "To bring together Academicians, Scientists, Industrialists and experts from different parts of the country to exchange knowledge and ideas.",
+      "Identify the challenges and opportunities facing the field of Pharmaceuticals.",
+      "Foster collaboration between researchers and practitioners in the field of IT in Pharmacy.",
+      "To facilitate interdisciplinary discussions on the challenges and opportunities in the field.",
+      "To promote networking and collaboration among researchers, industry experts, and practitioners.",
+      "Address Medication Safety and Pharmacovigilance",
+      "Explore Opportunities for Sustainable Pharmacy Practices",
+      "Promote Lifelong Learning and Continuous Professional Development",
+      "Facilitate Networking and Collaboration",
+      "Enhance Regulatory Compliance and Ethics",
+    ],
+  },
+  {
+    id: 13,
+    heading: "1st PharMAIR International Conference",
+    subHeading:
+      "Chebrolu Hanumaiah Institute of Pharmaceutical Sciences, Guntur",
+    title:
+      "1st PharMAIR International Conference on QbD: A Road Map for Quality Pharmaceutical Products",
+    collaborator:
+      "Chebrolu Hanumaiah Institute of Pharmaceutical Sciences, Guntur",
+    activity: "1st PharMAIR International Conference",
+    date: "17 & 18 November 2023",
+    description:
+      "The 1st PharMAIR International Conference on Quality by Design (QbD) illuminated a clear path forward for achieving excellence in pharmaceutical product development. Participants gleaned insights into the pivotal role of QbD in maintaining consistent quality standards and fostering innovation. Discussions centered on regulatory compliance, providing attendees with actionable strategies for successful implementation. Moreover, the conference served as a nexus for industry collaboration, fostering the exchange of best practices and collective problem-solving. Overall, it was a pivotal event that underscored QbD's significance in shaping the future of pharmaceutical manufacturing.",
+    objectives: [
+      "Understand QbD fundamentals, including CQAs, risk assessment, and design space.",
+      "Learn practical implementation of QbD in formulation, analysis, and validation.",
+      "Navigate regulatory compliance with agencies like FDA, EMA, and ICH.",
+      "Explore global harmonization efforts in pharmaceutical quality standards.",
+      "Analyze real-world QbD case studies and industry best practices.",
+      "Dive into advanced QbD topics, including nanotechnology and continuous manufacturing.",
+      "Develop skills in statistical tools and risk assessment for QbD.",
+      "Embrace interdisciplinary collaboration between academia and industry.",
+      "Stay updated on future trends and innovations in pharmaceutical quality.",
+      "Network with experts, peers, and potential collaborators.",
+      "Participate in hands-on workshops for practical QbD experience.",
+      "Explore innovative projects and products through poster presentations.",
+    ],
+    keyTakeaways: [
+      "Enhanced Quality Standards: Emphasized the importance of QbD in ensuring consistent quality throughout pharmaceutical product development.",
+      "Roadmap for Innovation: Provided a structured approach for implementing QbD principles, fostering innovation and efficiency in manufacturing processes.",
+      "Regulatory Compliance: Addressed regulatory requirements and compliance frameworks, guiding participants towards successful implementation of QbD practices.",
+      "Industry Collaboration: Facilitated collaboration among industry stakeholders to share best practices and overcome challenges in adopting QbD methodologies.",
+    ],
+  },
+  {
+    id: 14,
+    heading: "Pharma Industry CEO Conclave",
+    subHeading:
+      "Dr. D. Y. Patil Institute of Pharmaceutical Sciences & Research, Pune",
+    title:
+      "Pharma Industry CEO Conclave on Nurturing Future Pharma Leaders: Inspiring Tomorrow's Entrepreneurs",
+    collaborator:
+      "Dr. D. Y. Patil Institute of Pharmaceutical Sciences & Research, Pune",
+    activity: "1st Pharma Industry CEO Conclave",
+    date: "12 January 2024",
+    description:
+      "DPU Pharmacy's Training and Placement Cell, in collaboration with the Operant Pharmacy Federation organized the Pharma Industry CEO Conclave 2024, on the theme Nurturing Future Pharma Leaders: Inspiring Tomorrow's Entrepreneurs. Chief Guest and Panelist: Dr. Nandkumar Chodankar, Dr. K Someshwar, Dr. Nitin Kadam, Dr. Manoj Krishna, Dr. Nirali Mehta, and Dr. Ujwala Salvi.",
+    objectives: [
+      "Nurturing Future Pharma Leaders: Inspiring Tomorrow's Entrepreneurs",
+    ],
+    keyTakeaways: [
+      "The CEO Conclave not only provided a platform for rich discourse and exchange of ideas but also equipped attendees with practical insights and tools to navigate the evolving landscape of the pharmaceutical industry. The event undoubtedly inspired and empowered the future leaders of the pharma sector,fostering a spirit of innovation, entrepreneurship, and continuous learning within the academic community.",
+    ],
+  },
+  {
+    id: 15,
+    heading: "2nd PharMAIR International Conference",
+    subHeading:
+      "Shri D. D. Vispute College of Pharmacy & Research Center, Panvel, Mumbai",
+    title:
+      "2nd PharMAIR International Conference on Pharm360: Emerging Trends and Future Perspectives in Pharmaceuticals",
+    collaborator:
+      "Shri D. D. Vispute College of Pharmacy & Research Center, Panvel, Mumbai",
+    activity: "2nd PharMAIR International Conference",
+    date: "22 & 23 March 2024",
+    description:
+      "The 2nd PharMAIR International Conference on Pharm360 provided a comprehensive overview of emerging trends and future perspectives in the pharmaceutical industry. Attendees benefited from discussions that highlighted the importance of taking a holistic approach to pharmaceuticals, integrating technology, regulation, and patient-centered practices. The conference also served as a platform for global collaboration, fostering partnerships and knowledge exchange among international stakeholders. Participants left with valuable insights into upcoming trends and challenges, enabling informed strategic planning for the future of pharmaceuticals.",
+    objectives: [
+      "Explore the latest trends in the global pharmaceutical industry.",
+      "Understand the future perspectives and anticipated developments in pharmaceutical research and development.",
+      "Investigate innovations in drug discovery, including the role of artificial intelligence, personalized medicine, and biotechnology.",
+      "Stay informed about the evolving global regulatory landscape and compliance requirements.",
+      "Learn effective strategies for market access and commercialization of pharmaceutical products.",
+      "Examine the shift towards patient-centric healthcare models and its impact on pharmaceutical practices.",
+      "Facilitate networking opportunities to connect with professionals, researchers, and experts in the pharmaceutical field.",
+      "Discuss ethical considerations associated with emerging trends in the pharmaceutical industry.",
+      "Engage in interactive panel discussions and case studies to apply theoretical knowledge to real-world scenarios.",
+      "Foster continuous professional development by providing insights from renowned speakers and thought leaders.",
+    ],
+    keyTakeaways: [
+      "Holistic Approach: Discussions emphasized the importance of adopting a 360-degree view of pharmaceuticals, considering factors such as technology, regulation, and patient-centricity.",
+      "Innovation Spotlight: Participants explored cutting-edge advancements in drug development, manufacturing, and delivery systems, paving the way for transformative breakthroughs.",
+      "Global Collaboration: The conference fostered collaboration among international stakeholders, facilitating knowledge exchange and partnership opportunities.",
+      "Future Outlook: Attendees gained foresight into upcoming trends and challenges shaping the pharmaceutical landscape, guiding strategic planning and decision-making.",
+    ],
+  },
+];
