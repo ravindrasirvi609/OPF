@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { FaFlask, FaMicroscope, FaTablets } from "react-icons/fa";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,9 +57,11 @@ export default function Hero() {
               Discover groundbreaking research and cutting-edge pharmaceutical
               innovations.
             </p>
-            <button className="bg-[#154c8c] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#1a5fa6] transition duration-300">
-              Explore Our Work
-            </button>
+            <Link href={"/impact-stories"}>
+              <button className="bg-[#154c8c] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#1a5fa6] transition duration-300">
+                Explore Our Work
+              </button>
+            </Link>
           </div>
           <div className="w-full lg:w-1/2 hero-image">
             <Image
