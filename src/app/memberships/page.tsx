@@ -11,6 +11,7 @@ import {
 import { MdVerified } from "react-icons/md";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 // Define interfaces for the data structures
 interface Benefit {
@@ -51,6 +52,7 @@ const benefits: Benefit[] = [
 ];
 
 const Memberships: React.FC = () => {
+  const router = useRouter();
   const [members, setMembers] = useState<Member[]>([]);
 
   useEffect(() => {
@@ -136,6 +138,14 @@ const Memberships: React.FC = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="mt-8 text-center">
+              <button
+                className="bg-[#80b142] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#6fa638] transition duration-300"
+                onClick={() => router.push("/members")}
+              >
+                View All Memberships
+              </button>
             </div>
           </section>
         )}
