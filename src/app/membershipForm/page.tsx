@@ -1,8 +1,15 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { FaGraduationCap, FaIndustry, FaGlobe, FaUser } from "react-icons/fa";
+import {
+  FaGraduationCap,
+  FaIndustry,
+  FaGlobe,
+  FaUser,
+  FaUpload,
+} from "react-icons/fa";
 import { useFirebaseStorage } from "../hooks/useFirebaseStorage";
 
 const plans = [
@@ -47,8 +54,12 @@ interface Errors {
 
 const MembershipForm: React.FC = () => {
   const router = useRouter();
-  const { uploadFile, uploadProgress, isUploading, error } =
-    useFirebaseStorage();
+  const {
+    uploadFile,
+    uploadProgress,
+    isUploading,
+    error: uploadError,
+  } = useFirebaseStorage();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     phone: "",
@@ -65,17 +76,30 @@ const MembershipForm: React.FC = () => {
   const [errors, setErrors] = useState<Errors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMakingPayment, setIsMakingPayment] = useState(false);
+  const [formProgress, setFormProgress] = useState(0);
+
+  useEffect(() => {
+    updateFormProgress();
+  }, [formData]);
+
+  const updateFormProgress = () => {
+    const totalFields = Object.keys(formData).length;
+    const filledFields = Object.values(formData).filter(
+      (value) => value !== "" && value !== null
+    ).length;
+    setFormProgress((filledFields / totalFields) * 100);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
+    validateField(name, value);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setFormData((prev) => ({ ...prev, profilePicture: file }));
-    setErrors((prev) => ({ ...prev, profilePicture: "" }));
+    validateField("profilePicture", file);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -86,14 +110,78 @@ const MembershipForm: React.FC = () => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     setFormData((prev) => ({ ...prev, profilePicture: file }));
-    setErrors((prev) => ({ ...prev, profilePicture: "" }));
+    validateField("profilePicture", file);
+  };
+
+  const validateField = (name: string, value: any): boolean => {
+    let error = "";
+    switch (name) {
+      case "email":
+        if (!value) {
+          error = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(value)) {
+          error = "Invalid email format";
+        }
+        break;
+      case "phone":
+        if (!value) {
+          error = "Phone number is required";
+        } else if (!/^\d{10}$/.test(value)) {
+          error = "Invalid phone number (10 digits required)";
+        }
+        break;
+      case "fullName":
+        if (!value) {
+          error = "Full name is required";
+        }
+        break;
+      case "aadharCard":
+        if (!value) {
+          error = "Aadhar Card number is required";
+        } else if (!/^\d{12}$/.test(value)) {
+          error = "Invalid Aadhar Card number (12 digits required)";
+        }
+        break;
+      case "dateOfBirth":
+        if (!value) {
+          error = "Date of birth is required";
+        }
+        break;
+      case "address":
+        if (!value) {
+          error = "Address is required";
+        }
+        break;
+      case "pincode":
+        if (!value) {
+          error = "Pincode is required";
+        } else if (!/^\d{6}$/.test(value)) {
+          error = "Invalid pincode (6 digits required)";
+        }
+        break;
+      case "selectedPlan":
+        if (!value) {
+          error = "Please select a membership plan";
+        }
+        break;
+      case "profilePicture":
+        if (!value) {
+          error = "Profile picture is required";
+        }
+        break;
+    }
+    setErrors((prev) => ({ ...prev, [name]: error }));
+    return !error;
   };
 
   const validateForm = (): boolean => {
-    const newErrors: Errors = {};
-    // Validation logic
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    let isValid = true;
+    Object.keys(formData).forEach((key) => {
+      if (!validateField(key, formData[key as keyof FormData])) {
+        isValid = false;
+      }
+    });
+    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -107,15 +195,12 @@ const MembershipForm: React.FC = () => {
         profilePictureUrl = await uploadFile(formData.profilePicture);
       }
 
-      // Call Form-Submit API
       const formSubmitResponse = await axios.post("/api/form-submit", {
         ...formData,
         profilePictureUrl,
       });
-      console.log("formSubmitResponse", formSubmitResponse);
 
       if (formSubmitResponse.data.success) {
-        // If form submission is successful, proceed with Razorpay
         await makePayment();
       } else {
         alert("Error submitting form. Please try again.");
@@ -151,7 +236,6 @@ const MembershipForm: React.FC = () => {
       const selectedPlan = plans.find(
         (plan) => plan.id === formData.selectedPlan
       );
-      // Call the /api/razorpay-order endpoint to get the order details
       const orderResponse = await axios.post("/api/razorpay-order", {
         amount: selectedPlan?.price || 0,
       });
@@ -202,10 +286,22 @@ const MembershipForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 m-8 bg-white h-screen rounded-lg shadow-xl ">
+    <div className="max-w-4xl mx-auto p-6 m-8 bg-white rounded-lg shadow-xl">
       <h2 className="text-3xl font-bold text-center text-[#154c8c] mb-8">
         OPF Membership Application
       </h2>
+
+      <div className="mb-8">
+        <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+          <div
+            className="bg-[#80b142] h-2.5 rounded-full transition-all duration-500 ease-out"
+            style={{ width: `${formProgress}%` }}
+          ></div>
+        </div>
+        <p className="text-sm text-gray-600 text-center">
+          Form Completion: {formProgress.toFixed(0)}%
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="mt-8">
@@ -213,53 +309,64 @@ const MembershipForm: React.FC = () => {
             Profile Picture
           </h3>
           <div
-            className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+            className={`border-2 border-dashed rounded-lg p-8 cursor-pointer transition-all duration-300 ${
               formData.profilePicture
                 ? "border-[#80b142] bg-[#e6f3d5]"
-                : "border-gray-200 hover:border-[#80b142]"
+                : "border-gray-300 hover:border-[#80b142]"
             }`}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           >
             {formData.profilePicture ? (
-              <div className="flex items-center justify-center">
+              <div className="flex flex-col items-center justify-center">
                 <img
                   src={URL.createObjectURL(formData.profilePicture)}
                   alt="Profile Picture"
-                  className="max-h-48 rounded-lg"
+                  className="max-h-48 rounded-lg mb-4"
                 />
+                <p className="text-sm text-gray-600">
+                  {formData.profilePicture.name}
+                </p>
               </div>
             ) : (
-              <div className="flex items-center justify-center text-gray-500">
-                <span>Drag and drop your profile picture here or</span>
-                <label className="ml-2 text-[#80b142] underline cursor-pointer">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
-                  Browse
-                </label>
+              <div className="flex flex-col items-center justify-center text-gray-500">
+                <FaUpload className="text-4xl mb-4" />
+                <p className="text-center">
+                  Drag and drop your profile picture here or{" "}
+                  <label className="text-[#80b142] underline cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleFileChange}
+                    />
+                    Browse
+                  </label>
+                </p>
               </div>
             )}
           </div>
           {errors.profilePicture && (
-            <p className="mt-2 text-red-500">{errors.profilePicture}</p>
+            <p className="mt-2 text-red-500 text-sm">{errors.profilePicture}</p>
           )}
           {isUploading && (
-            <div className="mt-2">
-              <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+            <div className="mt-4">
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
                 <div
-                  className="bg-[#80b142] h-2.5 rounded-full"
+                  className="bg-[#80b142] h-2.5 rounded-full transition-all duration-300 ease-out"
                   style={{ width: `${uploadProgress}%` }}
                 ></div>
               </div>
-              <p className="text-gray-500">Uploading profile picture...</p>
+              <p className="text-sm text-gray-600">
+                Uploading profile picture: {uploadProgress.toFixed(0)}%
+              </p>
             </div>
           )}
-          {error && <p className="mt-2 text-red-500">{error}</p>}
+          {uploadError && (
+            <p className="mt-2 text-red-500 text-sm">{uploadError}</p>
+          )}
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField
             label="Email"
@@ -341,10 +448,10 @@ const MembershipForm: React.FC = () => {
             {plans.map((plan) => (
               <div
                 key={plan.id}
-                className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                className={`border rounded-lg p-6 cursor-pointer transition-all duration-300 ${
                   formData.selectedPlan === plan.id
-                    ? "border-[#80b142] bg-[#e6f3d5]"
-                    : "border-gray-200 hover:border-[#80b142]"
+                    ? "border-[#80b142] bg-[#e6f3d5] shadow-md"
+                    : "border-gray-200 hover:border-[#80b142] hover:shadow-md"
                 }`}
                 onClick={() =>
                   handleChange({
@@ -352,35 +459,63 @@ const MembershipForm: React.FC = () => {
                   } as React.ChangeEvent<HTMLInputElement>)
                 }
               >
-                <div className="flex items-center justify-center text-3xl text-[#154c8c] mb-2">
+                <div className="flex items-center justify-center text-4xl text-[#154c8c] mb-4">
                   {plan.icon}
                 </div>
-                <h4 className="text-lg font-semibold text-center text-[#154c8c]">
+                <h4 className="text-lg font-semibold text-center text-[#154c8c] mb-2">
                   {plan.name}
                 </h4>
-                <p className="text-2xl font-bold text-center text-[#80b142] mt-2">
+                <p className="text-2xl font-bold text-center text-[#80b142] mb-4">
                   ₹{plan.price}
                 </p>
-                <ul className="mt-2 text-sm text-gray-600">
-                  <li>CERTIFICATE</li>
-                  <li>MENTION ON PATRON PAGE</li>
+                <ul className="text-sm text-gray-600 space-y-2">
+                  <li className="flex items-center">
+                    <svg
+                      className="w-4 h-4 mr-2 text-[#80b142]"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    CERTIFICATE
+                  </li>
+                  <li className="flex items-center">
+                    <svg
+                      className="w-4 h-4 mr-2 text-[#80b142]"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    MENTION ON PATRON PAGE
+                  </li>
                 </ul>
               </div>
             ))}
           </div>
           {errors.selectedPlan && (
-            <p className="text-red-500 mt-2">{errors.selectedPlan}</p>
+            <p className="text-red-500 mt-2 text-sm">{errors.selectedPlan}</p>
           )}
         </div>
 
         <div className="mt-8">
           <button
             type="submit"
-            className="w-full bg-[#154c8c] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#80b142] transition duration-300"
+            className="w-full bg-[#154c8c] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#80b142] transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isSubmitting || isMakingPayment}
           >
             {isSubmitting
               ? "Submitting..."
+              : isMakingPayment
+              ? "Processing Payment..."
               : "Submit Application and Proceed to Payment"}
           </button>
         </div>
@@ -419,8 +554,8 @@ const InputField: React.FC<InputFieldProps> = ({
       id={name}
       value={value}
       onChange={onChange}
-      className={`mt-1 block w-full p-2 text-black bg-[#ecf5ff] rounded-md border-[#154c8c] shadow-sm focus:border-[#80b142] focus:ring focus:ring-[#80b142] focus:ring-opacity-50 ${
-        error ? "border-red-500" : ""
+      className={`mt-1 block w-full p-3 text-black bg-[#ecf5ff] rounded-md border shadow-sm focus:border-[#80b142] focus:ring focus:ring-[#80b142] focus:ring-opacity-50 transition duration-300 ${
+        error ? "border-red-500" : "border-[#154c8c]"
       }`}
     />
     {error && <p className="mt-1 text-sm text-red-500">{error}</p>}

@@ -14,15 +14,17 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-10">
+    <footer className="bg-[#154c8c] text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h3 className="text-xl font-semibold mb-4 flex items-center">
-              <FaFlask className="mr-2" />
+              <FaFlask className="mr-2 text-[#80b142]" />
               Operant Pharmacy Federation
             </h3>
-            <p>Advancing pharmacy through research and innovation.</p>
+            <p className="text-gray-300">
+              Advancing pharmacy through research and innovation.
+            </p>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
@@ -47,9 +49,11 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
-            <p>123 Pharmacy Street</p>
-            <p>Research City, RC 12345</p>
-            <p>contact@operantpharmacy.com</p>
+            <address className="not-italic text-gray-300">
+              <p>123 Pharmacy Street</p>
+              <p>Research City, RC 12345</p>
+              <p>contact@operantpharmacy.com</p>
+            </address>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
@@ -62,7 +66,10 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-700 pt-8 text-center">
-          <p>&copy; 2024 Operant Pharmacy Federation. All rights reserved.</p>
+          <p className="text-gray-300">
+            &copy; {new Date().getFullYear()} Operant Pharmacy Federation. All
+            rights reserved.
+          </p>
         </div>
       </div>
     </footer>
@@ -74,7 +81,7 @@ function FooterLink({ href, icon, text }: any) {
     <li>
       <Link
         href={href}
-        className="flex items-center hover:text-[#80b142] transition duration-300"
+        className="flex items-center text-gray-300 hover:text-[#80b142] transition duration-300"
       >
         {icon}
         <span className="ml-2">{text}</span>
@@ -89,7 +96,7 @@ function SocialIcon({ href, icon }: any) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-2xl hover:text-[#80b142] transition duration-300"
+      className="text-2xl text-gray-300 hover:text-[#80b142] transition duration-300"
     >
       {icon}
     </Link>

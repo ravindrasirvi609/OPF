@@ -46,16 +46,16 @@ export default function Header() {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-[#154c8c] shadow-lg" : "bg-[#002b5d]"
+        isScrolled ? "bg-white shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex justify-between items-center h-16 sm:h-20">
           <Link
             href="/"
-            className="text-2xl font-bold header-anim flex items-center text-[#80b142]"
+            className="text-2xl font-bold header-anim flex items-center text-[#154c8c]"
           >
-            <FaFlask className="mr-2" />
+            <FaFlask className="mr-2 text-[#80b142]" />
             <span className="hidden sm:inline">
               Operant Pharmacy Federation
             </span>
@@ -71,8 +71,9 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-[#80b142] text-2xl focus:outline-none"
+            className="lg:hidden text-[#154c8c] text-2xl focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
@@ -83,7 +84,7 @@ export default function Header() {
       <div
         className={`lg:hidden ${
           isMenuOpen ? "block" : "hidden"
-        } bg-[#154c8c] shadow-lg`}
+        } bg-white shadow-lg`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
           {navItems.map((item) => (
@@ -100,7 +101,7 @@ function NavLink({ href, icon, text, mobile = false }: any) {
     <Link
       href={href}
       className={`
-         flex items-center text-[#80b142] hover:bg-[#1a5fa6] hover:text-white
+        flex items-center text-[#154c8c] hover:bg-[#80b142] hover:text-white
         transition duration-300 rounded-md
         ${
           mobile
