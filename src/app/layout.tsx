@@ -42,11 +42,9 @@ export default function RootLayout({
         className={`${nunito.className} flex flex-col min-h-screen bg-white`}
       >
         <Header />
-        <main className="flex-grow pt-16 sm:pt-20">
-          <div className="bg-gradient-to-r from-[#80b142] to-[#154c8c] py-8 sm:py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {children}
-            </div>
+        <main className="flex-grow pt-14 sm:pt-20">
+          <div className="bg-gradient-to-r from-[#80b142] to-[#154c8c]">
+            <div className="">{children}</div>
           </div>
         </main>
         <Footer />
