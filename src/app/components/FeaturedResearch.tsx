@@ -57,24 +57,6 @@ const researchAreas = [
 export default function ResearchAreas() {
   const researchRef = useRef(null);
 
-  useGSAP(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".research-card", {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: researchRef.current,
-          start: "top 80%",
-        },
-      });
-    }, researchRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       ref={researchRef}

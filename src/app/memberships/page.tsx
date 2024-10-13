@@ -12,6 +12,7 @@ import { MdVerified } from "react-icons/md";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 // Define interfaces for the data structures
 interface Benefit {
@@ -69,52 +70,72 @@ const Memberships: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-gray-100 to-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-5xl font-black text-[#154c8c] mb-8 text-center">
+    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-6xl font-extrabold text-[#154c8c] mb-12 text-center"
+        >
           OPF Memberships
-        </h1>
+        </motion.h1>
 
         {/* Benefits Section */}
-        <section className="mb-16 bg-white rounded-lg shadow-lg p-8">
-          <h2 className="text-3xl font-bold text-[#80b142] mb-6 text-center">
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-20 bg-white rounded-2xl shadow-2xl p-10"
+        >
+          <h2 className="text-4xl font-bold text-[#80b142] mb-8 text-center">
             Benefits of OPF Membership
           </h2>
-          <ul className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
-              <li
+              <motion.div
                 key={index}
-                className="benefit-item flex items-center text-gray-700 bg-gray-50 p-4 rounded-lg transition-all duration-300 hover:shadow-md"
+                whileHover={{ scale: 1.05 }}
+                className="benefit-item flex items-center text-gray-700 bg-gray-50 p-6 rounded-xl transition-all duration-300 hover:shadow-lg"
               >
-                <span className="text-[#80b142] text-2xl mr-4">
+                <span className="text-[#80b142] text-3xl mr-4">
                   {benefit.icon}
                 </span>
-                {benefit.text}
-              </li>
+                <p className="text-lg">{benefit.text}</p>
+              </motion.div>
             ))}
-          </ul>
-          <div className="text-center mt-8">
+          </div>
+          <div className="text-center mt-12">
             <Link href={"/membershipForm"}>
-              <button className="bg-[#154c8c] text-white font-bold py-3 px-6 rounded-full hover:bg-[#80b142] transition duration-300 transform hover:scale-105 flex items-center justify-center mx-auto">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#154c8c] text-white font-bold py-4 px-8 rounded-full hover:bg-[#80b142] transition duration-300 text-lg flex items-center justify-center mx-auto"
+              >
                 <FaUserPlus className="mr-2" /> Become a Member
-              </button>
+              </motion.button>
             </Link>
           </div>
-        </section>
+        </motion.section>
 
         {/* Members Section */}
         {members.length > 0 && (
-          <section>
-            <h2 className="text-3xl font-semibold text-[#80b142] mb-8 text-center">
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <h2 className="text-4xl font-bold text-[#80b142] mb-10 text-center">
               Our Esteemed Members
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {members.map((member) => (
-                <div
+                <motion.div
                   key={member.membershipId}
-                  className="member-card bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105"
+                  whileHover={{ scale: 1.05 }}
+                  className="member-card bg-white rounded-2xl shadow-xl overflow-hidden"
                 >
-                  <div className="relative h-56 w-full">
+                  <div className="relative h-64 w-full">
                     <Image
                       src={
                         member.profilePictureUrl || "/images/placeholder.jpg"
@@ -124,30 +145,34 @@ const Memberships: React.FC = () => {
                       objectFit="cover"
                     />
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-semibold text-xl text-[#154c8c] mb-2 flex items-center">
+                  <div className="p-8">
+                    <h3 className="font-bold text-2xl text-[#154c8c] mb-3 flex items-center">
                       {member.fullName}
                       {member.isValidMembership && (
-                        <MdVerified className="text-[#80b142] ml-2" />
+                        <MdVerified className="text-[#80b142] ml-2 text-xl" />
                       )}
                     </h3>
-                    <p className="text-gray-600 mb-2">{member.affiliation}</p>
-                    <p className="text-sm text-gray-500 bg-gray-100 p-2 rounded-md inline-block">
+                    <p className="text-gray-600 mb-3 text-lg">
+                      {member.affiliation}
+                    </p>
+                    <p className="text-sm text-gray-500 bg-gray-100 p-3 rounded-lg inline-block">
                       Member ID: {member.membershipId}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-            <div className="mt-8 text-center">
-              <button
-                className="bg-[#80b142] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#6fa638] transition duration-300"
+            <div className="mt-12 text-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#80b142] text-white font-bold py-3 px-8 rounded-full hover:bg-[#6fa638] transition duration-300 text-lg"
                 onClick={() => router.push("/members")}
               >
                 View All Memberships
-              </button>
+              </motion.button>
             </div>
-          </section>
+          </motion.section>
         )}
       </div>
     </div>
