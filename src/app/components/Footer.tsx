@@ -44,18 +44,20 @@ export default function Footer() {
             <h4 className="text-sm font-bold uppercase tracking-widest text-[#E91E63] mb-8">Navigation</h4>
             <ul className="space-y-4">
               <FooterLink href="/" text="Home" />
-              <FooterLink href="/impact-stories" text="Impact Stories" />
-              <FooterLink href="/innovations" text="Innovations" />
+              <FooterLink href="/about" text="About Us" />
+              <FooterLink href="/team" text="Advisers" />
               <FooterLink href="/members" text="Members" />
+              <FooterLink href="/faq" text="FAQ" />
             </ul>
           </div>
 
           <div className="md:col-span-2">
             <h4 className="text-sm font-bold uppercase tracking-widest text-[#E91E63] mb-8">Legal</h4>
             <ul className="space-y-4">
-              <FooterLink href="#" text="Terms & Conditions" />
-              <FooterLink href="#" text="Privacy Policy" />
-              <FooterLink href="#" text="Refund Policy" />
+              <FooterLink href="/terms" text="Terms & Conditions" />
+              <FooterLink href="/privacy" text="Privacy Policy" />
+              <FooterLink href="/refund" text="Refund Policy" />
+              <FooterLink href="/contact" text="Contact Us" />
             </ul>
           </div>
 

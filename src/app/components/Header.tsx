@@ -12,6 +12,7 @@ import {
   FaBookOpen,
   FaBars,
   FaTimes,
+  FaEnvelope,
 } from "react-icons/fa";
 
 export default function Header() {
@@ -37,17 +38,18 @@ export default function Header() {
   }, []);
 
   const navItems = [
+    { href: "/about", icon: <FaBookOpen />, text: "About Us" },
+    { href: "/team", icon: <FaUsers />, text: "Advisers" },
     { href: "/innovations", icon: <FaLightbulb />, text: "Innovations" },
-    { href: "/impact-stories", icon: <FaBookOpen />, text: "Impact Stories" },
-    { href: "/collaborations", icon: <FaHandshake />, text: "Collaborations" },
-    { href: "/memberships", icon: <FaUsers />, text: "Memberships" },
+    { href: "/memberships", icon: <FaHandshake />, text: "Memberships" },
+    { href: "/faq", icon: <FaFlask />, text: "FAQ" },
+    { href: "/contact", icon: <FaEnvelope />, text: "Contact" },
   ];
 
   return (
     <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-lg" : "bg-transparent"
-      }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-lg" : "bg-transparent"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex justify-between items-center h-16 sm:h-20">
@@ -82,9 +84,8 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       <div
-        className={`lg:hidden ${
-          isMenuOpen ? "block" : "hidden"
-        } bg-white shadow-lg`}
+        className={`lg:hidden ${isMenuOpen ? "block" : "hidden"
+          } bg-white shadow-lg`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
           {navItems.map((item) => (
@@ -103,10 +104,9 @@ function NavLink({ href, icon, text, mobile = false }: any) {
       className={`
         flex items-center text-[#154c8c] hover:bg-[#80b142] hover:text-white
         transition duration-300 rounded-md
-        ${
-          mobile
-            ? "px-3 py-2 text-base font-medium"
-            : "px-3 py-2 text-sm font-medium"
+        ${mobile
+          ? "px-3 py-2 text-base font-medium"
+          : "px-3 py-2 text-sm font-medium"
         }
       `}
     >

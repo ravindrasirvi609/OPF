@@ -5,6 +5,11 @@ import InnovationShowcase from "./components/InnovationShowcase";
 import ContactCTA from "./components/ContactCTA";
 import AboutOpf from "./components/AboutOpf";
 import Statistics from "./components/Statistics";
+import Pillars from "./components/Pillars";
+import Consulting from "./components/Consulting";
+import CoreValues from "./components/CoreValues";
+import FoundersMessage from "./components/FoundersMessage";
+import LatestNews from "./components/LatestNews";
 
 export const metadata: Metadata = {
   title: "Operant Pharmacy Federation - Advancing Pharmacy Through Innovation",
@@ -25,10 +30,14 @@ export default function Home() {
       <main>
         <Hero />
         <AboutOpf />
+        <Pillars />
         <FeaturedResearch />
+        <Consulting />
         <InnovationShowcase />
+        <CoreValues />
         <Statistics />
-
+        <FoundersMessage />
+        <LatestNews />
         <ContactCTA />
       </main>
     </>
