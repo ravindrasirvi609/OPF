@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SmoothScroll from "./components/SmoothScroll";
 
-const nunito = Nunito({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Operant Pharmacy Federation - Advancing Pharmacy Through Innovation",
@@ -39,15 +40,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${nunito.className} flex flex-col min-h-screen bg-white`}
+        className={`${outfit.className} flex flex-col min-h-screen bg-white text-slate-900`}
       >
-        <Header />
-        <main className="flex-grow pt-14 sm:pt-20">
-          <div className="bg-gradient-to-r from-[#80b142] to-[#154c8c]">
-            <div className="">{children}</div>
-          </div>
-        </main>
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          <main className="flex-grow pt-14 sm:pt-20">
+            {children}
+          </main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

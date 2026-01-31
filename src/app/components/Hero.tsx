@@ -1,130 +1,170 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
-import { FaFlask, FaMicroscope, FaTablets } from "react-icons/fa";
 import Link from "next/link";
-
-gsap.registerPlugin(ScrollTrigger);
+import SplitType from "split-type";
 
 export default function Hero() {
-  const heroRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const containerRef = useRef(null);
+  const titleRef = useRef(null);
+  const textRef = useRef(null);
+  const imageRef = useRef(null);
+  const floatItemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  useGSAP((context) => {
+    // Prevent double-splitting if re-rendered
+    const titleSplit = new SplitType(titleRef.current!, { types: "chars,words" });
+    const textSplit = new SplitType(textRef.current!, { types: "lines" });
 
-  useGSAP(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".hero-image", {
-        scale: 0.8,
-        opacity: 0,
-        duration: 1.5,
-        delay: 0.5,
-        ease: "elastic.out(1, 0.75)",
-      });
-    }, heroRef);
-  }, []);
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+    tl.set([".hero-badge", ".hero-cta", imageRef.current, textRef.current], { opacity: 0 });
+
+    tl.to(".hero-badge", { opacity: 1, y: 0, duration: 1, delay: 0.5 })
+      .fromTo(titleSplit.chars,
+        { y: 100, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.02, duration: 1.2 },
+        "-=0.5"
+      )
+      .fromTo(textSplit.lines,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.1, duration: 1 },
+        "-=0.8"
+      )
+      .fromTo(".hero-cta",
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1 },
+        "-=0.8"
+      )
+      .fromTo(imageRef.current,
+        { x: 100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1.5, ease: "power4.out" },
+        "-=1.2"
+      );
+
+    // Parallax effect on image
+    gsap.to(imageRef.current, {
+      yPercent: 15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+
+    // Floating animation
+    floatItemsRef.current.forEach((item, i) => {
+      if (item) {
+        gsap.set(item, { opacity: 0, y: 20 });
+        gsap.to(item, { opacity: 1, y: 0, duration: 0.8, delay: 1.5 + (i * 0.2) });
+        gsap.to(item, {
+          y: i % 2 === 0 ? -15 : 15,
+          duration: 3 + i,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+      }
+    });
+
+    // Cleanup for SplitType
+    return () => {
+      titleSplit.revert();
+      textSplit.revert();
+    };
+  }, { scope: containerRef });
 
   return (
     <section
-      ref={heroRef}
-      className="bg-gradient-to-br from-[#0a192f] to-[#112240] text-white min-h-screen flex items-center overflow-hidden relative"
+      ref={containerRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#fafafa] py-20"
     >
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-[url('/circuit-pattern.svg')] opacity-5"
-          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
-        />
-      </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-          <div className="w-full lg:w-1/2 mb-12 lg:mb-0">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 hero-text leading-tight">
-              Revolutionizing
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#64ffda] to-[#00bfa5] block mt-2">
-                Pharmaceutical Innovation
-              </span>
-            </h1>
-            <p className="text-xl mb-8 hero-text text-gray-300 leading-relaxed max-w-xl">
-              Pioneering research and cutting-edge technologies to shape the
-              future of global healthcare and improve lives worldwide.
-            </p>
-            <Link href="/impact-stories" passHref>
-              <button
-                className="bg-[#64ffda] text-[#0a192f] text-lg px-10 py-4 rounded-full font-semibold transition duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 hover:bg-[#00bfa5]"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                Discover Our Impact
-                <span
-                  className={`ml-2 transition-transform duration-300 ${
-                    isHovered ? "translate-x-2" : ""
-                  }`}
-                >
-                  →
-                </span>
+      {/* Background Abstract Shapes */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#E91E63]/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#154c8c]/5 rounded-full blur-[120px]" />
+
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="text-left">
+          <div className="hero-badge opacity-0 inline-block px-4 py-1.5 mb-6 border border-[#E91E63]/20 rounded-full bg-[#E91E63]/5">
+            <span className="text-[#E91E63] text-sm font-medium tracking-wider uppercase">
+              Operant Pharmacy Federation
+            </span>
+          </div>
+
+          <h1
+            ref={titleRef}
+            className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] text-slate-900 mb-8 tracking-tight"
+          >
+            Advancing <br />
+            <span className="text-[#E91E63]">Pharmacy</span> <br />
+            Through Research
+          </h1>
+
+          <p
+            ref={textRef}
+            className="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed opacity-0"
+          >
+            A global platform powered by researchers for researchers, focusing on groundbreaking innovations and high-impact healthcare solutions.
+          </p>
+
+          <div className="hero-cta flex flex-wrap gap-4 opacity-0">
+            <Link href="/impact-stories">
+              <button className="px-8 py-4 bg-slate-900 text-white rounded-full font-semibold hover:bg-slate-800 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-slate-900/20">
+                Explore Initiatives
+              </button>
+            </Link>
+            <Link href="/membershipForm">
+              <button className="px-8 py-4 border border-slate-200 text-slate-900 rounded-full font-semibold hover:bg-slate-50 transition-all duration-300">
+                Join Community
               </button>
             </Link>
           </div>
-          <div className="w-full lg:w-1/2 hero-image relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=2940&ixlib=rb-4.0.3"
-                alt="Advanced Pharmaceutical Research"
-                width={600}
-                height={400}
-                className="rounded-3xl"
-                objectFit="cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] to-transparent opacity-60" />
-              <div className="absolute bottom-6 left-6 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-4 rounded-xl">
-                <p className="text-[#64ffda] font-bold text-2xl">
-                  150+ Patents
-                </p>
-                <p className="text-gray-200">Pioneering Innovation in 2023</p>
-              </div>
-            </div>
+        </div>
+
+        <div className="relative">
+          <div
+            ref={imageRef}
+            className="relative z-10 rounded-[40px] overflow-hidden shadow-2xl skew-y-3 hover:skew-y-0 transition-transform duration-700 opacity-0"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1576086216120-458159a99841?auto=format&fit=crop&q=80&w=2070"
+              alt="Innovative Pharmacy Research"
+              width={800}
+              height={1000}
+              className="object-cover h-[600px] w-full"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
+          </div>
+
+          {/* Floating Cards */}
+          <div
+            ref={el => { floatItemsRef.current[0] = el }}
+            className="absolute -top-10 -right-10 z-20 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 hidden md:block opacity-0"
+          >
+            <div className="text-3xl font-bold text-[#E91E63]">50+</div>
+            <div className="text-xs text-slate-400 uppercase tracking-widest font-bold">Projects</div>
+          </div>
+
+          <div
+            ref={el => { floatItemsRef.current[1] = el }}
+            className="absolute -bottom-10 -left-10 z-20 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 hidden md:block opacity-0"
+          >
+            <div className="text-3xl font-bold text-[#154c8c]">15+</div>
+            <div className="text-xs text-slate-400 uppercase tracking-widest font-bold">Countries</div>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-20 icon-grid">
-          {[
-            {
-              icon: FaFlask,
-              title: "Groundbreaking Research",
-              description: "Pushing the frontiers of pharmaceutical science",
-            },
-            {
-              icon: FaMicroscope,
-              title: "Cutting-edge Technology",
-              description:
-                "Leveraging AI and advanced analytics in drug discovery",
-            },
-            {
-              icon: FaTablets,
-              title: "Precision Medicine",
-              description:
-                "Tailoring treatments to individual genetic profiles",
-            },
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="icon-box bg-[#112240] p-8 rounded-2xl text-center hover:bg-[#1d3557] transition duration-300 transform hover:-translate-y-2 hover:shadow-xl"
-            >
-              <div className="bg-[#64ffda] text-[#0a192f] rounded-full p-4 inline-block mb-6">
-                <item.icon className="text-4xl" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">{item.title}</h3>
-              <p className="text-gray-300">{item.description}</p>
-            </div>
-          ))}
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-slate-300 rounded-full flex justify-center p-1">
+          <div className="w-1 h-2 bg-[#E91E63] rounded-full" />
         </div>
       </div>
     </section>

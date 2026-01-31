@@ -3,23 +3,43 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --primary-pink: #E91E63;
+  --primary-blue: #154c8c;
+  --primary-green: #80b142;
+  --text-dark: #0f172a;
+  --text-light: #f8fafc;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#E91E63] to-[#154c8c];
+  }
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 @layer base {
