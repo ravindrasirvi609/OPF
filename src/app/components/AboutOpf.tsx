@@ -19,7 +19,10 @@ const AboutOpf = () => {
   const headingRef = useRef(null);
 
   useGSAP(() => {
-    const headingSplit = new SplitType(headingRef.current!, { types: "words" });
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (!headingRef.current) return;
+    const headingSplit = new SplitType(headingRef.current, { types: "words" });
 
     gsap.fromTo(headingSplit.words,
       { y: 50, opacity: 0 },
@@ -38,11 +41,11 @@ const AboutOpf = () => {
     );
 
     gsap.fromTo(".about-card",
-      { y: 100, opacity: 0 },
+      { y: 60, opacity: 0 },
       {
         scrollTrigger: {
           trigger: ".about-grid",
-          start: "top 75%",
+          start: "top 85%",
           toggleActions: "play none none none",
         },
         y: 0,
@@ -53,16 +56,15 @@ const AboutOpf = () => {
       }
     );
 
-    // FIX: Mask should reveal from 1 to 0
     gsap.fromTo(".about-image-mask",
-      { scaleY: 1 }, // Start with the mask fully covering
+      { scaleY: 1 },
       {
         scrollTrigger: {
           trigger: ".about-content",
           start: "top 65%",
           toggleActions: "play none none none",
         },
-        scaleY: 0, // Animate to fully revealed
+        scaleY: 0,
         transformOrigin: "top",
         duration: 1.5,
         ease: "expo.inOut",
@@ -116,12 +118,15 @@ const AboutOpf = () => {
           </div>
 
           <div className="lg:col-span-5">
-            <p className="text-xl text-slate-600 leading-relaxed mb-8">
-              The Operant Pharmacy Federation (OPF) is more than just a platform; it's a movement dedicated to advancing the pharmacy profession through organized exhibitions, conferences, and world-class research publications.
+            <p className="text-xl text-slate-600 leading-relaxed mb-6">
+              The Operant Pharmacy Federation (OPF) is a non-government, non-profit professional organization dedicated to the pharmacy, pharmaceutical sciences, and healthcare research ecosystem.
+            </p>
+            <p className="text-lg text-slate-500 leading-relaxed mb-8">
+              We are <strong>not</strong> a manufacturing company or government body, but an academic platform focused on excellence in research and professional development.
             </p>
             <div className="flex items-center gap-4">
               <div className="w-12 h-[1px] bg-[#E91E63]" />
-              <span className="text-sm font-bold uppercase tracking-widest text-[#E91E63]">Learn More About OPF</span>
+              <span className="text-sm font-bold uppercase tracking-widest text-[#E91E63]">Advancing Global Healthcare</span>
             </div>
           </div>
 

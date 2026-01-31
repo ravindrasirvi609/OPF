@@ -6,8 +6,16 @@ import { FaPlus, FaMinus, FaQuestionCircle } from "react-icons/fa";
 
 const faqs = [
     {
-        question: "What is Operant Pharmacy Federation (OPF)?",
-        answer: "OPF is a globally recognized non-profit organization dedicated to the advancement of pharmaceutical sciences, research, and education. We provide a platform for professionals, researchers, and students to collaborate and grow.",
+        question: "Is OPF a pharmaceutical manufacturing company?",
+        answer: "No, Operant Pharmacy Federation (OPF) is not a manufacturing company nor a government body. It is an academic and research-oriented professional platform focused on education and scientific growth.",
+    },
+    {
+        question: "Who can join the Operant Pharmacy Federation?",
+        answer: "OPF is ideal for pharmacy students (D.Pharm, B.Pharm, M.Pharm, Pharm.D), pharma company professionals, healthcare researchers, PhD scholars, and anyone interested in pharmaceutical publications and conferences.",
+    },
+    {
+        question: "Does OPF organize conferences?",
+        answer: "Yes, we organize national and international conferences, webinars, seminars, and workshops on topics like drug development, clinical research, biotechnology, and healthcare innovation.",
     },
     {
         question: "How can I become a member of OPF?",

@@ -28,13 +28,16 @@ export default function Header() {
   }, []);
 
   useGSAP(() => {
-    gsap.from(".header-anim", {
-      y: -50,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out",
-    });
+    gsap.fromTo(".header-anim",
+      { y: -50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      }
+    );
   }, []);
 
   const navItems = [

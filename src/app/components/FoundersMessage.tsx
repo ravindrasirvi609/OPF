@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaQuoteLeft } from "react-icons/fa";
 
 const FoundersMessage: React.FC = () => {
@@ -11,28 +12,38 @@ const FoundersMessage: React.FC = () => {
 
     useGSAP(
         () => {
-            gsap.from(".founder-text", {
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 80%",
-                },
-            });
+            gsap.registerPlugin(ScrollTrigger);
 
-            gsap.from(".founder-image-container", {
-                scale: 0.9,
-                opacity: 0,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 70%",
-                },
-            });
+            gsap.fromTo(".founder-image-container",
+                { x: -100, opacity: 0 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 1.5,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+
+            gsap.fromTo(".founder-text",
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    stagger: 0.1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 70%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
         },
         { scope: containerRef }
     );

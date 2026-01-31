@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaUsers, FaMicroscope, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 
@@ -12,17 +13,23 @@ const Pillars: React.FC = () => {
 
     useGSAP(
         () => {
-            gsap.from(".pillar-card", {
-                y: 100,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power4.out",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 80%",
-                },
-            });
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.fromTo(".pillar-card",
+                { y: 60, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    stagger: 0.3,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
         },
         { scope: containerRef }
     );
