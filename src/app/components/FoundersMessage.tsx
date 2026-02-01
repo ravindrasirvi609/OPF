@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaQuoteLeft } from "react-icons/fa";
+import Image from "next/image";
 
 const FoundersMessage: React.FC = () => {
     const containerRef = useRef(null);
@@ -59,10 +60,12 @@ const FoundersMessage: React.FC = () => {
                     <div className="lg:col-span-5 founder-image-container">
                         <div className="relative">
                             <div className="aspect-[4/5] rounded-[40px] overflow-hidden border-2 border-slate-700 p-2">
-                                <img
-                                    src="https://images.unsplash.com/photo-1556157382-97dee2dcb0b7?q=80&w=2070&auto=format&fit=crop"
+                                <Image
+                                    src="/founder.png"
                                     alt="Founder & Director"
                                     className="w-full h-full object-cover rounded-[32px]"
+                                    width={500}
+                                    height={500}
                                 />
                             </div>
                             <div className="absolute -bottom-8 -right-8 bg-white p-8 rounded-[32px] shadow-2xl hidden md:block">
