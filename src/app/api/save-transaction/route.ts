@@ -8,15 +8,15 @@ connect();
 
 async function generateMembershipId(year: number) {
   const latestMembership = await Membership.findOne(
-    {},
+    { membershipId: { $exists: true, $ne: "" } },
     {},
     { sort: { createdAt: -1 } }
   );
   const currentYear = new Date().getFullYear();
   let nextId = 1;
 
-  if (latestMembership && latestMembership.memberId) {
-    const lastId = parseInt(latestMembership.memberId.slice(3, 7), 10);
+  if (latestMembership && latestMembership.membershipId) {
+    const lastId = parseInt(latestMembership.membershipId.slice(5), 10);
     nextId = lastId + 1;
   }
 
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     if (membership) {
       membership.membershipStatus = "Active";
       membership.isValidMembership = true;
-      membership.memberId = await generateMembershipId(
+      membership.membershipId = await generateMembershipId(
         new Date().getFullYear()
       );
       await membership.save();
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         paymentId: razorpayPaymentId,
         membershipStatus: "Active",
         isValidMembership: true,
-        memberId: newMembershipId,
+        membershipId: newMembershipId,
       });
     }
 

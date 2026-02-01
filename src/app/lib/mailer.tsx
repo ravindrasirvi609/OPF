@@ -62,7 +62,7 @@ export const sendEmail = async ({
           <Text>Your membership details:</Text>
           <ul>
             <li>
-              Membership ID: <strong>{membership.memberId}</strong>
+              Membership ID: <strong>{membership.membershipId}</strong>
             </li>
             <li>
               Membership Plan: <strong>{membership.selectedPlan}</strong>
@@ -108,7 +108,7 @@ export const sendEmail = async ({
           <Text>Your membership details:</Text>
           <ul>
             <li>
-              Membership ID: <strong>{membership.memberId}</strong>
+              Membership ID: <strong>{membership.membershipId}</strong>
             </li>
             <li>
               Membership Plan: <strong>{membership.selectedPlan}</strong>
@@ -173,8 +173,7 @@ export const sendEmail = async ({
   } catch (error) {
     console.error("Error sending email:", error);
     throw new Error(
-      `Failed to send email: ${
-        error instanceof Error ? error.message : String(error)
+      `Failed to send email: ${error instanceof Error ? error.message : String(error)
       }`
     );
   }
