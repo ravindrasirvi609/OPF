@@ -1,17 +1,12 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import {
-  FaCalendar,
-  FaMapMarkerAlt,
-  FaUsers,
-  FaChevronLeft,
-  FaChevronRight,
-  FaQuoteLeft,
-} from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { notFound } from "next/navigation";
+import { conferences } from "../../../../data";
+import { breadcrumbSchema, pageSchema } from "../../lib/seo";
 
-import { conferences } from "./../../../../data";
+interface PageProps {
+  params: { id: string };
+}
 
 interface Conference {
   id: number;
@@ -27,154 +22,130 @@ interface Conference {
   imageUrl?: string;
 }
 
-const ConferenceComponent: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [conference, setConference] = useState<Conference | null>(null);
+export default function ImpactStoryDetailPage({ params }: PageProps) {
+  const conference = conferences.find(
+    (item) => item.id === Number(params.id)
+  ) as Conference | undefined;
 
-  useEffect(() => {
-    setConference(conferences[currentIndex]);
-  }, [currentIndex]);
+  if (!conference) {
+    notFound();
+  }
 
-  const nextConference = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % conferences.length);
+  const webPage = pageSchema({
+    title: conference.heading,
+    description:
+      conference.description ||
+      `Read key outcomes and highlights from ${conference.heading}.`,
+    path: `/impact-stories/${conference.id}`,
+  });
+
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Impact Stories", path: "/impact-stories" },
+    { name: conference.heading, path: `/impact-stories/${conference.id}` },
+  ]);
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: conference.heading,
+    description: conference.description || conference.title,
+    image: conference.imageUrl || "https://opf.org.in/opflogo.png",
+    author: {
+      "@type": "Organization",
+      name: "Operant Pharmacy Federation",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Operant Pharmacy Federation",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://opf.org.in/opflogo.png",
+      },
+    },
+    mainEntityOfPage: `https://opf.org.in/impact-stories/${conference.id}`,
   };
-
-  const prevConference = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + conferences.length) % conferences.length
-    );
-  };
-
-  if (!conference) return null;
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-gray-100 min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-5xl font-extrabold text-[#154c8c] mb-8 text-center"
-        >
-          {conference.heading}
-        </motion.h1>
+    <article className="bg-slate-50 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
 
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden mb-12">
-          <div className="relative h-96">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <h1 className="mb-4 text-4xl font-bold text-[#154c8c] md:text-5xl">{conference.heading}</h1>
+        <p className="mb-10 text-lg text-slate-700">{conference.title}</p>
+
+        <div className="mb-10 overflow-hidden rounded-3xl bg-white shadow">
+          <div className="relative h-[320px] w-full md:h-[420px]">
             <Image
-              src={conference.imageUrl || "/placeholder-image.jpg"}
+              src={conference.imageUrl || "/opflogo.png"}
               alt={conference.title}
-              layout="fill"
-              objectFit="cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 80vw"
+              className="object-cover"
+              priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-            <div className="absolute bottom-8 left-8 text-white">
-              <h2 className="text-4xl font-bold mb-2">{conference.title}</h2>
-              <p className="text-xl">{conference.subHeading}</p>
-            </div>
-          </div>
-
-          <div className="p-8">
-            <div className="flex flex-wrap gap-6 mb-8">
-              <div className="flex items-center text-gray-600">
-                <FaCalendar className="mr-2 text-[#80b142]" />
-                <span>{conference.date}</span>
-              </div>
-              <div className="flex items-center text-gray-600">
-                <FaMapMarkerAlt className="mr-2 text-[#80b142]" />
-                <span>{conference.collaborator}</span>
-              </div>
-              <div className="flex items-center text-gray-600">
-                <FaUsers className="mr-2 text-[#80b142]" />
-                <span>{conference.activity}</span>
-              </div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-2xl font-semibold text-[#154c8c] mb-4">
-                Description
-              </h3>
-              <p className="text-gray-700 mb-8 text-lg leading-relaxed">
-                {conference.description}
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <div>
-                  <h3 className="text-2xl font-semibold text-[#154c8c] mb-4">
-                    Objectives
-                  </h3>
-                  <ul className="space-y-2">
-                    {conference.objectives.map((objective, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start text-gray-700"
-                      >
-                        <span className="text-[#80b142] mr-2">•</span>
-                        {objective}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-semibold text-[#154c8c] mb-4">
-                    Key Takeaways
-                  </h3>
-                  <ul className="space-y-2">
-                    {conference.keyTakeaways.map((takeaway, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start text-gray-700"
-                      >
-                        <span className="text-[#80b142] mr-2">•</span>
-                        {takeaway}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-
-            <div className="bg-gray-100 p-6 rounded-xl">
-              <FaQuoteLeft className="text-4xl text-[#80b142] mb-4" />
-              <p className="text-xl text-gray-700 italic">
-                "This conference was a game-changer for our research. The
-                insights gained and connections made will undoubtedly accelerate
-                our progress in the field."
-              </p>
-              <p className="text-right text-gray-600 mt-2">
-                - Dr. Jane Smith, Lead Researcher
-              </p>
-            </div>
           </div>
         </div>
 
-        <div className="flex justify-between">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={prevConference}
-            className="bg-[#154c8c] text-white px-6 py-3 rounded-full flex items-center hover:bg-[#0f3a6d] transition-colors duration-200 shadow-lg"
-          >
-            <FaChevronLeft className="mr-2" />
-            Previous Story
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={nextConference}
-            className="bg-[#154c8c] text-white px-6 py-3 rounded-full flex items-center hover:bg-[#0f3a6d] transition-colors duration-200 shadow-lg"
-          >
-            Next Story
-            <FaChevronRight className="ml-2" />
-          </motion.button>
+        <section className="mb-8 rounded-2xl bg-white p-8 shadow-sm">
+          <h2 className="mb-3 text-2xl font-semibold text-slate-900">Conference Overview</h2>
+          <p className="leading-8 text-slate-700">
+            {conference.description ||
+              `${conference.heading} brought together pharmacy professionals to discuss innovation, evidence-driven practice, and research outcomes.`}
+          </p>
+          <div className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-3">
+            <p>
+              <strong>Date:</strong> {conference.date}
+            </p>
+            <p>
+              <strong>Partner:</strong> {conference.collaborator}
+            </p>
+            <p>
+              <strong>Activity:</strong> {conference.activity}
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8 grid gap-6 md:grid-cols-2">
+          <div className="rounded-2xl bg-white p-8 shadow-sm">
+            <h2 className="mb-3 text-2xl font-semibold text-slate-900">Objectives</h2>
+            <ul className="list-disc space-y-2 pl-5 text-slate-700">
+              {conference.objectives.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-2xl bg-white p-8 shadow-sm">
+            <h2 className="mb-3 text-2xl font-semibold text-slate-900">Key Takeaways</h2>
+            <ul className="list-disc space-y-2 pl-5 text-slate-700">
+              {conference.keyTakeaways.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <div className="flex flex-wrap gap-4">
+          <Link href="/impact-stories" className="rounded-full bg-[#154c8c] px-5 py-3 font-semibold text-white">
+            Back to Impact Stories
+          </Link>
+          <Link href="/membershipForm" className="rounded-full border border-[#154c8c] px-5 py-3 font-semibold text-[#154c8c]">
+            Join OPF
+          </Link>
         </div>
       </div>
-    </div>
+    </article>
   );
-};
-
-export default ConferenceComponent;
+}

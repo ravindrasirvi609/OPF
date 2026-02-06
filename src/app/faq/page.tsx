@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPlus, FaMinus, FaQuestionCircle } from "react-icons/fa";
+import { breadcrumbSchema, pageSchema } from "../lib/seo";
 
 const faqs = [
     {
@@ -41,9 +42,43 @@ const faqs = [
 
 const FAQPage = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(0);
+    const faqPageSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+            },
+        })),
+    };
+    const webPage = pageSchema({
+        title: "Pharmacy Membership FAQ | OPF",
+        description:
+            "Find answers about OPF membership, certifications, conferences, pharmacy research support, and healthcare training programs.",
+        path: "/faq",
+    });
+    const breadcrumbs = breadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "FAQ", path: "/faq" },
+    ]);
 
     return (
         <div className="min-h-screen bg-slate-50 py-32">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+            />
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-20">
                     <div className="inline-block px-4 py-1.5 mb-6 border border-[#154c8c]/20 rounded-full bg-[#154c8c]/5 text-[#154c8c] text-sm font-bold uppercase tracking-widest">

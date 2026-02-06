@@ -6,9 +6,30 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaPaperPlane } from "react-icons/fa";
+import { breadcrumbSchema, pageSchema } from "../lib/seo";
 
 const ContactPage = () => {
     const containerRef = useRef(null);
+    const webPage = pageSchema({
+        title: "Contact Operant Pharmacy Federation",
+        description:
+            "Contact OPF for pharmacy memberships, research collaboration, conference participation, and healthcare innovation support.",
+        path: "/contact",
+    });
+    const breadcrumbs = breadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Contact", path: "/contact" },
+    ]);
+    const contactSchema = {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        name: "Contact Operant Pharmacy Federation",
+        url: "https://opf.org.in/contact",
+        about: {
+            "@type": "Organization",
+            name: "Operant Pharmacy Federation",
+        },
+    };
 
     useGSAP(
         () => {
@@ -35,6 +56,18 @@ const ContactPage = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+            />
             {/* Page Header */}
             <section className="py-32 bg-slate-900 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E91E63]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />

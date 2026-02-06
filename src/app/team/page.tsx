@@ -108,8 +108,7 @@ const TeamPage = () => {
                                 className="team-member-card group relative bg-white rounded-[48px] overflow-hidden border border-slate-100 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] transition-all duration-500"
                             >
                                 <div className="relative aspect-[4/5] overflow-hidden">
-                                    <img
-                                        src={member.image}
+                                    <img loading="lazy" decoding="async" src={member.image}
                                         alt={member.name}
                                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
                                     />

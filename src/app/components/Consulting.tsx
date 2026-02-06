@@ -106,8 +106,7 @@ const Consulting: React.FC = () => {
 
                     <div className="relative">
                         <div className="consulting-image relative z-10 rounded-[60px] overflow-hidden shadow-2xl border-8 border-white">
-                            <img
-                                src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop"
+                            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop"
                                 alt="Pharma Research"
                                 className="w-full h-auto object-cover aspect-[4/5]"
                             />

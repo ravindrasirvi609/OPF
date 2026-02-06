@@ -31,7 +31,7 @@ const innovationItems = [
     title: "Cutting-Edge Solutions",
     description:
       "Discover innovative technologies and applications that are revolutionizing pharmacy practice, from AI-powered drug discovery to personalized medicine platforms.",
-    link: "/solutions",
+    link: "/topics/pharmacy-education",
     color: "#E91E63",
   },
   {
@@ -39,7 +39,7 @@ const innovationItems = [
     title: "Pioneering Initiatives",
     description:
       "Stay informed about groundbreaking programs and collaborations driving positive change in the industry, including our global health outreach and sustainability efforts.",
-    link: "/initiatives",
+    link: "/collaborations",
     color: "#154c8c",
   },
   {
@@ -47,7 +47,7 @@ const innovationItems = [
     title: "Transformative Insights",
     description:
       "Gain valuable perspectives on emerging trends and industry advancements shaping the future of pharmacy, backed by our comprehensive research and analytics.",
-    link: "/insights",
+    link: "/impact-stories",
     color: "#80b142",
   },
   {
@@ -55,7 +55,7 @@ const innovationItems = [
     title: "Continuous Education",
     description:
       "Access cutting-edge learning resources and professional development programs designed to keep pharmacy professionals at the forefront of their field.",
-    link: "/education",
+    link: "/topics/pharmacy-education",
     color: "#E91E63",
   },
   {
@@ -63,7 +63,7 @@ const innovationItems = [
     title: "Collaborative Networks",
     description:
       "Join a vibrant community of pharmacy professionals, researchers, and industry leaders to foster innovation and share best practices globally.",
-    link: "/network",
+    link: "/memberships",
     color: "#154c8c",
   },
   {
@@ -71,7 +71,7 @@ const innovationItems = [
     title: "Research & Development",
     description:
       "Explore our state-of-the-art R&D initiatives focused on developing next-generation pharmaceuticals and innovative drug delivery systems.",
-    link: "/research",
+    link: "/topics/clinical-research",
     color: "#80b142",
   },
 ];

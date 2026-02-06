@@ -109,8 +109,7 @@ const MemberDetails = () => {
           <div className="md:flex">
             <div className="md:flex-shrink-0 bg-gradient-to-br from-[#154c8c] to-[#80b142] p-8 text-center">
               {member.profilePictureUrl ? (
-                <img
-                  src={member.profilePictureUrl}
+                <img loading="lazy" decoding="async" src={member.profilePictureUrl}
                   alt={member.fullName}
                   className="w-48 h-48 rounded-full mx-auto border-4 border-white shadow-lg"
                 />

@@ -197,8 +197,7 @@ const MembersCardView: React.FC = () => {
                 <div className="flex items-center justify-center mb-6 relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#E91E63]/20 to-[#154c8c]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   {member.profilePictureUrl ? (
-                    <img
-                      src={member.profilePictureUrl}
+                    <img loading="lazy" decoding="async" src={member.profilePictureUrl}
                       alt={member.fullName}
                       className="relative w-28 h-28 rounded-full object-cover border-4 border-white shadow-xl group-hover:scale-110 transition-transform duration-500"
                     />

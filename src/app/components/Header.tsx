@@ -47,6 +47,7 @@ export default function Header() {
     { href: "/memberships", icon: <FaHandshake />, text: "Memberships" },
     { href: "/faq", icon: <FaFlask />, text: "FAQ" },
     { href: "/contact", icon: <FaEnvelope />, text: "Contact" },
+    { href: "/topics", icon: <FaBookOpen />, text: "Topics" },
   ];
 
   return (

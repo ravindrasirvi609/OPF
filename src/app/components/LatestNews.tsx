@@ -94,8 +94,7 @@ const LatestNews: React.FC = () => {
                             className="news-card group bg-white rounded-[40px] overflow-hidden border border-slate-100 hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] transition-all duration-500"
                         >
                             <div className="relative h-64 overflow-hidden">
-                                <img
-                                    src={item.image}
+                                <img loading="lazy" decoding="async" src={item.image}
                                     alt={item.title}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 />
@@ -115,7 +114,7 @@ const LatestNews: React.FC = () => {
                                     {item.excerpt}
                                 </p>
                                 <Link
-                                    href="#"
+                                    href="/impact-stories"
                                     className="inline-flex items-center gap-2 text-slate-900 font-bold group-hover:gap-4 transition-all duration-300"
                                 >
                                     Read More <FaArrowRight className="text-[#E91E63]" />

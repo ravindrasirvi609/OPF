@@ -33,10 +33,10 @@ export default function Footer() {
               A great platform for pharmaceutical networking with great mentors. Powered by researchers for researchers.
             </p>
             <div className="flex space-x-5">
-              <SocialIcon href="#" icon={<FaFacebook />} />
-              <SocialIcon href="#" icon={<FaTwitter />} />
-              <SocialIcon href={<FaLinkedin />} icon={<FaLinkedin />} />
-              <SocialIcon href="#" icon={<FaInstagram />} />
+              <SocialIcon href="https://www.facebook.com/" icon={<FaFacebook />} />
+              <SocialIcon href="https://x.com/" icon={<FaTwitter />} />
+              <SocialIcon href="https://www.linkedin.com/" icon={<FaLinkedin />} />
+              <SocialIcon href="https://www.instagram.com/" icon={<FaInstagram />} />
             </div>
           </div>
 
@@ -48,6 +48,7 @@ export default function Footer() {
               <FooterLink href="/team" text="Advisers" />
               <FooterLink href="/members" text="Members" />
               <FooterLink href="/faq" text="FAQ" />
+              <FooterLink href="/topics" text="Topics" />
             </ul>
           </div>
 

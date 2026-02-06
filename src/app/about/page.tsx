@@ -96,8 +96,7 @@ const AboutPage = () => {
                         </div>
                         <div className="about-anim relative">
                             <div className="rounded-[40px] overflow-hidden shadow-2xl border-8 border-white">
-                                <img
-                                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070"
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070"
                                     alt="Research Excellence"
                                     className="w-full h-auto object-cover aspect-video"
                                 />

@@ -133,8 +133,7 @@ const AboutOpf = () => {
           <div className="lg:col-span-7 relative">
             <div className="about-image-mask absolute inset-0 bg-slate-900 z-10" />
             <div className="rounded-[40px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
-              <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070"
+              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070"
                 alt="Lab Research"
                 className="w-full h-[400px] object-cover"
               />

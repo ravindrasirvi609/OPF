@@ -1,7 +1,37 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-       images: {
-    domains: ['placehold.co', 'firebasestorage.googleapis.com', 'res.cloudinary.com', 'plus.unsplash.com', 'images.unsplash.com', 'www.obrf.org.in'],
+  compress: true,
+  poweredByHeader: false,
+  reactStrictMode: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 120,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.obrf.org.in",
+      },
+    ],
   },
 };
 

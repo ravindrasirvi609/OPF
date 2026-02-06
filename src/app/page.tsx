@@ -10,24 +10,42 @@ import Consulting from "./components/Consulting";
 import CoreValues from "./components/CoreValues";
 import FoundersMessage from "./components/FoundersMessage";
 import LatestNews from "./components/LatestNews";
+import { breadcrumbSchema, buildMetadata, pageSchema } from "./lib/seo";
 
-export const metadata: Metadata = {
-  title: "Operant Pharmacy Federation - Advancing Pharmacy Through Innovation",
+export const metadata: Metadata = buildMetadata({
+  title: "Pharmacy Research and Innovation Network",
   description:
-    "Discover groundbreaking pharmaceutical research and innovations at Operant Pharmacy Federation. Join us in shaping the future of pharmacy.",
+    "Join Operant Pharmacy Federation for pharmaceutical research, conferences, pharmacy education, and global healthcare collaborations.",
+  path: "/",
   keywords: [
-    "pharmacy",
-    "research",
-    "innovation",
-    "pharmaceutical",
-    "drug development",
+    "pharmacy federation india",
+    "pharmaceutical research organization",
+    "pharmacy conferences",
+    "drug safety and pharmacovigilance",
   ],
-};
+});
 
 export default function Home() {
+  const webPage = pageSchema({
+    title: "Pharmacy Research and Innovation Network",
+    description:
+      "Join Operant Pharmacy Federation for pharmaceutical research, conferences, pharmacy education, and global healthcare collaborations.",
+    path: "/",
+  });
+
+  const breadcrumbs = breadcrumbSchema([{ name: "Home", path: "/" }]);
+
   return (
     <>
-      <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+      <section>
         <Hero />
         <AboutOpf />
         <Pillars />
@@ -39,7 +57,7 @@ export default function Home() {
         <FoundersMessage />
         <LatestNews />
         <ContactCTA />
-      </main>
+      </section>
     </>
   );
 }

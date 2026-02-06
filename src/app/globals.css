@@ -106,3 +106,11 @@ html.lenis {
     @apply bg-background text-foreground;
   }
 }
+
+img {
+  height: auto;
+}
+
+section {
+  scroll-margin-top: 96px;
+}

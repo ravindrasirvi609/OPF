@@ -294,11 +294,11 @@ const Memberships: React.FC = () => {
                   <div className="relative h-64 w-full overflow-hidden">
                     <Image
                       src={
-                        member.profilePictureUrl || "/images/placeholder.jpg"
+                        member.profilePictureUrl || "/opflogo.png"
                       }
                       alt={member.fullName}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
                       className="group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />

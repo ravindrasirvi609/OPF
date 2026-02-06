@@ -170,10 +170,10 @@ const ImpactStories: React.FC = () => {
                 <div className="relative h-56 w-full overflow-hidden">
                   <div className="image-mask absolute inset-0 bg-slate-900 z-10" />
                   <Image
-                    src={conference.imageUrl || "/placeholder-image.jpg"}
+                    src={conference.imageUrl || "/opflogo.png"}
                     alt={conference.heading}
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
                     className="group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-[5]" />

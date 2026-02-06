@@ -90,8 +90,7 @@ export default function PartnersShowcase() {
               className="flex-shrink-0 w-64 p-8 rounded-[32px] bg-slate-50 border border-slate-100 flex flex-col items-center justify-center group hover:bg-white hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500"
             >
               <div className="h-20 w-full flex items-center justify-center mb-6 grayscale group-hover:grayscale-0 transition-all duration-500">
-                <img
-                  src={partner.logo}
+                <img loading="lazy" decoding="async" src={partner.logo}
                   alt={partner.name}
                   className="max-h-full max-w-full object-contain"
                 />

@@ -540,8 +540,7 @@ const MembershipForm: React.FC = () => {
                 {formData.profilePicture ? (
                   <div className="flex flex-col items-center justify-center">
                     <div className="relative mb-4">
-                      <img
-                        src={URL.createObjectURL(formData.profilePicture)}
+                      <img loading="lazy" decoding="async" src={URL.createObjectURL(formData.profilePicture)}
                         alt="Profile Picture"
                         className="w-32 h-32 rounded-full object-cover border-4 border-white/20 shadow-2xl"
                       />
