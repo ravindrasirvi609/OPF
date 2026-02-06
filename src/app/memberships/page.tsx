@@ -90,13 +90,25 @@ const Memberships: React.FC = () => {
     () => {
       if (headingRef.current) {
         const headingSplit = new SplitType(headingRef.current, {
-          types: "chars,words",
+          types: "words,chars",
         });
 
+        // Ensure gradient is handled correctly after splitting
+        // We target the words/chars inside the span that had the gradient
         gsap.fromTo(
           headingSplit.chars,
           { y: 100, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.03, duration: 1, ease: "expo.out" }
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.03,
+            duration: 1,
+            ease: "expo.out",
+            onComplete: () => {
+              // Sometimes SplitType needs a little help with gradients after animation
+              gsap.set(headingSplit.chars, { clearProps: "transform" });
+            }
+          }
         );
 
         // Benefit cards animation
@@ -118,24 +130,27 @@ const Memberships: React.FC = () => {
           }
         );
 
-        // Member cards animation
-        gsap.fromTo(
-          ".member-showcase-card",
-          { y: 80, opacity: 0, rotateY: -15 },
-          {
-            scrollTrigger: {
-              trigger: ".members-showcase",
-              start: "top 75%",
-              toggleActions: "play none none none",
-            },
-            y: 0,
-            opacity: 1,
-            rotateY: 0,
-            stagger: 0.12,
-            duration: 1.2,
-            ease: "expo.out",
-          }
-        );
+        // Member cards animation - Search within context to be precise
+        const cards = gsap.utils.toArray(".member-showcase-card");
+        if (cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { y: 80, opacity: 0, rotateY: -15 },
+            {
+              scrollTrigger: {
+                trigger: ".members-showcase",
+                start: "top 75%",
+                toggleActions: "play none none none",
+              },
+              y: 0,
+              opacity: 1,
+              rotateY: 0,
+              stagger: 0.12,
+              duration: 1.2,
+              ease: "expo.out",
+            }
+          );
+        }
 
         // Floating backgrounds
         gsap.to(".float-membership", {
@@ -274,7 +289,7 @@ const Memberships: React.FC = () => {
                 <motion.div
                   key={member.membershipId}
                   whileHover={{ scale: 1.05 }}
-                  className="member-showcase-card opacity-0 group bg-white rounded-[32px] shadow-lg overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 border border-slate-100"
+                  className="member-showcase-card group bg-white rounded-[32px] shadow-lg overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 border border-slate-100"
                 >
                   <div className="relative h-64 w-full overflow-hidden">
                     <Image
