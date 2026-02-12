@@ -14,6 +14,7 @@ import {
   organizationSchema,
   websiteSchema,
 } from "./lib/seo";
+import { Analytics } from "@vercel/analytics/next";
 
 const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 
@@ -109,6 +110,7 @@ export default function RootLayout({
             <Footer />
           </footer>
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );
