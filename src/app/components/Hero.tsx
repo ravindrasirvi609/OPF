@@ -177,7 +177,7 @@ export default function Hero() {
             className="relative z-10 rounded-[40px] overflow-hidden shadow-2xl skew-y-3 hover:skew-y-0 transition-transform duration-700 opacity-0 border-4 border-white/10"
           >
             <Image
-              src="https://images.unsplash.com/photo-1576086216120-458159a99841?auto=format&fit=crop&q=80&w=2070"
+              src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Innovative Pharmacy Research"
               width={800}
               height={1000}
