@@ -1,99 +1,101 @@
 "use client";
 
+import { ArrowUpRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import Link from "next/link";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaLinkedin,
-  FaInstagram,
-  FaArrowUp,
-  FaEnvelope,
-  FaPhoneAlt,
-  FaMapMarkerAlt
-} from "react-icons/fa";
+
+const siteLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/team", label: "Advisers" },
+  { href: "/innovations", label: "Innovations" },
+  { href: "/memberships", label: "Memberships" },
+  { href: "/topics", label: "Topics" },
+];
+
+const legalLinks = [
+  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/refund", label: "Refund Policy" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <footer className="bg-slate-900 text-white pt-24 pb-12 overflow-hidden relative">
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E91E63]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+    <footer className="relative overflow-hidden bg-slate-950 text-slate-100">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[8%] top-0 h-64 w-64 rounded-full bg-[#1095c1]/20 blur-3xl" />
+        <div className="absolute bottom-0 right-[10%] h-72 w-72 rounded-full bg-[#eb6a2a]/20 blur-3xl" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-20">
-          <div className="md:col-span-4">
-            <div className="text-3xl font-bold mb-8 flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-tr from-[#E91E63] to-[#154c8c] rounded-xl" />
-              OPF
-            </div>
-            <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-sm">
-              A great platform for pharmaceutical networking with great mentors. Powered by researchers for researchers.
+      <div className="section-shell relative z-10 py-16 md:py-20">
+        <div className="mb-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <p className="font-display text-2xl font-semibold">Operant Pharmacy Federation</p>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-300">
+              A global platform where pharmacy professionals, researchers, and institutions collaborate to build practical healthcare impact.
             </p>
-            <div className="flex space-x-5">
-              <SocialIcon href="https://www.facebook.com/" icon={<FaFacebook />} />
-              <SocialIcon href="https://x.com/" icon={<FaTwitter />} />
-              <SocialIcon href="https://www.linkedin.com/" icon={<FaLinkedin />} />
-              <SocialIcon href="https://www.instagram.com/" icon={<FaInstagram />} />
+            <div className="mt-6 flex items-center gap-3">
+              <SocialLink href="https://www.linkedin.com" label="LinkedIn" icon={<Linkedin size={16} />} />
+              <SocialLink href="https://x.com" label="X" icon={<Twitter size={16} />} />
+              <SocialLink href="https://www.instagram.com" label="Instagram" icon={<Instagram size={16} />} />
+              <SocialLink href="https://www.facebook.com" label="Facebook" icon={<Facebook size={16} />} />
             </div>
           </div>
 
-          <div className="md:col-span-2">
-            <h4 className="text-sm font-bold uppercase tracking-widest text-[#E91E63] mb-8">Navigation</h4>
-            <ul className="space-y-4">
-              <FooterLink href="/" text="Home" />
-              <FooterLink href="/about" text="About Us" />
-              <FooterLink href="/team" text="Advisers" />
-              <FooterLink href="/members" text="Members" />
-              <FooterLink href="/faq" text="FAQ" />
-              <FooterLink href="/topics" text="Topics" />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Explore</p>
+            <ul className="mt-5 space-y-3">
+              {siteLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-slate-300 transition hover:text-white">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="md:col-span-2">
-            <h4 className="text-sm font-bold uppercase tracking-widest text-[#E91E63] mb-8">Legal</h4>
-            <ul className="space-y-4">
-              <FooterLink href="/terms" text="Terms & Conditions" />
-              <FooterLink href="/privacy" text="Privacy Policy" />
-              <FooterLink href="/refund" text="Refund Policy" />
-              <FooterLink href="/contact" text="Contact Us" />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Legal</p>
+            <ul className="mt-5 space-y-3">
+              {legalLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-slate-300 transition hover:text-white">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="md:col-span-4">
-            <h4 className="text-sm font-bold uppercase tracking-widest text-[#E91E63] mb-8">Contact Us</h4>
-            <ul className="space-y-6">
-              <li className="flex items-start gap-4 text-slate-400 hover:text-white transition-colors duration-300">
-                <FaMapMarkerAlt className="mt-1 text-[#154c8c]" />
-                <span>Shradhawan Tower, Mayank Nagar,<br />Pali - Marwar, Rajasthan - 306401</span>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Contact</p>
+            <ul className="mt-5 space-y-4 text-sm text-slate-300">
+              <li className="flex items-start gap-3">
+                <MapPin size={16} className="mt-0.5 text-[#1095c1]" />
+                <span>Shradhawan Tower, Mayank Nagar, Pali - Marwar, Rajasthan - 306401</span>
               </li>
-              <li className="flex items-center gap-4 text-slate-400 hover:text-white transition-colors duration-300">
-                <FaPhoneAlt className="text-[#154c8c]" />
+              <li className="flex items-center gap-3">
+                <Phone size={16} className="text-[#1095c1]" />
                 <span>+91 94609 71652</span>
               </li>
-              <li className="flex items-center gap-4 text-slate-400 hover:text-white transition-colors duration-300">
-                <FaEnvelope className="text-[#154c8c]" />
+              <li className="flex items-center gap-3">
+                <Mail size={16} className="text-[#1095c1]" />
                 <span>contact@opf.org.in</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-12 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} Operant Pharmacy Federation. Crafted with excellence.
-          </p>
-
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-slate-800 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center">
+          <p>&copy; {new Date().getFullYear()} Operant Pharmacy Federation. All rights reserved.</p>
           <button
-            onClick={scrollToTop}
-            className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors duration-300"
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="inline-flex items-center gap-1 rounded-full border border-slate-700 px-4 py-2 font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900"
           >
             Back to top
-            <div className="w-10 h-10 border border-slate-700 rounded-full flex items-center justify-center group-hover:bg-[#E91E63] group-hover:border-[#E91E63] transition-all duration-300">
-              <FaArrowUp />
-            </div>
+            <ArrowUpRight size={14} />
           </button>
         </div>
       </div>
@@ -101,26 +103,14 @@ export default function Footer() {
   );
 }
 
-function FooterLink({ href, text }: { href: string; text: string }) {
-  return (
-    <li>
-      <Link
-        href={href}
-        className="text-slate-400 hover:text-white transition-colors duration-300 text-lg font-medium"
-      >
-        {text}
-      </Link>
-    </li>
-  );
-}
-
-function SocialIcon({ href, icon }: { href: any; icon: React.ReactNode }) {
+function SocialLink({ href, label, icon }: { href: string; label: string; icon: React.ReactNode }) {
   return (
     <Link
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-12 h-12 border border-slate-800 rounded-2xl flex items-center justify-center text-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-300"
+      aria-label={label}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-700 bg-slate-900/70 text-slate-200 transition hover:border-[#1095c1] hover:text-white"
     >
       {icon}
     </Link>

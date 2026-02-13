@@ -1,114 +1,97 @@
 "use client";
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaProjectDiagram, FaUserTie, FaUsers, FaGlobe } from "react-icons/fa";
-import { useGSAP } from "@gsap/react";
+import { motion, animate, useMotionValue, useTransform, useInView } from "framer-motion";
+import { BriefcaseBusiness, Globe2, Users, Microscope } from "lucide-react";
+import { useEffect, useRef } from "react";
 
+const stats = [
+  { label: "Successful Projects", value: 50, icon: Microscope },
+  { label: "Expert Consultants", value: 30, icon: BriefcaseBusiness },
+  { label: "Community Members", value: 150, icon: Users },
+  { label: "Countries Reached", value: 15, icon: Globe2 },
+];
 
-interface StatItemProps {
-  icon: React.ReactNode;
-  value: number;
-  label: string;
-  suffix?: string;
-}
-
-const StatItem: React.FC<StatItemProps> = ({ icon, value, label, suffix = "+" }) => {
-  const counterRef = useRef<HTMLSpanElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    const counter = counterRef.current;
-
-    gsap.fromTo(counter,
-      { innerHTML: 0 },
-      {
-        innerHTML: value,
-        duration: 2.5,
-        ease: "power2.out",
-        snap: { innerHTML: 1 },
-        scrollTrigger: {
-          trigger: counter,
-          start: "top 95%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    gsap.fromTo(containerRef.current,
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 90%",
-          toggleActions: "play none none none",
-        }
-      }
-    );
-  }, { scope: containerRef, dependencies: [value] });
-
+export default function Statistics() {
   return (
-    <div
-      ref={containerRef}
-      className="group opacity-0 relative p-10 rounded-[40px] bg-white border border-slate-100 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden"
-    >
-      <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500 transform group-hover:scale-110">
-        <div className="text-8xl">{icon}</div>
-      </div>
-
-      <div className="relative z-10">
-        <div className="text-4xl mb-6 text-[#E91E63] group-hover:scale-110 transition-transform duration-500 origin-left inline-block">
-          {icon}
-        </div>
-        <div className="text-5xl font-bold text-slate-900 mb-2 tracking-tight">
-          <span ref={counterRef}>0</span>{suffix}
-        </div>
-        <div className="text-sm font-bold text-slate-400 uppercase tracking-widest leading-loose">
-          {label}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Statistics: React.FC = () => {
-  const stats = [
-    { icon: <FaProjectDiagram />, value: 50, label: "Successful Projects" },
-    { icon: <FaUserTie />, value: 30, label: "Expert Consultants" },
-    { icon: <FaUsers />, value: 150, label: "Team Members" },
-    { icon: <FaGlobe />, value: 15, label: "Countries Reached" },
-  ];
-
-  return (
-    <section className="py-32 bg-[#fafafa]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
-          <div className="lg:col-span-6">
-            <h2 className="text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-              Making a Global <br />
-              <span className="text-gradient">Impact</span>
+    <section className="section-pad bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]">
+      <div className="section-shell">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55 }}
+          className="mb-10 grid gap-5 lg:grid-cols-2"
+        >
+          <div>
+            <span className="pill-tag">Impact</span>
+            <h2 className="mt-5 text-4xl font-semibold text-slate-900 md:text-5xl">
+              Measurable Outcomes,
+              <span className="text-gradient"> Global Reach</span>
             </h2>
           </div>
-          <div className="lg:col-span-6">
-            <p className="text-xl text-slate-600 leading-relaxed">
-              Our reach extends across continents, fostering a community of dedicated researchers and healthcare professionals committed to excellence.
-            </p>
-          </div>
-        </div>
+          <p className="max-w-2xl self-end text-base leading-relaxed text-slate-600">
+            Our programs combine mentorship, research quality, and collaboration to drive consistent growth for professionals and institutions worldwide.
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <StatItem key={index} {...stat} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat, idx) => (
+            <StatCard key={stat.label} stat={stat} delay={idx * 0.06} />
           ))}
         </div>
       </div>
     </section>
   );
-};
+}
 
-export default Statistics;
+function StatCard({
+  stat,
+  delay,
+}: {
+  stat: {
+    label: string;
+    value: number;
+    icon: React.ComponentType<{ size?: string | number; className?: string }>;
+  };
+  delay: number;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, amount: 0.55 });
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.floor(latest));
+
+  useEffect(() => {
+    if (!inView) {
+      return;
+    }
+
+    const controls = animate(count, stat.value, {
+      duration: 1.8,
+      ease: "easeOut",
+      delay,
+    });
+
+    return () => controls.stop();
+  }, [count, delay, inView, stat.value]);
+
+  const Icon = stat.icon;
+
+  return (
+    <motion.article
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.5, delay }}
+      className="surface-card rounded-3xl p-6"
+    >
+      <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-slate-900 text-white">
+        <Icon size={18} />
+      </div>
+      <p className="mt-4 font-display text-5xl font-semibold text-slate-900">
+        <motion.span>{rounded}</motion.span>+
+      </p>
+      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{stat.label}</p>
+    </motion.article>
+  );
+}

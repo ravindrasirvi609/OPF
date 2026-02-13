@@ -1,106 +1,77 @@
 "use client";
 
-import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaQuoteLeft } from "react-icons/fa";
 import Image from "next/image";
 
-const FoundersMessage: React.FC = () => {
-    const containerRef = useRef(null);
+const sectionBackground =
+  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1800";
 
-    useGSAP(
-        () => {
-            gsap.registerPlugin(ScrollTrigger);
+export default function FoundersMessage() {
+  return (
+    <section className="relative isolate overflow-hidden py-20 md:py-28">
+      <div className="absolute inset-0 -z-20">
+        <Image
+          src={sectionBackground}
+          alt="Blurred medical research lab backdrop"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 -z-10 bg-[#091831]/84" />
 
-            gsap.fromTo(".founder-image-container",
-                { x: -100, opacity: 0 },
-                {
-                    x: 0,
-                    opacity: 1,
-                    duration: 1.5,
-                    ease: "power4.out",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-
-            gsap.fromTo(".founder-text",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    stagger: 0.1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 70%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        },
-        { scope: containerRef }
-    );
-
-    return (
-        <section ref={containerRef} className="py-24 bg-slate-900 text-white overflow-hidden relative">
-            {/* Background Decor */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#E91E63]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#154c8c]/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                    <div className="lg:col-span-5 founder-image-container">
-                        <div className="relative">
-                            <div className="aspect-[4/5] rounded-[40px] overflow-hidden border-2 border-slate-700 p-2">
-                                <Image
-                                    src="/founder.png"
-                                    alt="Founder & Director"
-                                    className="w-full h-full object-cover rounded-[32px]"
-                                    width={500}
-                                    height={500}
-                                />
-                            </div>
-                            <div className="absolute -bottom-8 -right-8 bg-white p-8 rounded-[32px] shadow-2xl hidden md:block">
-                                <p className="text-[#E91E63] font-bold text-lg mb-1">Vikram Choudhary</p>
-                                <p className="text-slate-500 text-sm font-medium">Founder & Director, OPF</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="lg:col-span-7">
-                        <FaQuoteLeft className="text-6xl text-[#E91E63]/30 mb-8 founder-text" />
-                        <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight founder-text">
-                            Leading the <span className="text-gradient">Pharmacy Revolution</span>
-                        </h2>
-                        <div className="space-y-6 text-xl text-slate-300 leading-relaxed founder-text">
-                            <p>
-                                "At Operant Pharmacy Federation, our mission is to empower pharmacy professionals with the knowledge and resources they need to excel in an ever-changing healthcare landscape."
-                            </p>
-                            <p>
-                                "We believe that through collaboration and innovation, we can bridge the gap between academic research and industrial application, ultimately leading to better patient outcomes and a more efficient pharmaceutical ecosystem."
-                            </p>
-                            <p>
-                                "Our federation is not just an organization; it's a movement dedicated to the advancement of pharmaceutical sciences and the professional growth of every member who joins us in this journey."
-                            </p>
-                        </div>
-
-                        <div className="mt-12 pt-12 border-t border-slate-800 founder-text">
-                            <p className="font-bold text-2xl mb-2">Vikram Choudhary</p>
-                            <p className="text-[#E91E63] font-medium tracking-widest uppercase text-sm">Founder & Director</p>
-                        </div>
-                    </div>
-                </div>
+      <div className="section-shell">
+        <div className="grid items-center gap-10 lg:grid-cols-12">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5"
+          >
+            <div className="surface-card rounded-[2rem] p-4">
+              <div className="relative h-[440px] overflow-hidden rounded-[1.5rem]">
+                <Image
+                  src="/founder.png"
+                  alt="Vikram Choudhary, Founder and Director of OPF"
+                  fill
+                  sizes="(min-width: 1024px) 32vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
-        </section>
-    );
-};
+          </motion.div>
 
-export default FoundersMessage;
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-7"
+          >
+            <span className="pill-tag border-white/25 bg-white/10 text-white">Founder&apos;s Message</span>
+            <h2 className="mt-5 text-balance text-4xl font-semibold text-white md:text-5xl">
+              Leading a Collaborative Future for
+              <span className="text-gradient"> Pharmaceutical Science</span>
+            </h2>
+            <blockquote className="mt-6 space-y-5 text-base leading-relaxed text-slate-200 md:text-lg">
+              <p>
+                &ldquo;OPF was built to empower pharmacy professionals with practical pathways for research, publication, and leadership in healthcare innovation.&rdquo;
+              </p>
+              <p>
+                &ldquo;By connecting academic rigor with industry relevance, we help our members produce work that improves systems, policies, and patient outcomes.&rdquo;
+              </p>
+              <p>
+                &ldquo;This is a long-term movement focused on raising standards and creating opportunities for every committed learner and researcher.&rdquo;
+              </p>
+            </blockquote>
+            <div className="mt-8 border-t border-white/20 pt-6">
+              <p className="font-display text-3xl font-semibold text-white">Vikram Choudhary</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Founder & Director, OPF</p>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,151 +1,167 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaPlus, FaMinus, FaQuestionCircle } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, MessageCircleQuestion } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import PageHero from "../components/PageHero";
 import { breadcrumbSchema, pageSchema } from "../lib/seo";
 
 const faqs = [
-    {
-        question: "Is OPF a pharmaceutical manufacturing company?",
-        answer: "No, Operant Pharmacy Federation (OPF) is not a manufacturing company nor a government body. It is an academic and research-oriented professional platform focused on education and scientific growth.",
-    },
-    {
-        question: "Who can join the Operant Pharmacy Federation?",
-        answer: "OPF is ideal for pharmacy students (D.Pharm, B.Pharm, M.Pharm, Pharm.D), pharma company professionals, healthcare researchers, PhD scholars, and anyone interested in pharmaceutical publications and conferences.",
-    },
-    {
-        question: "Does OPF organize conferences?",
-        answer: "Yes, we organize national and international conferences, webinars, seminars, and workshops on topics like drug development, clinical research, biotechnology, and healthcare innovation.",
-    },
-    {
-        question: "How can I become a member of OPF?",
-        answer: "You can apply for membership through our 'Memberships' page. We offer various tiers including Student, Professional, and Corporate memberships, each with unique benefits and access to our global network.",
-    },
-    {
-        question: "What research support does OPF provide?",
-        answer: "OPF provides guidance on research methodology, support for journal publications, access to specialized drug specialist advisors, and opportunities to showcase innovations at international exhibitions.",
-    },
-    {
-        question: "Are OPF certifications recognized internationally?",
-        answer: "Yes, our certifications and training programs are designed in collaboration with industry experts and academic leaders, making them highly valued by pharmaceutical companies and health organizations worldwide.",
-    },
-    {
-        question: "Can I contribute as a drug specialist or advisor?",
-        answer: "Absolutely. We are always looking for experts to join our advisory board. You can contact us through the 'Team' page or the 'Contact' form to express your interest.",
-    },
-    {
-        question: "What is the India Pharma Expo 2026?",
-        answer: "It is a signature event organized by OPF to showcase the latest innovations in pharmaceutical technology, drug delivery systems, and healthcare solutions, bringing together industry leaders from across the globe.",
-    },
+  {
+    question: "Is OPF a pharmaceutical manufacturing company?",
+    answer:
+      "No. Operant Pharmacy Federation is a professional and academic platform focused on pharmacy education, research, publication support, and collaboration programs.",
+  },
+  {
+    question: "Who can apply for OPF membership?",
+    answer:
+      "Pharmacy students, research scholars, faculty members, clinical professionals, and industry practitioners can apply, depending on the membership plan.",
+  },
+  {
+    question: "How does OPF support research publication?",
+    answer:
+      "OPF offers mentorship sessions, writing guidance, scientific presentation support, and networking opportunities through events and expert-led programs.",
+  },
+  {
+    question: "Does OPF conduct conferences and training events?",
+    answer:
+      "Yes. OPF organizes conferences, workshops, webinars, and collaborative events covering pharmacovigilance, clinical research, and innovation topics.",
+  },
+  {
+    question: "Are membership benefits available for students?",
+    answer:
+      "Yes. Student members receive learning resources, event opportunities, and guided pathways for professional development and research visibility.",
+  },
+  {
+    question: "How can institutions collaborate with OPF?",
+    answer:
+      "Institutions can contact OPF for academic partnerships, conference collaboration, and co-developed initiatives in pharmacy education and research.",
+  },
+  {
+    question: "How can I verify a membership profile?",
+    answer:
+      "Use the members section and profile details available on the website, or contact OPF support for official verification-related queries.",
+  },
+  {
+    question: "What is the best way to contact OPF support?",
+    answer:
+      "Use the contact page form or email support directly. Include your concern category for faster response, such as membership, collaboration, or events.",
+  },
 ];
 
-const FAQPage = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(0);
-    const faqPageSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: faqs.map((faq) => ({
-            "@type": "Question",
-            name: faq.question,
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: faq.answer,
-            },
-        })),
-    };
-    const webPage = pageSchema({
-        title: "Pharmacy Membership FAQ | OPF",
-        description:
-            "Find answers about OPF membership, certifications, conferences, pharmacy research support, and healthcare training programs.",
-        path: "/faq",
-    });
-    const breadcrumbs = breadcrumbSchema([
-        { name: "Home", path: "/" },
-        { name: "FAQ", path: "/faq" },
-    ]);
+export default function FAQPage() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
-    return (
-        <div className="min-h-screen bg-slate-50 py-32">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
-            />
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-20">
-                    <div className="inline-block px-4 py-1.5 mb-6 border border-[#154c8c]/20 rounded-full bg-[#154c8c]/5 text-[#154c8c] text-sm font-bold uppercase tracking-widest">
-                        Support
-                    </div>
-                    <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8">
-                        Frequently Asked <span className="text-gradient">Questions</span>
-                    </h1>
-                    <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-                        Everything you need to know about the federation, memberships, and our initiatives.
-                    </p>
-                </div>
+  const faqPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
 
-                <div className="space-y-6">
-                    {faqs.map((faq, index) => (
-                        <div
-                            key={index}
-                            className="bg-white rounded-[32px] border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-                        >
-                            <button
-                                onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                                className="w-full px-8 py-8 flex items-center justify-between text-left group"
-                            >
-                                <div className="flex items-center gap-6">
-                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-colors ${activeIndex === index ? 'bg-[#E91E63] text-white' : 'bg-slate-50 text-slate-400 group-hover:bg-slate-100'}`}>
-                                        <FaQuestionCircle />
-                                    </div>
-                                    <span className="text-xl font-bold text-slate-900">{faq.question}</span>
-                                </div>
-                                <div className={`text-2xl transition-transform duration-300 ${activeIndex === index ? 'rotate-180 text-[#E91E63]' : 'text-slate-300'}`}>
-                                    {activeIndex === index ? <FaMinus /> : <FaPlus />}
-                                </div>
-                            </button>
+  const webPage = pageSchema({
+    title: "Pharmacy Membership FAQ | OPF",
+    description:
+      "Find clear answers about OPF membership plans, pharmacy conferences, research publishing support, and collaboration opportunities.",
+    path: "/faq",
+  });
 
-                            <AnimatePresence>
-                                {activeIndex === index && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                                    >
-                                        <div className="px-24 pb-10 text-lg text-slate-600 leading-relaxed border-t border-slate-50 pt-8">
-                                            {faq.answer}
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    ))}
-                </div>
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "FAQ", path: "/faq" },
+  ]);
 
-                {/* CTA section */}
-                <div className="mt-24 p-12 rounded-[48px] bg-slate-900 text-white text-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#E91E63]/20 rounded-full blur-[100px]" />
-                    <h3 className="text-3xl font-bold mb-6 relative z-10">Still have questions?</h3>
-                    <p className="text-slate-400 mb-10 relative z-10">We're here to help you. Reach out to our support team for more details.</p>
-                    <a
-                        href="/contact"
-                        className="inline-block px-10 py-5 bg-white text-slate-900 rounded-[20px] font-bold hover:bg-[#E91E63] hover:text-white transition-all relative z-10"
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+      />
+
+      <PageHero
+        tag="FAQ"
+        title="Frequently Asked Questions About OPF Membership and Programs"
+        description="Explore the most common questions about OPF membership eligibility, conferences, publication support, and collaboration workflows."
+        image="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=2000"
+        alt="Pharmacy experts in a support and guidance discussion"
+        actions={[
+          { href: "/membershipForm", label: "Apply for Membership" },
+          { href: "/contact", label: "Contact Support", variant: "secondary" },
+        ]}
+      />
+
+      <section className="section-pad">
+        <div className="section-shell grid gap-4">
+          {faqs.map((faq, index) => {
+            const isOpen = index === activeIndex;
+            return (
+              <article key={faq.question} className="surface-card rounded-3xl">
+                <button
+                  type="button"
+                  onClick={() => setActiveIndex(isOpen ? null : index)}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-6"
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white">
+                      <MessageCircleQuestion size={16} />
+                    </span>
+                    <h2 className="text-lg font-semibold text-slate-900 sm:text-xl">{faq.question}</h2>
+                  </div>
+                  <ChevronDown
+                    size={20}
+                    className={`flex-shrink-0 text-slate-500 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
                     >
-                        Contact Support
-                    </a>
-                </div>
-            </div>
+                      <div className="border-t border-slate-200 px-5 py-5 text-sm leading-relaxed text-slate-700 sm:px-6 sm:text-base">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </article>
+            );
+          })}
         </div>
-    );
-};
+      </section>
 
-export default FAQPage;
+      <section className="pb-20 md:pb-28">
+        <div className="section-shell">
+          <div className="surface-card rounded-[2rem] px-6 py-8 text-center">
+            <h2 className="text-3xl font-semibold text-slate-900">Need Personalized Guidance?</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+              If your question is specific to your profile, institution, or project, contact us directly and our team will guide you.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link href="/contact" className="rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white">
+                Talk to Support
+              </Link>
+              <Link href="/topics" className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900">
+                Browse Topic Hubs
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

@@ -1,166 +1,201 @@
-"use client";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Award,
+  FlaskConical,
+  GraduationCap,
+  Handshake,
+  Microscope,
+  Stethoscope,
+  Users,
+} from "lucide-react";
+import PageHero from "../components/PageHero";
 
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaLinkedin, FaEnvelope, FaTwitter, FaMicroscope, FaStethoscope, FaFlask } from "react-icons/fa";
+const team = [
+  {
+    name: "Dr. Vikram Choudhary",
+    role: "Founder & Director",
+    focus: "Pharmacovigilance and research ecosystem development",
+    image:
+      "https://images.unsplash.com/photo-1556157382-97dee2dcb0b7?auto=format&fit=crop&q=80&w=1400",
+    icon: Microscope,
+  },
+  {
+    name: "Dr. Sarah Jenkins",
+    role: "Global Strategy Advisor",
+    focus: "Drug development and cross-border innovation partnerships",
+    image:
+      "https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=1400",
+    icon: FlaskConical,
+  },
+  {
+    name: "Prof. Rajesh Kumar",
+    role: "Academic Relations",
+    focus: "Pharmacy education and curriculum strengthening",
+    image:
+      "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1400",
+    icon: GraduationCap,
+  },
+  {
+    name: "Dr. Elena Rodriguez",
+    role: "Research Head",
+    focus: "Biotechnology translation and evidence-based programs",
+    image:
+      "https://images.unsplash.com/photo-1594824813573-c46fe3bb92df?auto=format&fit=crop&q=80&w=1400",
+    icon: Award,
+  },
+  {
+    name: "Michael Chen",
+    role: "Industry Liaison",
+    focus: "Clinical partnership operations and collaboration planning",
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=1400",
+    icon: Stethoscope,
+  },
+  {
+    name: "Dr. Amita Singh",
+    role: "Regulatory Consultant",
+    focus: "Quality systems and compliance advisory support",
+    image:
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1400",
+    icon: Microscope,
+  },
+];
 
-const TeamPage = () => {
-    const containerRef = useRef(null);
+const advisoryFunctions = [
+  "Research proposal and publication quality guidance",
+  "Clinical, safety, and regulatory advisory support",
+  "Institutional collaboration and event strategy planning",
+  "Mentor alignment for students and early-career members",
+  "Industry relevance mapping for educational programs",
+];
 
-    useGSAP(
-        () => {
-            gsap.registerPlugin(ScrollTrigger);
+const engagementModes = [
+  {
+    title: "Mentorship Sessions",
+    description:
+      "Advisers guide members on specialization choices, practical skill development, and publication pathways.",
+  },
+  {
+    title: "Program Reviews",
+    description:
+      "Strategic review of OPF initiatives to ensure quality, relevance, and measurable outcomes.",
+  },
+  {
+    title: "Academic Collaboration",
+    description:
+      "Joint planning with institutions for conferences, workshops, and knowledge exchange programs.",
+  },
+];
 
-            gsap.fromTo(".team-member-card",
-                { y: 60, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    }
-                }
-            );
-        },
-        { scope: containerRef }
-    );
+export default function TeamPage() {
+  return (
+    <>
+      <PageHero
+        tag="Advisory Team"
+        title="Meet the Experts Guiding OPF Programs and Partnerships"
+        description="Our advisers bring experience in pharmacovigilance, clinical research, education, and regulatory quality to support meaningful pharmacy outcomes."
+        image="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=2000"
+        alt="Healthcare experts in a boardroom collaboration"
+        actions={[
+          { href: "/contact", label: "Connect With Our Team" },
+          { href: "/collaborations", label: "View Collaborations", variant: "secondary" },
+        ]}
+      />
 
-    const team = [
-        {
-            name: "Dr. Vikram Choudhary",
-            role: "Founder & Director",
-            specialty: "Pharmacovigilance",
-            image: "https://images.unsplash.com/photo-1556157382-97dee2dcb0b7?q=80&w=2070&auto=format&fit=crop",
-            icon: <FaMicroscope />,
-        },
-        {
-            name: "Dr. Sarah Jenkins",
-            role: "Global Strategy Advisor",
-            specialty: "Drug Development",
-            image: "https://images.unsplash.com/photo-1559839734-2b71f1536783?q=80&w=2070&auto=format&fit=crop",
-            icon: <FaFlask />,
-        },
-        {
-            name: "Prof. Rajesh Kumar",
-            role: "Academic Relations",
-            specialty: "Pharmacy Education",
-            image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=2070&auto=format&fit=crop",
-            icon: <FaStethoscope />,
-        },
-        {
-            name: "Dr. Elena Rodriguez",
-            role: "Research Head",
-            specialty: "Biotechnology",
-            image: "https://images.unsplash.com/photo-1594824813573-c46fe3bb92df?q=80&w=1976&auto=format&fit=crop",
-            icon: <FaMicroscope />,
-        },
-        {
-            name: "Michael Chen",
-            role: "Industrial Liaison",
-            specialty: "Clinical Trials",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop",
-            icon: <FaFlask />,
-        },
-        {
-            name: "Dr. Amita Singh",
-            role: "Regulatory Consultant",
-            specialty: "Quality Assurance",
-            image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1974&auto=format&fit=crop",
-            icon: <FaStethoscope />,
-        },
-    ];
+      <section className="section-pad">
+        <div className="section-shell">
+          <div className="mb-10 max-w-3xl">
+            <span className="pill-tag">Leadership</span>
+            <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+              Multidisciplinary Guidance for Pharmacy Education and Research
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">
+              OPF advisers support students, professionals, and partner institutions through strategic input on research quality, clinical systems, and future-ready learning models.
+            </p>
+          </div>
 
-    return (
-        <div ref={containerRef} className="min-h-screen bg-white">
-            {/* Hero Header */}
-            <section className="py-32 bg-slate-50 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <div className="inline-block px-4 py-1.5 mb-8 border border-[#154c8c]/20 rounded-full bg-[#154c8c]/5">
-                        <span className="text-[#154c8c] text-sm font-medium tracking-widest uppercase">
-                            Our Experts
-                        </span>
-                    </div>
-                    <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-8">
-                        The Minds Behind <span className="text-gradient">OPF</span>
-                    </h1>
-                    <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-                        Our team consists of world-class pharmaceutical specialists, researchers, and academic leaders dedicated to excellence.
-                    </p>
-                </div>
-            </section>
-
-            {/* Team Grid */}
-            <section className="py-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-                        {team.map((member, index) => (
-                            <motion.div
-                                key={index}
-                                whileHover={{ y: -10 }}
-                                className="team-member-card group relative bg-white rounded-[48px] overflow-hidden border border-slate-100 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] transition-all duration-500"
-                            >
-                                <div className="relative aspect-[4/5] overflow-hidden">
-                                    <img loading="lazy" decoding="async" src={member.image}
-                                        alt={member.name}
-                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-                                    />
-                                    {/* Icon Overlay */}
-                                    <div className="absolute top-6 right-6 w-12 h-12 bg-white/90 backdrop-blur-md rounded-2xl flex items-center justify-center text-[#E91E63] text-xl shadow-lg">
-                                        {member.icon}
-                                    </div>
-                                    {/* Hover Social Links */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#154c8c]/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-12">
-                                        <div className="flex gap-4">
-                                            <SocialLink icon={<FaLinkedin />} />
-                                            <SocialLink icon={<FaTwitter />} />
-                                            <SocialLink icon={<FaEnvelope />} />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="p-8 text-center">
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-1 group-hover:text-[#E91E63] transition-colors">{member.name}</h3>
-                                    <p className="text-[#154c8c] font-bold text-sm uppercase tracking-widest mb-3">{member.role}</p>
-                                    <div className="inline-block px-4 py-1 bg-slate-50 rounded-full text-xs font-medium text-slate-400">
-                                        Sp: {member.specialty}
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Advisory Board CTA */}
-            <section className="py-24 bg-slate-900 text-white">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-4xl font-bold mb-8 italic">"Building the foundation for a healthier tomorrow, one researcher at a time."</h2>
-                    <p className="text-xl text-slate-400 mb-12">Interested in joining our global advisory board or becoming an industry liaison?</p>
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-10 py-5 bg-gradient-to-r from-[#E91E63] to-[#154c8c] rounded-[24px] font-bold text-lg hover:shadow-[0_20px_40px_rgba(233,30,99,0.3)] transition-all"
-                    >
-                        Connect With Us
-                    </motion.button>
-                </div>
-            </section>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {team.map((member) => {
+              const Icon = member.icon;
+              return (
+                <article key={member.name} className="surface-card overflow-hidden rounded-[1.8rem]">
+                  <div className="relative h-64 overflow-hidden">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(min-width: 1024px) 28vw, (min-width: 640px) 48vw, 100vw"
+                      className="object-cover"
+                    />
+                    <span className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/85 text-slate-900 backdrop-blur">
+                      <Icon size={17} />
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-semibold text-slate-900">{member.name}</h3>
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#0a4ea3]">{member.role}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">{member.focus}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
-    );
-};
+      </section>
 
-const SocialLink = ({ icon }: { icon: React.ReactNode }) => (
-    <button className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#154c8c] text-xl hover:bg-[#E91E63] hover:text-white transition-all duration-300">
-        {icon}
-    </button>
-);
+      <section className="section-pad bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]">
+        <div className="section-shell grid gap-5 lg:grid-cols-2">
+          <article className="surface-card rounded-[2rem] p-6 md:p-8">
+            <span className="pill-tag">How Advisers Help</span>
+            <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+              Advisory Functions Across the OPF Ecosystem
+            </h2>
+            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-slate-700 md:text-base">
+              {advisoryFunctions.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0a4ea3]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
 
-export default TeamPage;
+          <article className="surface-card rounded-[2rem] p-6 md:p-8">
+            <span className="pill-tag">Engagement Modes</span>
+            <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+              Ways Members Interact With OPF Advisers
+            </h2>
+            <div className="mt-6 space-y-4">
+              {engagementModes.map((mode) => (
+                <div key={mode.title} className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-lg font-semibold text-slate-900">{mode.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{mode.description}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="pb-20 md:pb-28">
+        <div className="section-shell">
+          <div className="surface-card rounded-[2rem] px-6 py-8 text-center">
+            <h2 className="text-3xl font-semibold text-slate-900">Interested in Advisory Collaboration?</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+              Institutions and experts can collaborate with OPF for conference sessions, mentoring tracks, and research-focused strategic initiatives.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link href="/contact" className="inline-flex rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white">
+                Start a Conversation
+              </Link>
+              <Link href="/memberships" className="inline-flex rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900">
+                View Memberships
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

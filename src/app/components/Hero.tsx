@@ -1,224 +1,145 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Sparkles, Microscope, Globe2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import SplitType from "split-type";
+import { useRef } from "react";
 
-const SLIDER_IMAGES = [
-  "https://images.unsplash.com/photo-1769488718464-882e6c1adfd9?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Lab
-  "https://images.unsplash.com/photo-1769302706746-9887f20a75c2?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Medicine/Pills
-  "https://images.unsplash.com/photo-1761839257946-4616bcfafec7?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Microscope
-  "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=2070", // Research/Data
-];
+const heroImage =
+  "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=2200";
+const supportImageOne =
+  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1400";
+const supportImageTwo =
+  "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=1400";
 
 export default function Hero() {
-  const containerRef = useRef(null);
-  const titleRef = useRef(null);
-  const textRef = useRef(null);
-  const imageRef = useRef(null);
-  const floatItemsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const ref = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
 
-  // Auto-cycle slides
-  useGSAP(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % SLIDER_IMAGES.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useGSAP((context) => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Prevent double-splitting if re-rendered
-    const titleSplit = new SplitType(titleRef.current!, { types: "chars,words" });
-    const textSplit = new SplitType(textRef.current!, { types: "lines" });
-
-    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-
-    // Initial Set
-    tl.set([".hero-badge", ".hero-cta", imageRef.current, textRef.current], { opacity: 0 });
-
-    // Animation Sequence
-    tl.to(".hero-badge", { opacity: 1, y: 0, duration: 1, delay: 0.5 })
-      .fromTo(titleSplit.chars,
-        { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.02, duration: 1.2 },
-        "-=0.5"
-      )
-      .fromTo(textSplit.lines,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.1, duration: 1 },
-        "-=0.8"
-      )
-      .fromTo(".hero-cta",
-        { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1 },
-        "-=0.8"
-      )
-      .fromTo(imageRef.current,
-        { x: 100, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1.5, ease: "power4.out" },
-        "-=1.2"
-      );
-
-    // Parallax effect on foreground image
-    if (imageRef.current) {
-      gsap.to(imageRef.current, {
-        yPercent: 15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        }
-      });
-    }
-
-    // Floating animation
-    floatItemsRef.current.forEach((item, i) => {
-      if (item) {
-        gsap.set(item, { opacity: 0, y: 20 });
-        gsap.to(item, { opacity: 1, y: 0, duration: 0.8, delay: 1.5 + (i * 0.2) });
-        gsap.to(item, {
-          y: i % 2 === 0 ? -15 : 15,
-          duration: 3 + i,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut"
-        });
-      }
-    });
-
-    // Cleanup for SplitType
-    return () => {
-      titleSplit.revert();
-      textSplit.revert();
-    };
-  }, { scope: containerRef });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const cardsY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900 py-20"
-    >
-      {/* Background Image Slider */}
-      <div className="absolute inset-0 z-0">
-        {SLIDER_IMAGES.map((src, index) => (
-          <div
-            key={src}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? "opacity-100" : "opacity-0"
-              }`}
+    <section ref={ref} className="relative isolate min-h-[95vh] overflow-hidden">
+      <motion.div style={{ y: imageY }} className="absolute inset-0 -z-20">
+        <Image
+          src={heroImage}
+          alt="Scientists discussing pharmaceutical research outcomes in a modern laboratory"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </motion.div>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#041a34]/90 via-[#06284b]/80 to-[#0f172a]/55" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_30%,rgba(16,149,193,0.3),transparent_45%),radial-gradient(circle_at_85%_75%,rgba(235,106,42,0.26),transparent_35%)]" />
+
+      <div className="section-shell relative flex min-h-[95vh] items-center py-24">
+        <div className="grid w-full items-center gap-10 lg:grid-cols-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-7"
           >
-            <Image
-              src={src}
-              alt="Background"
-              fill
-              className="object-cover"
-              priority={index === 0}
-            />
-            {/* Overlay Gradient for readability */}
-            <div className="absolute inset-0 bg-slate-900/80" />
-          </div>
-        ))}
-      </div>
+            <span className="pill-tag border-white/30 bg-white/10 text-white">Global Pharmacy Innovation Network</span>
+            <h1 className="mt-6 max-w-3xl text-balance text-5xl font-semibold leading-[0.95] text-white sm:text-6xl lg:text-7xl">
+              Bridging Research,
+              <span className="text-gradient"> Education,</span>
+              <br />
+              and Real-World Healthcare Impact.
+            </h1>
+            <p className="mt-6 max-w-2xl text-balance text-base leading-relaxed text-slate-200 sm:text-lg">
+              Operant Pharmacy Federation connects scholars, clinicians, and institutions to accelerate high-impact discoveries and professional growth in pharmaceutical sciences.
+            </p>
 
-      {/* Decorative Blur - Retained but adjusted opacity */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#E91E63]/20 rounded-full blur-[120px] z-0" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#154c8c]/20 rounded-full blur-[120px] z-0" />
-
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-        <div className="text-left">
-          <div className="hero-badge opacity-0 inline-block px-4 py-1.5 mb-6 border border-white/20 rounded-full bg-white/10 backdrop-blur-sm">
-            <span className="text-[#E91E63] text-sm font-bold tracking-wider uppercase drop-shadow-sm">
-              Operant Pharmacy Federation
-            </span>
-          </div>
-
-          <h1
-            ref={titleRef}
-            className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] text-white mb-8 tracking-tight drop-shadow-lg"
-          >
-            Advancing <br />
-            <span className="text-[#E91E63]">Pharmacy</span> <br />
-            Through Research
-          </h1>
-
-          <p
-            ref={textRef}
-            className="text-xl text-slate-200 mb-10 max-w-lg leading-relaxed opacity-0 drop-shadow-md font-medium"
-          >
-            A global platform powered by researchers for researchers, focusing on groundbreaking innovations and high-impact healthcare solutions.
-          </p>
-
-          <div className="hero-cta flex flex-wrap gap-4 opacity-0">
-            <Link href="/impact-stories">
-              <button className="px-8 py-4 bg-[#E91E63] text-white rounded-full font-semibold hover:bg-[#d81b60] transition-all duration-300 transform hover:scale-105 shadow-xl shadow-[#E91E63]/30 border border-[#E91E63]">
-                Explore Initiatives
-              </button>
-            </Link>
-            <Link href="/membershipForm">
-              <button className="px-8 py-4 border border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
-                Join Community
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="relative hidden lg:block">
-          <div
-            ref={imageRef}
-            className="relative z-10 rounded-[40px] overflow-hidden shadow-2xl skew-y-3 hover:skew-y-0 transition-transform duration-700 opacity-0 border-4 border-white/10"
-          >
-            <Image
-              src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Innovative Pharmacy Research"
-              width={800}
-              height={1000}
-              className="object-cover h-[600px] w-full"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-
-            {/* Card Overlay on Main Image */}
-            <div className="absolute bottom-8 left-8 right-8">
-              <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20">
-                <p className="text-white font-bold text-lg mb-1">Global Research Network</p>
-                <p className="text-slate-300 text-sm">Connecting minds, transforming healthcare.</p>
-              </div>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="/membershipForm"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:bg-slate-100"
+              >
+                Join the Network
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/impact-stories"
+                className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:border-white/70 hover:bg-white/15"
+              >
+                Explore Impact Stories
+              </Link>
             </div>
-          </div>
 
-          {/* Floating Cards */}
-          <div
-            ref={el => { floatItemsRef.current[0] = el }}
-            className="absolute -top-10 -right-10 z-20 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-slate-100 hidden md:block opacity-0"
-          >
-            <div className="text-3xl font-bold text-[#E91E63]">50+</div>
-            <div className="text-xs text-slate-500 uppercase tracking-widest font-bold">Projects</div>
-          </div>
+            <div className="mt-10 grid max-w-xl grid-cols-3 gap-3 sm:gap-4">
+              <Metric value="50+" label="Research Programs" icon={<Microscope size={15} />} />
+              <Metric value="15+" label="Countries Reached" icon={<Globe2 size={15} />} />
+              <Metric value="120+" label="Academic Partners" icon={<Sparkles size={15} />} />
+            </div>
+          </motion.div>
 
-          <div
-            ref={el => { floatItemsRef.current[1] = el }}
-            className="absolute -bottom-10 -left-10 z-20 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-slate-100 hidden md:block opacity-0"
-          >
-            <div className="text-3xl font-bold text-[#154c8c]">15+</div>
-            <div className="text-xs text-slate-500 uppercase tracking-widest font-bold">Countries</div>
-          </div>
-        </div>
-      </div>
+          <motion.div style={{ y: cardsY }} className="hidden lg:col-span-5 lg:block">
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+              className="surface-card rounded-[2rem] p-4"
+            >
+              <div className="relative h-[340px] overflow-hidden rounded-[1.5rem]">
+                <Image
+                  src={supportImageOne}
+                  alt="Research team inspecting pharmaceutical formulations"
+                  fill
+                  sizes="(min-width: 1024px) 30vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent p-5">
+                  <p className="font-display text-2xl text-white">Clinical-to-Industry Translation</p>
+                  <p className="mt-1 text-sm text-slate-200">Turning scholarly evidence into practical healthcare systems.</p>
+                </div>
+              </div>
+            </motion.div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-20">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1 backdrop-blur-sm">
-          <div className="w-1 h-2 bg-[#E91E63] rounded-full" />
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.35, duration: 0.8, ease: "easeOut" }}
+              className="surface-card mt-5 rounded-[2rem] p-4"
+            >
+              <div className="flex items-center gap-4">
+                <div className="relative h-20 w-28 overflow-hidden rounded-2xl">
+                  <Image
+                    src={supportImageTwo}
+                    alt="Pharmacy students collaborating with scientific mentors"
+                    fill
+                    sizes="200px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">2026 Cohort Open</p>
+                  <p className="mt-1 text-lg font-semibold text-slate-900">Global Internship Pathways</p>
+                  <p className="text-sm text-slate-600">Build publication-ready skills with experts and institutions.</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Metric({ value, label, icon }: { value: string; label: string; icon: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border border-white/25 bg-white/10 px-3 py-4 backdrop-blur-lg sm:px-4">
+      <div className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white">
+        {icon}
+      </div>
+      <p className="font-display text-2xl font-semibold text-white sm:text-3xl">{value}</p>
+      <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate-200 sm:text-xs">{label}</p>
+    </div>
   );
 }

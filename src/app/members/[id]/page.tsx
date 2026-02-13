@@ -1,18 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { CalendarDays, ChevronLeft, GraduationCap, Mail, MapPin, Phone, School, UserRound } from "lucide-react";
 import { useParams } from "next/navigation";
-import {
-  FaUser,
-  FaEnvelope,
-  FaPhone,
-  FaIdCard,
-  FaMapMarkerAlt,
-  FaGraduationCap,
-  FaBuilding,
-  FaCalendarAlt,
-} from "react-icons/fa";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface Member {
   _id: string;
@@ -29,7 +21,7 @@ interface Member {
   profilePictureUrl?: string;
 }
 
-const MemberDetails = () => {
+export default function MemberDetailsPage() {
   const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
   const params = useParams();
@@ -43,8 +35,6 @@ const MemberDetails = () => {
         if (data.success) {
           setMember(data.member);
         }
-      } catch (error) {
-        console.error("Error fetching member details:", error);
       } finally {
         setLoading(false);
       }
@@ -56,138 +46,83 @@ const MemberDetails = () => {
   }, [memberId]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-gradient-to-r from-[#154c8c] to-[#80b142]">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-16 h-16 border-t-4 border-[#80b142] border-solid rounded-full"
-        ></motion.div>
-      </div>
-    );
+    return <div className="section-pad text-center text-slate-600">Loading member profile...</div>;
   }
 
   if (!member) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl font-bold text-[#154c8c] mb-4"
-        >
-          Member Not Found
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-xl text-gray-600"
-        >
-          The requested member profile could not be found.
-        </motion.p>
-      </div>
+      <section className="section-pad">
+        <div className="section-shell surface-card rounded-3xl p-10 text-center">
+          <h1 className="text-3xl font-semibold text-slate-900">Member Not Found</h1>
+          <p className="mt-3 text-sm text-slate-600">The requested member profile is not available.</p>
+          <Link href="/members" className="mt-5 inline-flex rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white">
+            Back to Members
+          </Link>
+        </div>
+      </section>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#154c8c] to-[#80b142] py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold text-white mb-8 text-center"
-        >
-          Member Profile
-        </motion.h1>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white rounded-2xl shadow-xl overflow-hidden"
-        >
-          <div className="md:flex">
-            <div className="md:flex-shrink-0 bg-gradient-to-br from-[#154c8c] to-[#80b142] p-8 text-center">
+    <section className="section-pad">
+      <div className="section-shell">
+        <Link href="/members" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700">
+          <ChevronLeft size={15} />
+          Back to Members
+        </Link>
+
+        <div className="mt-5 grid gap-5 lg:grid-cols-12">
+          <aside className="surface-card rounded-[2rem] p-6 lg:col-span-4">
+            <div className="relative mx-auto h-56 w-56 overflow-hidden rounded-3xl bg-slate-100">
               {member.profilePictureUrl ? (
-                <img loading="lazy" decoding="async" src={member.profilePictureUrl}
+                <Image
+                  src={member.profilePictureUrl}
                   alt={member.fullName}
-                  className="w-48 h-48 rounded-full mx-auto border-4 border-white shadow-lg"
+                  fill
+                  sizes="300px"
+                  className="object-cover"
                 />
               ) : (
-                <div className="w-48 h-48 rounded-full mx-auto bg-white flex items-center justify-center text-[#154c8c] text-5xl font-bold shadow-lg">
-                  {member.fullName.charAt(0)}
+                <div className="flex h-full items-center justify-center text-slate-400">
+                  <UserRound size={74} />
                 </div>
               )}
-              <h2 className="mt-4 text-3xl font-semibold text-white">
-                {member.fullName}
-              </h2>
-              <p className="mt-2 text-[#80b142]">{member.membershipId}</p>
             </div>
-            <div className="p-8 md:p-12 flex-grow">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InfoItem
-                  icon={<FaEnvelope />}
-                  label="Email"
-                  value={member.email}
-                />
-                <InfoItem
-                  icon={<FaPhone />}
-                  label="Phone"
-                  value={member.phone}
-                />
-                <InfoItem
-                  icon={<FaCalendarAlt />}
-                  label="Date of Birth"
-                  value={new Date(member.dateOfBirth).toLocaleDateString()}
-                />
-                <InfoItem
-                  icon={<FaMapMarkerAlt />}
-                  label="Address"
-                  value={`${member.address}, ${member.pincode}`}
-                />
-                <InfoItem
-                  icon={<FaGraduationCap />}
-                  label="Qualifications"
-                  value={member.qualifications}
-                />
-                <InfoItem
-                  icon={<FaBuilding />}
-                  label="Affiliation"
-                  value={member.affiliation}
-                />
-                <InfoItem
-                  icon={<FaUser />}
-                  label="Membership Plan"
-                  value={member.selectedPlan}
-                />
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-};
+            <h1 className="mt-5 text-center text-3xl font-semibold text-slate-900">{member.fullName}</h1>
+            <p className="mt-1 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Member ID: {member.membershipId}
+            </p>
+            <p className="mt-4 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-center text-sm text-slate-700">
+              Plan: {member.selectedPlan}
+            </p>
+          </aside>
 
-interface InfoItemProps {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
+          <div className="grid gap-4 lg:col-span-8 sm:grid-cols-2">
+            <InfoCard icon={<Mail size={16} />} label="Email" value={member.email} />
+            <InfoCard icon={<Phone size={16} />} label="Phone" value={member.phone} />
+            <InfoCard
+              icon={<CalendarDays size={16} />}
+              label="Date of Birth"
+              value={new Date(member.dateOfBirth).toLocaleDateString()}
+            />
+            <InfoCard icon={<GraduationCap size={16} />} label="Qualifications" value={member.qualifications} />
+            <InfoCard icon={<School size={16} />} label="Affiliation" value={member.affiliation} />
+            <InfoCard icon={<MapPin size={16} />} label="Address" value={`${member.address}, ${member.pincode}`} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
-const InfoItem: React.FC<InfoItemProps> = ({ icon, label, value }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    className="flex items-center bg-gray-50 rounded-lg p-4 shadow-sm"
-  >
-    <div className="text-[#154c8c] mr-4 text-xl">{icon}</div>
-    <div>
-      <p className="text-gray-500 text-sm">{label}</p>
-      <p className="text-gray-800 font-medium">{value}</p>
-    </div>
-  </motion.div>
-);
-
-export default MemberDetails;
+function InfoCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <article className="surface-card rounded-2xl p-5">
+      <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+        {icon}
+        {label}
+      </p>
+      <p className="mt-2 text-sm font-medium leading-relaxed text-slate-800 md:text-base">{value}</p>
+    </article>
+  );
+}

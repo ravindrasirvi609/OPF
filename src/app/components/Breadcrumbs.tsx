@@ -31,7 +31,7 @@ function toLabel(segment: string) {
 
   return segment
     .split("-")
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .map((value) => value.charAt(0).toUpperCase() + value.slice(1))
     .join(" ");
 }
 
@@ -45,10 +45,10 @@ export default function Breadcrumbs() {
   const segments = pathname.split("/").filter(Boolean);
 
   return (
-    <nav aria-label="Breadcrumb" className="border-b border-slate-100 bg-white/95">
-      <ol className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 py-3 text-sm text-slate-600 sm:px-6 lg:px-8">
+    <nav aria-label="Breadcrumb" className="border-b border-slate-200/70 bg-white/75 backdrop-blur-xl">
+      <ol className="section-shell flex flex-wrap items-center gap-2 py-3 text-xs font-medium uppercase tracking-[0.1em] text-slate-500 sm:text-sm sm:tracking-[0.12em]">
         <li>
-          <Link href="/" className="hover:text-[#154c8c]">
+          <Link href="/" className="transition hover:text-[#0a4ea3]">
             Home
           </Link>
         </li>
@@ -60,9 +60,9 @@ export default function Breadcrumbs() {
             <li key={href} className="flex items-center gap-2">
               <span aria-hidden="true">/</span>
               {isLast ? (
-                <span className="font-semibold text-slate-900">{toLabel(segment)}</span>
+                <span className="text-slate-900">{toLabel(segment)}</span>
               ) : (
-                <Link href={href} className="hover:text-[#154c8c]">
+                <Link href={href} className="transition hover:text-[#0a4ea3]">
                   {toLabel(segment)}
                 </Link>
               )}

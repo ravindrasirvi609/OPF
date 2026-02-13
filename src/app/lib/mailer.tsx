@@ -81,7 +81,7 @@ export const sendEmail = async ({
             continued involvement and support in our endeavors.
           </Text>
           <Text>
-            If you have any questions or need further assistance, please don't
+            If you have any questions or need further assistance, please do not
             hesitate to contact us at{" "}
             <Link href="mailto:opf@pharmanecia.org">opf@pharmanecia.org</Link>.
           </Text>
@@ -131,7 +131,7 @@ export const sendEmail = async ({
           <Text>
             We value your continued support and participation in the Operant
             Pharmacy Federation. If you have any questions or need assistance,
-            please don't hesitate to contact us at{" "}
+            please do not hesitate to contact us at{" "}
             <Link href="mailto:opf@pharmanecia.org">opf@pharmanecia.org</Link>.
           </Text>
           <Text>Thank you for being a part of the OPF community.</Text>

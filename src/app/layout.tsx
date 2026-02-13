@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Sora, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -16,7 +16,18 @@ import {
 } from "./lib/seo";
 import { Analytics } from "@vercel/analytics/react";
 
-const outfit = Outfit({ subsets: ["latin"], display: "swap" });
+const sora = Sora({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-body",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+  weight: ["500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -82,11 +93,15 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
-        <link rel="preconnect" href="https://firebasestorage.googleapis.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link
+          rel="preconnect"
+          href="https://firebasestorage.googleapis.com"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com" />
       </head>
-      <body className={`${outfit.className} flex min-h-screen flex-col bg-white text-slate-900`}>
+      <body className={`${sora.variable} ${cormorant.variable} app-body flex min-h-screen flex-col`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}

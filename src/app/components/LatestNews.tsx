@@ -1,131 +1,114 @@
 "use client";
 
-import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
+import { ArrowRight, CalendarDays } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
-const LatestNews: React.FC = () => {
-    const containerRef = useRef(null);
+const news = [
+  {
+    title: "India Pharma Expo 2026",
+    excerpt:
+      "OPF delegates and partner institutions will convene to discuss translational research and next-gen therapeutics.",
+    date: "January 15, 2026",
+    image:
+      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=1400",
+    category: "Events",
+    href: "/impact-stories",
+  },
+  {
+    title: "New Collaboration for Pharmacovigilance",
+    excerpt:
+      "A new academic partnership expands OPF safety-science programs and data-backed medication monitoring initiatives.",
+    date: "January 10, 2026",
+    image:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1400",
+    category: "Collaboration",
+    href: "/collaborations",
+  },
+  {
+    title: "Global Internship Applications Open",
+    excerpt:
+      "The 2026 internship cycle now welcomes applicants interested in publication-centric mentorship and practical training.",
+    date: "January 5, 2026",
+    image:
+      "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=1400",
+    category: "Careers",
+    href: "/membershipForm",
+  },
+];
 
-    useGSAP(
-        () => {
-            gsap.registerPlugin(ScrollTrigger);
+export default function LatestNews() {
+  return (
+    <section className="section-pad">
+      <div className="section-shell">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55 }}
+          className="mb-10 flex flex-wrap items-end justify-between gap-5"
+        >
+          <div className="max-w-3xl">
+            <span className="pill-tag">Latest Updates</span>
+            <h2 className="mt-5 text-4xl font-semibold text-slate-900 md:text-5xl">
+              What&apos;s New Across
+              <span className="text-gradient"> The OPF Network</span>
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">
+              Follow recent collaborations, opportunities, and events shaping the future of pharmacy education and research.
+            </p>
+          </div>
+          <Link
+            href="/impact-stories"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:border-slate-900"
+          >
+            View All
+            <ArrowRight size={15} />
+          </Link>
+        </motion.div>
 
-            gsap.fromTo(".news-card",
-                { y: 60, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    stagger: 0.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        },
-        { scope: containerRef }
-    );
-
-    const news = [
-        {
-            title: "India Pharma Expo 2026",
-            excerpt: "Join us for the largest pharmaceutical exhibition in South Asia, showcasing innovative drug delivery systems.",
-            date: "Jan 15, 2026",
-            image: "https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?q=80&w=2069&auto=format&fit=crop",
-            category: "Events",
-        },
-        {
-            title: "New MOA Signed for Research",
-            excerpt: "OPF has partnered with leading academic institutions to advance pharmacovigilance studies in India.",
-            date: "Jan 10, 2026",
-            image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop",
-            category: "Collaboration",
-        },
-        {
-            title: "Global Internship Invite",
-            excerpt: "Applications are now open for the 2026 Global Pharmaceutical Internship Program. Apply by Feb 1st.",
-            date: "Jan 05, 2026",
-            image: "https://images.unsplash.com/photo-1523240715632-d984bb4b990a?q=80&w=2070&auto=format&fit=crop",
-            category: "Careers",
-        },
-    ];
-
-    return (
-        <section ref={containerRef} className="py-24 bg-white overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                    <div className="max-w-2xl">
-                        <div className="inline-block px-4 py-1.5 mb-6 border border-[#80b142]/20 rounded-full bg-[#80b142]/5">
-                            <span className="text-[#80b142] text-sm font-medium tracking-wider uppercase">
-                                Updates
-                            </span>
-                        </div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                            Latest from the <span className="text-gradient">Federation</span>
-                        </h2>
-                        <p className="text-lg text-slate-600">
-                            Stay updated with the latest news, announcements, and insights from the global pharmaceutical community.
-                        </p>
-                    </div>
-                    <Link
-                        href="/blog"
-                        className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#154c8c] hover:text-[#E91E63] transition-colors duration-300"
-                    >
-                        View All News
-                        <div className="w-10 h-10 border border-slate-200 rounded-full flex items-center justify-center group-hover:bg-[#E91E63] group-hover:border-[#E91E63] group-hover:text-white transition-all duration-300">
-                            <FaArrowRight />
-                        </div>
-                    </Link>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {news.map((item, index) => (
-                        <motion.div
-                            key={index}
-                            whileHover={{ y: -10 }}
-                            className="news-card group bg-white rounded-[40px] overflow-hidden border border-slate-100 hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] transition-all duration-500"
-                        >
-                            <div className="relative h-64 overflow-hidden">
-                                <img loading="lazy" decoding="async" src={item.image}
-                                    alt={item.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                />
-                                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-slate-900">
-                                    {item.category}
-                                </div>
-                            </div>
-                            <div className="p-8">
-                                <div className="flex items-center gap-2 text-slate-400 text-sm mb-4">
-                                    <FaCalendarAlt />
-                                    {item.date}
-                                </div>
-                                <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-[#E91E63] transition-colors duration-300">
-                                    {item.title}
-                                </h3>
-                                <p className="text-slate-500 mb-8 leading-relaxed line-clamp-2">
-                                    {item.excerpt}
-                                </p>
-                                <Link
-                                    href="/impact-stories"
-                                    className="inline-flex items-center gap-2 text-slate-900 font-bold group-hover:gap-4 transition-all duration-300"
-                                >
-                                    Read More <FaArrowRight className="text-[#E91E63]" />
-                                </Link>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
-
-export default LatestNews;
+        <div className="grid gap-5 md:grid-cols-3">
+          {news.map((item, idx) => (
+            <motion.article
+              key={item.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: idx * 0.06 }}
+              className="surface-card group overflow-hidden rounded-[1.8rem]"
+            >
+              <div className="relative h-52 overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                />
+                <span className="absolute left-4 top-4 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
+                  {item.category}
+                </span>
+              </div>
+              <div className="p-6">
+                <p className="inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.14em] text-slate-500">
+                  <CalendarDays size={13} />
+                  {item.date}
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold text-slate-900">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{item.excerpt}</p>
+                <Link
+                  href={item.href}
+                  className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-slate-900 transition group-hover:gap-2 group-hover:text-[#0a4ea3]"
+                >
+                  Read More
+                  <ArrowRight size={15} />
+                </Link>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

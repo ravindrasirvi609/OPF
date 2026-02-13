@@ -1,100 +1,83 @@
 "use client";
 
-import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaUsers, FaMicroscope, FaArrowRight } from "react-icons/fa";
+import { ArrowUpRight, Brain, UsersRound, Microscope } from "lucide-react";
 import Link from "next/link";
 
-const Pillars: React.FC = () => {
-    const containerRef = useRef(null);
+const pillars = [
+  {
+    title: "Community-Led Learning",
+    description:
+      "A dynamic ecosystem where students, faculty, and practitioners exchange insights and build long-term professional collaborations.",
+    href: "/members",
+    icon: UsersRound,
+    accent: "from-[#0a4ea3]/20 to-transparent",
+  },
+  {
+    title: "Evidence-Centered Research",
+    description:
+      "Rigorous research support from conceptualization to publication, enabling high-impact outcomes in pharmaceutical science.",
+    href: "/innovations",
+    icon: Microscope,
+    accent: "from-[#1095c1]/25 to-transparent",
+  },
+  {
+    title: "Future-Focused Innovation",
+    description:
+      "Mentorship and collaboration pathways that help transform ideas into practical healthcare applications.",
+    href: "/impact-stories",
+    icon: Brain,
+    accent: "from-[#eb6a2a]/20 to-transparent",
+  },
+];
 
-    useGSAP(
-        () => {
-            gsap.registerPlugin(ScrollTrigger);
+export default function Pillars() {
+  return (
+    <section className="section-pad">
+      <div className="section-shell">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+          className="mb-10 md:mb-14"
+        >
+          <span className="pill-tag">Core Pillars</span>
+          <h2 className="mt-5 text-4xl font-semibold text-slate-900 md:text-5xl">
+            The Foundation Behind
+            <span className="text-gradient"> OPF Excellence</span>
+          </h2>
+        </motion.div>
 
-            gsap.fromTo(".pillar-card",
-                { y: 60, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.2,
-                    stagger: 0.3,
-                    ease: "power4.out",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
-                    },
-                }
+        <div className="grid gap-5 lg:grid-cols-3">
+          {pillars.map((pillar, idx) => {
+            const Icon = pillar.icon;
+            return (
+              <motion.article
+                key={pillar.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.55, delay: idx * 0.07 }}
+                className={`surface-card group rounded-[2rem] bg-gradient-to-br ${pillar.accent} p-7 sm:p-8`}
+              >
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white transition group-hover:scale-105 group-hover:bg-[#0a4ea3]">
+                  <Icon size={20} />
+                </div>
+                <h3 className="mt-5 text-3xl font-semibold text-slate-900">{pillar.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-slate-600">{pillar.description}</p>
+                <Link
+                  href={pillar.href}
+                  className="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-slate-900 transition group-hover:gap-2 group-hover:text-[#0a4ea3]"
+                >
+                  Discover More
+                  <ArrowUpRight size={16} />
+                </Link>
+              </motion.article>
             );
-        },
-        { scope: containerRef }
-    );
-
-    const pillars = [
-        {
-            title: "Community Based",
-            description:
-                "Building a global network of pharmaceutical professionals, students, and researchers to share knowledge and foster collaboration.",
-            icon: <FaUsers className="text-4xl text-[#E91E63]" />,
-            link: "/members",
-            color: "from-[#E91E63]/20 to-transparent",
-            borderColor: "border-[#E91E63]/20",
-        },
-        {
-            title: "Research Based",
-            description:
-                "Advancing healthcare through rigorous scientific inquiry, innovative drug development, and support for emerging pharmaceutical research.",
-            icon: <FaMicroscope className="text-4xl text-[#154c8c]" />,
-            link: "/innovations",
-            color: "from-[#154c8c]/20 to-transparent",
-            borderColor: "border-[#154c8c]/20",
-        },
-    ];
-
-    return (
-        <section ref={containerRef} className="py-24 bg-white overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                        Our Core <span className="text-gradient">Pillars</span>
-                    </h2>
-                    <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                        We are dedicated to revolutionizing the pharmaceutical landscape through community engagement and research excellence.
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {pillars.map((pillar, index) => (
-                        <motion.div
-                            key={index}
-                            whileHover={{ y: -10 }}
-                            className={`pillar-card relative p-8 rounded-[40px] border ${pillar.borderColor} bg-gradient-to-br ${pillar.color} transition-all duration-300 group`}
-                        >
-                            <div className="mb-6 p-4 bg-white rounded-2xl inline-block shadow-sm group-hover:shadow-md transition-shadow">
-                                {pillar.icon}
-                            </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                                {pillar.title}
-                            </h3>
-                            <p className="text-slate-600 mb-8 leading-relaxed">
-                                {pillar.description}
-                            </p>
-                            <Link
-                                href={pillar.link}
-                                className="inline-flex items-center gap-2 text-slate-900 font-bold hover:text-[#E91E63] transition-colors"
-                            >
-                                Learn More <FaArrowRight className="text-sm" />
-                            </Link>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
-
-export default Pillars;
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,215 +1,264 @@
-"use client";
-
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import Link from "next/link";
 import {
-    FaBullseye,
-    FaGlobe,
-    FaMicroscope,
-    FaHistory,
-    FaPaperPlane,
-    FaGraduationCap,
-    FaHandshake,
-    FaAward,
-    FaCheckCircle
-} from "react-icons/fa";
+  Award,
+  BookOpenText,
+  FlaskConical,
+  Globe2,
+  GraduationCap,
+  Handshake,
+  Microscope,
+  Target,
+  Users,
+} from "lucide-react";
+import PageHero from "../components/PageHero";
+import { breadcrumbSchema, pageSchema } from "../lib/seo";
 
-const AboutPage = () => {
-    const containerRef = useRef(null);
+const pillars = [
+  {
+    icon: GraduationCap,
+    title: "Pharmacy Education",
+    text: "Structured learning pathways, workshops, and mentorship programs for students and early-career professionals.",
+  },
+  {
+    icon: Microscope,
+    title: "Research Development",
+    text: "Guidance for project design, publication quality, and conference-ready scientific communication.",
+  },
+  {
+    icon: Handshake,
+    title: "Professional Network",
+    text: "A collaborative ecosystem connecting institutions, faculty, clinicians, and pharmaceutical experts.",
+  },
+  {
+    icon: Globe2,
+    title: "Global Healthcare Impact",
+    text: "Programs focused on practical innovation and measurable healthcare outcomes across regions.",
+  },
+];
 
-    useGSAP(
-        () => {
-            gsap.registerPlugin(ScrollTrigger);
+const focusAreas = [
+  "Pharmacovigilance training and drug safety education",
+  "Clinical research methods and regulatory readiness",
+  "Research writing, publication support, and peer-review standards",
+  "Industry-academia collaboration and innovation partnerships",
+  "Professional development for pharmacy students and practitioners",
+];
 
-            gsap.fromTo(".about-anim",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    stagger: 0.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    }
-                }
-            );
-        },
-        { scope: containerRef }
-    );
+const approach = [
+  {
+    title: "Learn",
+    description:
+      "Build strong fundamentals through structured sessions, topic hubs, and expert-led learning modules.",
+  },
+  {
+    title: "Apply",
+    description:
+      "Translate concepts into practical outputs like posters, papers, case discussions, and conference presentations.",
+  },
+  {
+    title: "Publish",
+    description:
+      "Improve manuscript quality, ethics alignment, and visibility of your work through guided publication support.",
+  },
+  {
+    title: "Lead",
+    description:
+      "Grow into mentorship, collaboration, and leadership opportunities across pharmacy and healthcare programs.",
+  },
+];
 
-    return (
-        <div ref={containerRef} className="min-h-screen">
-            {/* Hero Section */}
-            <section className="relative py-32 bg-slate-900 text-white overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E91E63]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#154c8c]/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
+const membershipAudience = [
+  "B.Pharm, M.Pharm, Pharm.D, and PhD students",
+  "Faculty members and academic researchers",
+  "Clinical, safety, and regulatory professionals",
+  "Industry teams working in R&D and quality",
+];
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="inline-block px-4 py-1.5 mb-8 border border-[#E91E63]/30 rounded-full bg-white/5 backdrop-blur-sm"
-                    >
-                        <span className="text-white text-sm font-medium tracking-widest uppercase">
-                            Empowering Pharmacy
-                        </span>
-                    </motion.div>
-                    <h1 className="about-anim text-5xl md:text-7xl font-bold mb-8">
-                        Operant Pharmacy <span className="text-gradient">Federation</span>
-                    </h1>
-                    <p className="about-anim text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                        A non-government, non-profit professional organization focused on the pharmacy, pharmaceutical sciences, life sciences, and healthcare research ecosystem.
-                    </p>
+export default function AboutPage() {
+  const webPage = pageSchema({
+    title: "About Operant Pharmacy Federation",
+    description:
+      "Learn how OPF advances pharmacy education, pharmaceutical research, professional networking, and healthcare innovation across India and global collaborations.",
+    path: "/about",
+  });
+
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+  ]);
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+
+      <PageHero
+        tag="About OPF"
+        title="Advancing Pharmacy Education, Research, and Professional Excellence"
+        description="Operant Pharmacy Federation is a non-government, non-profit professional platform focused on pharmacy education, pharmaceutical research, conference programs, and healthcare innovation collaboration."
+        image="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=2000"
+        alt="Pharmaceutical research professionals in a collaborative discussion"
+        actions={[
+          { href: "/memberships", label: "Explore Memberships" },
+          { href: "/contact", label: "Contact OPF", variant: "secondary" },
+        ]}
+      />
+
+      <section className="section-pad">
+        <div className="section-shell grid gap-8 lg:grid-cols-12 lg:items-start">
+          <article className="surface-card rounded-[2rem] p-6 sm:p-8 lg:col-span-7">
+            <span className="pill-tag">Who We Are</span>
+            <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+              A Research-First Community for Pharmacy Professionals
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">
+              OPF is an academic and professional platform. We are not a pharmaceutical manufacturing company and not a government body. Our focus is to support knowledge exchange, research quality, and long-term professional growth across pharmaceutical sciences.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">
+              Through conferences, expert mentorship, and collaborative initiatives, we help members translate scientific learning into practical healthcare impact.
+            </p>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {focusAreas.map((item) => (
+                <div key={item} className="rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm text-slate-700">
+                  {item}
                 </div>
-            </section>
+              ))}
+            </div>
+          </article>
 
-            {/* Key Identity Section */}
-            <section className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div className="about-anim">
-                            <h2 className="text-4xl font-bold text-slate-900 mb-8 leading-tight">
-                                An Academic and <br />
-                                <span className="text-gradient">Research Platform</span>
-                            </h2>
-                            <div className="space-y-6 text-lg text-slate-600">
-                                <p>
-                                    Operant Pharmacy Federation (OPF) is <strong>not</strong> a pharmaceutical manufacturing company and <strong>not</strong> a government body.
-                                </p>
-                                <p>
-                                    Instead, it works as a premier academic hub and research-oriented platform, facilitating the exchange of knowledge and fostering innovation in the global healthcare landscape.
-                                </p>
-                                <div className="flex items-center gap-4 p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                                    <FaGlobe className="text-3xl text-[#154c8c]" />
-                                    <p className="text-sm font-medium text-slate-500 italic">
-                                        Dedicated to education, research, and professional development.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="about-anim relative">
-                            <div className="rounded-[40px] overflow-hidden shadow-2xl border-8 border-white">
-                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070"
-                                    alt="Research Excellence"
-                                    className="w-full h-auto object-cover aspect-video"
-                                />
-                            </div>
-                            <div className="absolute -bottom-6 -right-6 bg-[#E91E63] text-white p-10 rounded-[32px] shadow-xl">
-                                <h4 className="text-3xl font-bold">15+</h4>
-                                <p className="text-xs font-bold uppercase tracking-widest opacity-80">Countries Impacted</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Activities Grid */}
-            <section className="py-24 bg-slate-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-20 about-anim">
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">What We Do</h2>
-                        <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-                            OPF mainly works in education, research, and professional development within the pharmacy and healthcare fields.
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <ActivityCard
-                            icon={<FaMicroscope />}
-                            title="Research & Publications"
-                            color="bg-[#E91E63]"
-                            items={["Research papers & Reviews", "Case studies & Journals", "Student showcase support", "Scientific promotion"]}
-                        />
-                        <ActivityCard
-                            icon={<FaHistory />}
-                            title="Events & Training"
-                            color="bg-[#154c8c]"
-                            items={["National & Global Conferences", "Webinars & Seminars", "Workshops & Training", "Drug development topics"]}
-                        />
-                        <ActivityCard
-                            icon={<FaHandshake />}
-                            title="Professional Networking"
-                            color="bg-[#80b142]"
-                            items={["Student-Scholar connection", "Professor collaboration", "Mentorship programs", "Knowledge sharing hub"]}
-                        />
-                        <ActivityCard
-                            icon={<FaPaperPlane />}
-                            title="Membership Programs"
-                            color="bg-slate-800"
-                            items={["Student & Faculty tiers", "OPF Exclusive events", "Certificate programs", "Networking benefits"]}
-                        />
-                        <ActivityCard
-                            icon={<FaAward />}
-                            title="Awards & Recognition"
-                            color="bg-[#E91E63]"
-                            items={["Academic Excellence", "Research Contributions", "Professional Achievements", "Global Certifications"]}
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* Target Audience */}
-            <section className="py-24 bg-slate-900 text-white overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center about-anim">
-                    <h2 className="text-4xl font-bold mb-16">Who is OPF <span className="text-gradient">Meant For?</span></h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <AudienceCard text="Pharmacy Students (B.Pharm, M.Pharm, Pharm.D)" icon={<FaGraduationCap />} />
-                        <AudienceCard text="Professionals in Pharma & Healthcare Research" icon={<FaBriefcaseIcon />} />
-                        <AudienceCard text="PhD Scholars & Academic Researchers" icon={<FaMicroscope />} />
-                        <AudienceCard text="Aspiring Authors & Conference Speakers" icon={<FaPaperPlane />} />
-                    </div>
-                </div>
-            </section>
+          <aside className="lg:col-span-5">
+            <div className="surface-card overflow-hidden rounded-[2rem] p-4">
+              <div className="relative h-[360px] overflow-hidden rounded-[1.5rem]">
+                <Image
+                  src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=1600"
+                  alt="Laboratory team discussing scientific findings"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
+              </div>
+            </div>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+              <StatCard value="15+" label="Countries Engaged" icon={<Globe2 size={17} />} />
+              <StatCard value="50+" label="Research Initiatives" icon={<FlaskConical size={17} />} />
+              <StatCard value="100+" label="Mentorship Sessions" icon={<Award size={17} />} />
+            </div>
+          </aside>
         </div>
-    );
-};
+      </section>
 
-const ActivityCard = ({ icon, title, color, items }: any) => (
-    <div className="about-anim bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
-        <div className={`w-14 h-14 ${color} text-white rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform`}>
-            {icon}
+      <section className="section-pad bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]">
+        <div className="section-shell">
+          <div className="mb-9 max-w-3xl">
+            <span className="pill-tag">Core Pillars</span>
+            <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+              What OPF Delivers for the Pharmacy Community
+            </h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {pillars.map((pillar) => {
+              const Icon = pillar.icon;
+              return (
+                <article key={pillar.title} className="surface-card rounded-3xl p-6">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-slate-900 text-white">
+                    <Icon size={18} />
+                  </div>
+                  <h3 className="mt-4 text-2xl font-semibold text-slate-900">{pillar.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{pillar.text}</p>
+                </article>
+              );
+            })}
+          </div>
         </div>
-        <h3 className="text-2xl font-bold text-slate-900 mb-6">{title}</h3>
-        <ul className="space-y-4">
-            {items.map((item: string, i: number) => (
-                <li key={i} className="flex items-center gap-3 text-slate-500">
-                    <FaCheckCircle className="text-[#80b142] flex-shrink-0" />
-                    <span>{item}</span>
+      </section>
+
+      <section className="section-pad">
+        <div className="section-shell grid gap-5 lg:grid-cols-2">
+          <article className="surface-card rounded-[2rem] p-6 md:p-8">
+            <span className="pill-tag">Our Approach</span>
+            <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+              How OPF Supports Long-Term Professional Growth
+            </h2>
+            <div className="mt-6 space-y-4">
+              {approach.map((step, index) => (
+                <div key={step.title} className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0a4ea3]">
+                    Step {index + 1}
+                  </p>
+                  <h3 className="mt-1 text-xl font-semibold text-slate-900">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="surface-card rounded-[2rem] p-6 md:p-8">
+            <span className="pill-tag">Who Should Join</span>
+            <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+              OPF Membership Is Relevant For
+            </h2>
+            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-slate-700 md:text-base">
+              {membershipAudience.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0a4ea3]" />
+                  <span>{item}</span>
                 </li>
-            ))}
-        </ul>
-    </div>
-);
+              ))}
+            </ul>
 
-const AudienceCard = ({ text, icon }: any) => (
-    <div className="p-8 rounded-[32px] bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
-        <div className="text-4xl text-[#E91E63] mb-6 flex justify-center">
-            {icon}
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <MiniInfo title="Mentorship" icon={<Users size={16} />} />
+              <MiniInfo title="Topic Hubs" icon={<BookOpenText size={16} />} />
+              <MiniInfo title="Research Scope" icon={<Target size={16} />} />
+              <MiniInfo title="Collaboration" icon={<Handshake size={16} />} />
+            </div>
+          </article>
         </div>
-        <p className="text-lg font-medium leading-relaxed">{text}</p>
+
+        <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
+          <h3 className="text-2xl font-semibold text-slate-900">Why Pharmacy Students and Researchers Choose OPF</h3>
+          <p className="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            OPF combines practical guidance, research support, and professional networking in one ecosystem. Members gain visibility through events, stronger publication confidence, and direct access to domain experts.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/topics" className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-900">
+              Explore Topic Hubs
+            </Link>
+            <Link href="/membershipForm" className="rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white">
+              Apply for Membership
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function StatCard({ value, label, icon }: { value: string; label: string; icon: React.ReactNode }) {
+  return (
+    <div className="surface-card flex items-center gap-3 rounded-2xl p-4">
+      <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white">{icon}</span>
+      <div>
+        <p className="font-display text-3xl font-semibold text-slate-900">{value}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{label}</p>
+      </div>
     </div>
-);
+  );
+}
 
-const FaBriefcaseIcon = ({ className }: any) => (
-    <svg
-        stroke="currentColor"
-        fill="currentColor"
-        strokeWidth="0"
-        viewBox="0 0 512 512"
-        className={className}
-        height="1em"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path d="M336 288H176v-32H16v160c0 17.6 14.4 32 32 32h416c17.6 0 32-14.4 32-32V256H336v32zm160-160h-96V80c0-26.5-21.5-48-48-48H160c-26.5 0-48 21.5-48 48v48H16c-8.8 0-16 7.2-16 16v80h512v-80c0-8.8-7.2-16-16-16zM160 80h192v48H160V80z"></path>
-    </svg>
-);
-
-export default AboutPage;
+function MiniInfo({ title, icon }: { title: string; icon: React.ReactNode }) {
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm font-semibold text-slate-700">
+      <span className="mr-2 inline-flex h-6 w-6 items-center justify-center rounded-md bg-slate-900 text-white">
+        {icon}
+      </span>
+      {title}
+    </div>
+  );
+}

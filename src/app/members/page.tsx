@@ -1,15 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
-import { FaSearch, FaUserCircle, FaPlus, FaFilter } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import SplitType from "split-type";
-
-gsap.registerPlugin(ScrollTrigger);
+import { Search, UserRound } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import PageHero from "../components/PageHero";
 
 interface Member {
   _id: string;
@@ -17,21 +12,19 @@ interface Member {
   membershipStatus: "Pending" | "Active" | "Cancelled";
   membershipId: string;
   qualifications: string;
-  profilePictureUrl: string;
+  profilePictureUrl?: string;
 }
 
-const statusColors = {
-  Pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
-  Active: "bg-green-100 text-green-800 border-green-200",
-  Cancelled: "bg-red-100 text-red-800 border-red-200",
+const statusClasses = {
+  Pending: "bg-amber-100 text-amber-800 border-amber-200",
+  Active: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  Cancelled: "bg-rose-100 text-rose-800 border-rose-200",
 };
 
-const MembersCardView: React.FC = () => {
+export default function MembersPage() {
   const [members, setMembers] = useState<Member[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const containerRef = useRef(null);
-  const headingRef = useRef(null);
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -39,10 +32,8 @@ const MembersCardView: React.FC = () => {
         const response = await fetch("/api/members");
         const data = await response.json();
         if (data.success) {
-          setMembers(data.members);
+          setMembers(data.members || []);
         }
-      } catch (error) {
-        console.error("Error fetching members:", error);
       } finally {
         setLoading(false);
       }
@@ -51,221 +42,102 @@ const MembersCardView: React.FC = () => {
     fetchMembers();
   }, []);
 
-  useGSAP(
-    () => {
-      if (!loading && headingRef.current) {
-        const headingSplit = new SplitType(headingRef.current, {
-          types: "chars,words",
-        });
-
-        gsap.fromTo(
-          headingSplit.chars,
-          { y: 100, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.03, duration: 1, ease: "expo.out" }
-        );
-
-        // Search bar animation
-        gsap.fromTo(
-          ".search-container",
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, delay: 0.5, ease: "power3.out" }
-        );
-
-        // Member cards animation
-        gsap.fromTo(
-          ".member-card",
-          { y: 60, opacity: 0, scale: 0.9 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            stagger: 0.08,
-            duration: 1,
-            ease: "expo.out",
-            delay: 0.8,
-          }
-        );
-
-        // Floating background
-        gsap.to(".float-bg-member", {
-          y: -25,
-          x: 15,
-          duration: 5,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          stagger: 1,
-        });
-
-        return () => {
-          headingSplit.revert();
-        };
-      }
-    },
-    { scope: containerRef, dependencies: [loading] }
+  const filteredMembers = useMemo(
+    () =>
+      members.filter(
+        (member) =>
+          member.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          member.membershipId.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    [members, searchTerm]
   );
-
-  const filteredMembers = members.filter(
-    (member) =>
-      member.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.membershipId.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-[#fafafa] to-white">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-16 h-16 border-t-4 border-[#E91E63] border-solid rounded-full"
-        ></motion.div>
-      </div>
-    );
-  }
 
   return (
-    <div
-      ref={containerRef}
-      className="min-h-screen bg-gradient-to-b from-white via-[#fafafa] to-white py-32 px-4 sm:px-6 lg:px-8 overflow-hidden relative"
-    >
-      {/* Floating Background Elements */}
-      <div className="float-bg-member absolute top-20 right-20 w-80 h-80 bg-[#154c8c]/5 rounded-full blur-[100px]" />
-      <div className="float-bg-member absolute bottom-40 left-20 w-96 h-96 bg-[#E91E63]/5 rounded-full blur-[120px]" />
+    <>
+      <PageHero
+        tag="Members"
+        title="Explore the OPF Member Community"
+        description="Browse verified OPF members and discover professionals engaged in pharmacy education, research, and healthcare innovation initiatives."
+        image="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80&w=2000"
+        alt="Medical and pharmacy professionals networking"
+        actions={[
+          { href: "/membershipForm", label: "Become a Member" },
+          { href: "/memberships", label: "Membership Plans", variant: "secondary" },
+        ]}
+      />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-1.5 mb-6 border border-[#154c8c]/20 rounded-full bg-[#154c8c]/5">
-            <span className="text-[#154c8c] text-sm font-medium tracking-wider uppercase">
-              Our Community
-            </span>
-          </div>
-
-          <h1
-            ref={headingRef}
-            className="text-6xl md:text-7xl font-bold text-slate-900 mb-8 tracking-tight"
-          >
-            Members <span className="text-gradient">Directory</span>
-          </h1>
-        </div>
-
-        {/* Search and Filter Section */}
-        <div className="search-container opacity-0 mb-12 flex flex-col sm:flex-row justify-between items-center gap-6">
-          <div className="relative w-full sm:w-96 group">
-            <input
-              type="text"
-              placeholder="Search members by name or ID..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-14 pr-6 py-4 border-2 border-slate-200 rounded-[30px] focus:outline-none focus:ring-4 focus:ring-[#E91E63]/20 focus:border-[#E91E63] transition-all duration-300 bg-white shadow-sm hover:shadow-md"
-            />
-            <FaSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-400 text-xl group-focus-within:text-[#E91E63] transition-colors duration-300" />
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm("")}
-                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="px-6 py-3 bg-white border-2 border-slate-200 rounded-[30px] shadow-sm">
-              <span className="text-sm font-bold text-slate-600">
+      <section className="section-pad">
+        <div className="section-shell">
+          <div className="surface-card rounded-[2rem] p-5 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <label className="relative w-full sm:max-w-md">
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Search by name or membership ID"
+                  className="w-full rounded-full border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-slate-900"
+                />
+              </label>
+              <p className="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600">
                 {filteredMembers.length} Members
-              </span>
+              </p>
             </div>
           </div>
-        </div>
 
-        {/* Members Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-        >
-          {filteredMembers.map((member) => (
-            <motion.div
-              key={member._id}
-              whileHover={{ y: -8 }}
-              className="member-card opacity-0 group bg-white rounded-[32px] shadow-lg overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 border border-slate-100"
-            >
-              <div className="p-8">
-                {/* Profile Picture */}
-                <div className="flex items-center justify-center mb-6 relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#E91E63]/20 to-[#154c8c]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  {member.profilePictureUrl ? (
-                    <img loading="lazy" decoding="async" src={member.profilePictureUrl}
-                      alt={member.fullName}
-                      className="relative w-28 h-28 rounded-full object-cover border-4 border-white shadow-xl group-hover:scale-110 transition-transform duration-500"
-                    />
-                  ) : (
-                    <FaUserCircle className="relative w-28 h-28 text-slate-300 group-hover:text-[#E91E63] transition-colors duration-500" />
-                  )}
-                </div>
-
-                {/* Name */}
-                <h2 className="text-xl font-bold text-slate-900 text-center mb-3 group-hover:text-[#E91E63] transition-colors duration-300">
-                  {member.fullName}
-                </h2>
-
-                {/* Status Badge */}
-                <div className="flex justify-center mb-4">
-                  <span
-                    className={`px-4 py-1.5 text-xs font-bold rounded-full border ${statusColors[member.membershipStatus]
+          {loading ? (
+            <div className="mt-6 surface-card rounded-3xl p-8 text-center text-slate-600">Loading members...</div>
+          ) : filteredMembers.length > 0 ? (
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {filteredMembers.map((member) => (
+                <article key={member._id} className="surface-card overflow-hidden rounded-[1.6rem]">
+                  <div className="relative h-48 overflow-hidden bg-slate-100">
+                    {member.profilePictureUrl ? (
+                      <Image
+                        src={member.profilePictureUrl}
+                        alt={member.fullName}
+                        fill
+                        sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-slate-400">
+                        <UserRound size={54} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <h2 className="text-lg font-semibold text-slate-900">{member.fullName}</h2>
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.13em] text-slate-500">
+                      ID: {member.membershipId}
+                    </p>
+                    <p className="mt-2 line-clamp-2 text-sm text-slate-600">{member.qualifications}</p>
+                    <span
+                      className={`mt-3 inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
+                        statusClasses[member.membershipStatus]
                       }`}
-                  >
-                    {member.membershipStatus}
-                  </span>
-                </div>
-
-                {/* Member ID */}
-                <p className="text-sm text-slate-500 text-center mb-2 font-mono bg-slate-50 py-2 px-4 rounded-xl">
-                  ID: {member.membershipId}
-                </p>
-
-                {/* Qualifications */}
-                <p className="text-sm text-slate-600 text-center mb-6 line-clamp-2">
-                  {member.qualifications}
-                </p>
-
-                {/* View Profile Button */}
-                <Link href={`/members/${member._id}`}>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-[#154c8c] to-[#E91E63] text-white py-3 rounded-[20px] font-bold hover:shadow-xl transition-all duration-300"
-                  >
-                    View Profile
-                  </motion.button>
-                </Link>
-              </div>
-
-              {/* Decorative gradient */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#E91E63]/10 to-transparent rounded-bl-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Empty State */}
-        {filteredMembers.length === 0 && (
-          <div className="text-center py-20">
-            <div className="inline-block p-8 bg-slate-50 rounded-[40px] mb-6">
-              <FaSearch className="text-6xl text-slate-300" />
+                    >
+                      {member.membershipStatus}
+                    </span>
+                    <Link
+                      href={`/members/${member._id}`}
+                      className="mt-4 inline-flex rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
+                    >
+                      View Profile
+                    </Link>
+                  </div>
+                </article>
+              ))}
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">
-              No members found
-            </h3>
-            <p className="text-slate-600">
-              Try adjusting your search criteria
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
+          ) : (
+            <div className="mt-6 surface-card rounded-3xl p-10 text-center">
+              <h2 className="text-2xl font-semibold text-slate-900">No members found</h2>
+              <p className="mt-2 text-sm text-slate-600">Try a different name or membership ID in the search field.</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
-};
-
-export default MembersCardView;
+}

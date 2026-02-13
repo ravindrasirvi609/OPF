@@ -1,106 +1,65 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const partners = [
-  { name: "IP Moment", type: "industrial", logo: "/logo/IPMoment.png" },
-  { name: "Priyadarshini College", type: "academic", logo: "/logo/Priyadarshini.png" },
-  { name: "Dr. D. Y. Patil Institute", type: "academic", logo: "/logo/dypatil.png" },
-  { name: "Singhad College", type: "academic", logo: "/logo/sinhgad.png" },
-  { name: "Modern College", type: "academic", logo: "/logo/mordern.png" },
-  { name: "Abhinav Educational", type: "academic", logo: "/logo/Abhinav.png" },
-  { name: "KGR Institute", type: "academic", logo: "/logo/KGR.png" },
-  { name: "Sunrise College", type: "academic", logo: "/logo/sunrise.png" },
-  { name: "MLSU", type: "academic", logo: "/logo/Mohanlal.png" },
-  { name: "Nirma University", type: "academic", logo: "/logo/Nirma.jpg" },
-  { name: "V. V. Institute", type: "academic", logo: "/logo/vv.png" },
-  { name: "Nirmala College", type: "academic", logo: "/logo/nirmala.png" },
-  { name: "D. Y. Patil University", type: "academic", logo: "/logo/dypatilmumbai.png" },
-  { name: "National Facility", type: "industrial", logo: "/logo/nfb.png" },
+  { name: "IP Moment", type: "Industry", logo: "/logo/IPMoment.png" },
+  { name: "Priyadarshini College", type: "Academic", logo: "/logo/Priyadarshini.png" },
+  { name: "Dr. D. Y. Patil Institute", type: "Academic", logo: "/logo/dypatil.png" },
+  { name: "Sinhgad College", type: "Academic", logo: "/logo/sinhgad.png" },
+  { name: "Modern College", type: "Academic", logo: "/logo/mordern.png" },
+  { name: "Abhinav Educational", type: "Academic", logo: "/logo/Abhinav.png" },
+  { name: "KGR Institute", type: "Academic", logo: "/logo/KGR.png" },
+  { name: "Sunrise College", type: "Academic", logo: "/logo/sunrise.png" },
+  { name: "MLSU", type: "Academic", logo: "/logo/Mohanlal.png" },
+  { name: "Nirma University", type: "Academic", logo: "/logo/Nirma.jpg" },
+  { name: "Nirmala College", type: "Academic", logo: "/logo/nirmala.png" },
+  { name: "National Facility", type: "Industry", logo: "/logo/nfb.png" },
 ];
 
-export default function PartnersShowcase() {
-  const containerRef = useRef(null);
-  const marqueeRef = useRef(null);
+const doublePartners = [...partners, ...partners];
 
-  useGSAP(() => {
-    const marquee = marqueeRef.current;
-    if (marquee) {
-      // Each card is w-64 (256px) + gap-8 (32px) = 288px
-      const cardWidth = 288;
-      const totalWidth = partners.length * cardWidth;
-
-      gsap.to(marquee, {
-        x: -totalWidth,
-        duration: 40,
-        repeat: -1,
-        ease: "none",
-      });
-    }
-
-    gsap.fromTo(".partners-header",
-      { y: 50, opacity: 0 },
-      {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out"
-      }
-    );
-  }, { scope: containerRef });
-
-  // Duplicate partners for seamless marquee
-  const extendedPartners = [...partners, ...partners];
-
+export default function InnovationShowcase() {
   return (
-    <section ref={containerRef} className="py-32 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mb-20 partners-header opacity-0">
-        <div className="inline-block px-4 py-1.5 mb-6 border border-[#154c8c]/20 rounded-full bg-[#154c8c]/5">
-          <span className="text-[#154c8c] text-sm font-medium tracking-wider uppercase">
-            Collaborations
-          </span>
-        </div>
-        <h2 className="text-5xl font-bold text-slate-900 tracking-tight">
-          Trust by Leading <br />
-          <span className="text-gradient">Institutions</span>
-        </h2>
+    <section className="section-pad bg-[linear-gradient(180deg,#f5faff_0%,#ffffff_100%)]">
+      <div className="section-shell">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55 }}
+          className="mb-10"
+        >
+          <span className="pill-tag">Collaborations</span>
+          <h2 className="mt-5 text-4xl font-semibold text-slate-900 md:text-5xl">
+            Trusted by Leading
+            <span className="text-gradient"> Academic and Industry Partners</span>
+          </h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-600">
+            Our collaboration network bridges institutions, researchers, and practitioners to create stronger learning, publication, and innovation outcomes.
+          </p>
+        </motion.div>
       </div>
 
-      <div className="relative">
-        {/* Gradient Overlays */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10" />
-
-        <div
-          ref={marqueeRef}
-          className="flex gap-8 whitespace-nowrap"
-        >
-          {extendedPartners.map((partner, index) => (
+      <div className="marquee-row">
+        <div className="marquee-track gap-4 px-2 sm:gap-5 sm:px-3">
+          {doublePartners.map((partner, index) => (
             <div
-              key={index}
-              className="flex-shrink-0 w-64 p-8 rounded-[32px] bg-slate-50 border border-slate-100 flex flex-col items-center justify-center group hover:bg-white hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500"
+              key={`${partner.name}-${index}`}
+              className="surface-card flex min-h-36 w-[260px] flex-shrink-0 flex-col items-center justify-center rounded-3xl px-5 py-6 text-center"
             >
-              <div className="h-20 w-full flex items-center justify-center mb-6 grayscale group-hover:grayscale-0 transition-all duration-500">
-                <img loading="lazy" decoding="async" src={partner.logo}
-                  alt={partner.name}
-                  className="max-h-full max-w-full object-contain"
+              <div className="relative h-14 w-[140px]">
+                <Image
+                  src={partner.logo}
+                  alt={`${partner.name} logo`}
+                  fill
+                  sizes="140px"
+                  className="object-contain"
                 />
               </div>
-              <p className="text-sm font-bold text-slate-800 text-center truncate w-full">
-                {partner.name}
-              </p>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-2">
-                {partner.type}
-              </span>
+              <p className="mt-4 text-sm font-semibold text-slate-800">{partner.name}</p>
+              <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-slate-500">{partner.type}</p>
             </div>
           ))}
         </div>

@@ -1,69 +1,86 @@
 import Link from "next/link";
+import { AlertTriangle, ClipboardCheck, FileSearch, ShieldPlus } from "lucide-react";
+import PageHero from "../../components/PageHero";
+
+const outcomes = [
+  "Adverse event intake, seriousness checks, and case triage",
+  "Narrative quality standards and MedDRA coding basics",
+  "Signal detection workflows and risk communication practices",
+  "Global compliance context for pharmacovigilance teams",
+];
 
 export default function PharmacovigilancePage() {
   return (
-    <article className="bg-white py-24">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <h1 className="mb-6 text-4xl font-bold text-slate-900 md:text-5xl">
-          Pharmacovigilance Training and Career Guidance
-        </h1>
-        <p className="mb-6 text-lg leading-8 text-slate-700">
-          Pharmacovigilance is central to patient safety and drug lifecycle
-          monitoring. OPF supports pharmacy students and professionals with
-          practical education in adverse event reporting, case processing,
-          signal detection, risk management plans, and post-marketing
-          surveillance.
-        </p>
-        <p className="mb-6 text-lg leading-8 text-slate-700">
-          Through conferences and expert sessions, participants learn how to
-          handle Individual Case Safety Reports (ICSRs), MedDRA coding,
-          aggregate safety reports, and data quality checks. These skills are
-          in demand across CROs, pharmaceutical companies, and regulatory
-          consulting teams.
-        </p>
-        <p className="mb-6 text-lg leading-8 text-slate-700">
-          OPF programs also focus on communication and compliance, including how
-          to collaborate with medical reviewers, regulatory teams, and quality
-          assurance units. This multidisciplinary approach helps learners bridge
-          academic concepts with real-world pharmacovigilance workflows.
-        </p>
+    <>
+      <PageHero
+        tag="Pharmacovigilance"
+        title="Drug Safety Learning and Career Pathways in Pharmacovigilance"
+        description="Build practical pharmacovigilance capability with OPF through case-based learning, reporting workflows, and expert guidance."
+        image="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=2000"
+        alt="Drug safety and pharmacovigilance analysis workspace"
+        actions={[
+          { href: "/membershipForm", label: "Join for PV Programs" },
+          { href: "/topics", label: "All Topic Hubs", variant: "secondary" },
+        ]}
+      />
 
-        <section className="mb-10 rounded-2xl bg-slate-50 p-6">
-          <h2 className="mb-3 text-2xl font-semibold text-slate-900">
-            What You Can Learn
-          </h2>
-          <ul className="list-disc space-y-2 pl-6 text-slate-700">
-            <li>Adverse event collection, triage, and seriousness assessment</li>
-            <li>Expectedness checks and narrative writing best practices</li>
-            <li>Signal management from detection to risk minimization action</li>
-            <li>Global pharmacovigilance regulations and inspection readiness</li>
-          </ul>
-        </section>
+      <article className="section-pad">
+        <div className="section-shell grid gap-5 lg:grid-cols-12">
+          <section className="surface-card rounded-[2rem] p-6 lg:col-span-8">
+            <h2 className="text-3xl font-semibold text-slate-900">Why Pharmacovigilance Matters</h2>
+            <p className="mt-4 text-sm leading-relaxed text-slate-700 md:text-base">
+              Pharmacovigilance protects patients through structured drug safety monitoring. OPF helps learners and professionals understand end-to-end safety workflows including case processing, reporting quality, and post-marketing surveillance operations.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-slate-700 md:text-base">
+              These competencies are highly relevant for roles in pharmaceutical companies, CROs, clinical operations teams, and regulatory support functions.
+            </p>
 
-        <section className="mb-10">
-          <h2 className="mb-3 text-2xl font-semibold text-slate-900">
-            Related OPF Resources
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/faq" className="text-[#154c8c] underline">
-              FAQs
-            </Link>
-            <Link href="/impact-stories" className="text-[#154c8c] underline">
-              Impact Stories
-            </Link>
-            <Link href="/memberships" className="text-[#154c8c] underline">
-              Membership Plans
-            </Link>
+            <h3 className="mt-6 text-2xl font-semibold text-slate-900">What You Can Learn</h3>
+            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700 md:text-base">
+              {outcomes.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0a4ea3]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <aside className="grid gap-4 lg:col-span-4">
+            <MiniCard icon={<ShieldPlus size={17} />} title="Safety Operations" text="Understand practical reporting and signal management steps." />
+            <MiniCard icon={<ClipboardCheck size={17} />} title="Quality Standards" text="Improve documentation quality and process consistency." />
+            <MiniCard icon={<FileSearch size={17} />} title="Career Readiness" text="Prepare for pharmacovigilance analyst and case-processing roles." />
+            <MiniCard icon={<AlertTriangle size={17} />} title="Risk Communication" text="Learn structured methods for safety messaging and escalation." />
+          </aside>
+        </div>
+
+        <div className="section-shell mt-6">
+          <div className="surface-card rounded-3xl px-6 py-7">
+            <h3 className="text-2xl font-semibold text-slate-900">Continue Your Learning Path</h3>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link href="/topics/clinical-research" className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-900">
+                Clinical Research
+              </Link>
+              <Link href="/impact-stories" className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-900">
+                Impact Stories
+              </Link>
+              <Link href="/membershipForm" className="rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white">
+                Apply for Membership
+              </Link>
+            </div>
           </div>
-        </section>
+        </div>
+      </article>
+    </>
+  );
+}
 
-        <Link
-          href="/membershipForm"
-          className="inline-block rounded-full bg-[#154c8c] px-6 py-3 font-semibold text-white"
-        >
-          Join OPF for Pharmacovigilance Learning
-        </Link>
-      </div>
+function MiniCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
+  return (
+    <article className="surface-card rounded-2xl p-5">
+      <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white">{icon}</span>
+      <h3 className="mt-3 text-lg font-semibold text-slate-900">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-slate-600">{text}</p>
     </article>
   );
 }
