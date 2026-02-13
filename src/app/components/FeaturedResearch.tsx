@@ -21,7 +21,7 @@ const researchAreas = [
     title: "Nanopharmaceuticals",
     description: "Engineered nanoscale materials for diagnostics, treatment precision, and translational medicine.",
     image:
-      "https://images.unsplash.com/photo-1582719361028-44f7d2ef7f9f?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1200",
   },
   {
     title: "Neuropharmacology",

@@ -28,7 +28,7 @@ const services = [
 ];
 
 const consultingImage =
-  "https://images.unsplash.com/photo-1579165466741-7f35e4755183?auto=format&fit=crop&q=80&w=1600";
+  "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1600";
 
 export default function Consulting() {
   return (

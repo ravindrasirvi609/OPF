@@ -17,7 +17,7 @@ const team = [
     role: "Founder & Director",
     focus: "Pharmacovigilance and research ecosystem development",
     image:
-      "https://images.unsplash.com/photo-1556157382-97dee2dcb0b7?auto=format&fit=crop&q=80&w=1400",
+      "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&q=80&w=1400",
     icon: Microscope,
   },
   {
@@ -25,7 +25,7 @@ const team = [
     role: "Global Strategy Advisor",
     focus: "Drug development and cross-border innovation partnerships",
     image:
-      "https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=1400",
+      "https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&q=80&w=1400",
     icon: FlaskConical,
   },
   {
@@ -41,7 +41,7 @@ const team = [
     role: "Research Head",
     focus: "Biotechnology translation and evidence-based programs",
     image:
-      "https://images.unsplash.com/photo-1594824813573-c46fe3bb92df?auto=format&fit=crop&q=80&w=1400",
+      "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&q=80&w=1400",
     icon: Award,
   },
   {
