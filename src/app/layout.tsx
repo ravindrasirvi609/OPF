@@ -14,7 +14,7 @@ import {
   organizationSchema,
   websiteSchema,
 } from "./lib/seo";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 
