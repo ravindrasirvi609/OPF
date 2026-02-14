@@ -11,16 +11,22 @@ interface PageProps {
 
 interface Conference {
   id: number;
+  slug: string;
   heading: string;
   subHeading: string;
   title: string;
   collaborator: string;
   activity: string;
+  location: string;
+  year?: number;
   date: string;
   description: string;
   objectives: string[];
   keyTakeaways: string[];
-  imageUrl?: string;
+  coverImage?: string;
+  images?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export default function ImpactStoryDetailPage({ params }: PageProps) {
@@ -31,6 +37,13 @@ export default function ImpactStoryDetailPage({ params }: PageProps) {
   if (!conference) {
     notFound();
   }
+
+  const heroImage =
+    conference.coverImage ||
+    conference.images?.[0] ||
+    "/opf-main.webp";
+  const galleryImages =
+    conference.images?.filter((img) => typeof img === "string" && img.trim().length > 0) || [];
 
   const webPage = pageSchema({
     title: conference.heading,
@@ -49,7 +62,7 @@ export default function ImpactStoryDetailPage({ params }: PageProps) {
     "@type": "Article",
     headline: conference.heading,
     description: conference.description || conference.title,
-    image: conference.imageUrl || "https://opf.org.in/opf-main.webp",
+    image: heroImage,
     author: {
       "@type": "Organization",
       name: "Operant Pharmacy Federation",
@@ -96,7 +109,7 @@ export default function ImpactStoryDetailPage({ params }: PageProps) {
 
           <div className="mt-6 relative h-[300px] overflow-hidden rounded-[1.5rem] sm:h-[420px]">
             <Image
-              src={conference.imageUrl || "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1600"}
+              src={heroImage}
               alt={conference.title}
               fill
               priority
@@ -105,6 +118,25 @@ export default function ImpactStoryDetailPage({ params }: PageProps) {
             />
           </div>
         </header>
+
+        {galleryImages.length > 1 ? (
+          <section className="mt-5 surface-card rounded-3xl p-6">
+            <h2 className="text-2xl font-semibold text-slate-900">Event Gallery</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {galleryImages.map((image, index) => (
+                <div key={`${conference.id}-${index}`} className="relative h-44 overflow-hidden rounded-2xl sm:h-48">
+                  <Image
+                    src={image}
+                    alt={`${conference.heading} gallery image ${index + 1}`}
+                    fill
+                    sizes="(min-width: 1024px) 24vw, (min-width: 640px) 48vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="mt-5 grid gap-5 lg:grid-cols-2">
           <div className="surface-card rounded-3xl p-6">

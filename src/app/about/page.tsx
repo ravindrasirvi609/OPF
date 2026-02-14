@@ -12,6 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import PageHero from "../components/PageHero";
+import VideoShowcase from "../components/VideoShowcase";
 import { breadcrumbSchema, pageSchema } from "../lib/seo";
 
 const pillars = [
@@ -106,6 +107,14 @@ export default function AboutPage() {
           { href: "/memberships", label: "Explore Memberships" },
           { href: "/contact", label: "Contact OPF", variant: "secondary" },
         ]}
+      />
+
+      <VideoShowcase
+        eyebrow="About OPF"
+        title="A Closer Look at Our Mission"
+        description="Explore how OPF supports students, researchers, and professionals through mentorship, innovation, and global pharmacy collaboration."
+        embedUrl="https://www.youtube.com/embed/dTuHXUt1weQ?si=l1fZ6wbmY9cSE4ML"
+        youtubeUrl="https://www.youtube.com/watch?v=dTuHXUt1weQ&t=1s"
       />
 
       <section className="section-pad">

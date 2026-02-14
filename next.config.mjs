@@ -31,6 +31,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.obrf.org.in",
       },
+      {
+        protocol: "https",
+        hostname: "opf.org.in",
+      },
     ],
   },
 };

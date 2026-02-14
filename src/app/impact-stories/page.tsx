@@ -7,14 +7,17 @@ import { breadcrumbSchema, pageSchema } from "../lib/seo";
 
 interface Conference {
   id: number;
+  slug: string;
   heading: string;
   subHeading: string;
   title: string;
   date: string;
-  imageUrl?: string;
+  coverImage?: string;
+  images?: string[];
+  location?: string;
+  year?: number;
   innovationCount?: number;
   impactedLives?: number;
-  location?: string;
 }
 
 export default function ImpactStoriesPage() {
@@ -61,12 +64,17 @@ export default function ImpactStoriesPage() {
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {conferences.map((item) => {
               const conference = item as Conference;
+              const cardImage =
+                conference.coverImage ||
+                conference.images?.[0] ||
+                "/opf-main.webp";
+
               return (
                 <Link key={conference.id} href={`/impact-stories/${conference.id}`} className="group">
                   <article className="surface-card h-full overflow-hidden rounded-[1.8rem]">
                     <div className="relative h-52 overflow-hidden">
                       <Image
-                        src={conference.imageUrl || "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1400"}
+                        src={cardImage}
                         alt={conference.heading}
                         fill
                         sizes="(min-width: 1280px) 30vw, (min-width: 768px) 50vw, 100vw"
@@ -83,6 +91,7 @@ export default function ImpactStoriesPage() {
                       <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{conference.subHeading}</p>
 
                       <div className="mt-4 flex flex-wrap items-center gap-3 text-xs font-medium text-slate-500">
+                        {conference.year ? <span>{conference.year}</span> : null}
                         {conference.innovationCount ? <span>{conference.innovationCount} innovations</span> : null}
                         {conference.impactedLives ? <span>{conference.impactedLives} lives impacted</span> : null}
                         {conference.location ? (

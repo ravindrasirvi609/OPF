@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "./components/Hero";
+import VideoShowcase from "./components/VideoShowcase";
 import FeaturedResearch from "./components/FeaturedResearch";
 import InnovationShowcase from "./components/InnovationShowcase";
 import ContactCTA from "./components/ContactCTA";
@@ -47,6 +48,13 @@ export default function Home() {
       />
       <section>
         <Hero />
+        <VideoShowcase
+          eyebrow="Inside OPF"
+          title="Watch OPF in Action"
+          description="Get a quick look at how OPF drives pharmacy education, research collaboration, and real-world healthcare impact through its programs and community."
+          embedUrl="https://www.youtube.com/embed/dTuHXUt1weQ?si=l1fZ6wbmY9cSE4ML"
+          youtubeUrl="https://www.youtube.com/watch?v=dTuHXUt1weQ&t=1s"
+        />
         <AboutOpf />
         <Pillars />
         <FeaturedResearch />
