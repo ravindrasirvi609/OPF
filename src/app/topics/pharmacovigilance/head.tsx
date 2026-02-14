@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Learn pharmacovigilance fundamentals, adverse event reporting, drug safety monitoring, and OPF career guidance resources.";
   const url = "https://opf.org.in/topics/pharmacovigilance";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Read the OPF privacy policy explaining how we collect, use, protect, and process your pharmacy membership and website data.";
   const url = "https://opf.org.in/privacy";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Understand clinical research design, ethics, GCP compliance, trial operations, and OPF opportunities for researchers.";
   const url = "https://opf.org.in/topics/clinical-research";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

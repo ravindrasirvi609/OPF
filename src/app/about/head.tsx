@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Learn about Operant Pharmacy Federation, our pharmacy mission, healthcare research programs, and professional development initiatives.";
   const url = "https://opf.org.in/about";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Access pharmacy education pathways, research writing support, conference exposure, and career development with OPF.";
   const url = "https://opf.org.in/topics/pharmacy-education";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

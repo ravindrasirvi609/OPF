@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Contact OPF for pharmacy memberships, research collaboration, conference participation, and healthcare innovation support.";
   const url = "https://opf.org.in/contact";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

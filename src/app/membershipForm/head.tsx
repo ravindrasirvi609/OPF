@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Complete the OPF membership application form to join pharmacy researchers, students, and healthcare professionals worldwide.";
   const url = "https://opf.org.in/membershipForm";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

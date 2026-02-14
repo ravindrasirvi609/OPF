@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Read OPF impact stories from pharmacy conferences, healthcare partnerships, and pharmaceutical research events across India.";
   const url = "https://opf.org.in/impact-stories";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

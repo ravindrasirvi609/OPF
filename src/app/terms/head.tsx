@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Read OPF website terms and conditions covering memberships, intellectual property, acceptable use, and liability limitations.";
   const url = "https://opf.org.in/terms";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

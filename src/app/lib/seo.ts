@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://opf.org.in";
 export const SITE_NAME = "Operant Pharmacy Federation";
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/opflogo.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/opf-main.webp`;
 
 const DEFAULT_DESCRIPTION =
   "Operant Pharmacy Federation advances pharmacy education, research, conferences, and professional development for global healthcare impact.";

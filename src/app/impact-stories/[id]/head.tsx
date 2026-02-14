@@ -7,7 +7,7 @@ export default function Head({ params }: HeadProps) {
   const description =
     "Explore a detailed OPF impact story on pharmacy research, conference outcomes, and healthcare collaboration.";
   const url = `https://opf.org.in/impact-stories/${params.id}`;
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

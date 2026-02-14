@@ -49,7 +49,7 @@ export default function ImpactStoryDetailPage({ params }: PageProps) {
     "@type": "Article",
     headline: conference.heading,
     description: conference.description || conference.title,
-    image: conference.imageUrl || "https://opf.org.in/opflogo.png",
+    image: conference.imageUrl || "https://opf.org.in/opf-main.webp",
     author: {
       "@type": "Organization",
       name: "Operant Pharmacy Federation",
@@ -59,7 +59,7 @@ export default function ImpactStoryDetailPage({ params }: PageProps) {
       name: "Operant Pharmacy Federation",
       logo: {
         "@type": "ImageObject",
-        url: "https://opf.org.in/opflogo.png",
+        url: "https://opf.org.in/opf-main.webp",
       },
     },
     mainEntityOfPage: `https://opf.org.in/impact-stories/${conference.id}`,

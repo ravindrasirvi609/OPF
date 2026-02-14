@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Find answers about OPF membership, certifications, conferences, pharmacy research support, and healthcare training programs.";
   const url = "https://opf.org.in/faq";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

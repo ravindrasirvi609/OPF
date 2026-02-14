@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     images: [
       {
-        url: absoluteUrl("/opflogo.png"),
+        url: absoluteUrl("/opf-main.webp"),
         width: 1200,
         height: 630,
         alt: `${SITE_NAME} preview image`,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     title: `${SITE_NAME} | Pharmacy Research and Innovation`,
     description:
       "Advance your pharmacy career with OPF through memberships, conferences, global collaborations, and research opportunities.",
-    images: [absoluteUrl("/opflogo.png")],
+    images: [absoluteUrl("/opf-main.webp")],
   },
   robots: {
     index: true,

@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Choose OPF membership plans for students and professionals to access research resources, conferences, and expert pharmacy networks.";
   const url = "https://opf.org.in/memberships";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

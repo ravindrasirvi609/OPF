@@ -6,8 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
-const heroImage =
-  "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=2200";
+const heroImage = "/opf-main.webp";
 const supportImageOne =
   "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1400";
 const supportImageTwo =

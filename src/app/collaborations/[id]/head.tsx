@@ -7,7 +7,7 @@ export default function Head({ params }: HeadProps) {
   const description =
     "Review OPF collaboration details and partnership outcomes for pharmaceutical education and research growth.";
   const url = `https://opf.org.in/collaborations/${params.id}`;
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

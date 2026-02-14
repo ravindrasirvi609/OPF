@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Explore OPF academic and industry collaborations that accelerate pharmaceutical research, education, and healthcare innovation.";
   const url = "https://opf.org.in/collaborations";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Explore OPF innovations in drug discovery, pharmaceutical technology, clinical research, and pharmacy professional advancement.";
   const url = "https://opf.org.in/innovations";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

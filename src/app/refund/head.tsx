@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Read the OPF refund and cancellation policy for memberships, events, and training programs with timelines and support details.";
   const url = "https://opf.org.in/refund";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

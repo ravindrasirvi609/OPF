@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Explore OPF topic hubs on pharmacovigilance, clinical research, and pharmacy education with practical guidance and resources.";
   const url = "https://opf.org.in/topics";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>

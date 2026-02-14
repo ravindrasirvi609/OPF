@@ -3,7 +3,7 @@ export default function Head() {
   const description =
     "Meet OPF advisers and mentors in pharmacovigilance, clinical trials, pharmaceutical education, and healthcare innovation.";
   const url = "https://opf.org.in/team";
-  const image = "https://opf.org.in/opflogo.png";
+  const image = "https://opf.org.in/opf-main.webp";
 
   return (
     <>
