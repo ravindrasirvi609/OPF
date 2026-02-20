@@ -37,3 +37,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 //#80b142
 //#154c8c
+
+## Contact Form Captcha Configuration
+
+To enable captcha protection for `/contact`, set these environment variables:
+
+```bash
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_cloudflare_turnstile_site_key
+TURNSTILE_SECRET_KEY=your_cloudflare_turnstile_secret_key
+RESEND_API_KEY=your_resend_api_key
+# optional overrides
+CONTACT_FORM_TO_EMAIL=help@opf.org.in
+CONTACT_FORM_FROM_EMAIL=opf@pharmanecia.org
+```
+
+The contact form now verifies the Turnstile token server-side before sending emails.

@@ -1,7 +1,8 @@
-import { Clock3, Mail, MapPin, Phone, SendHorizonal } from "lucide-react";
+import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 import PageHero from "../components/PageHero";
 import { breadcrumbSchema, pageSchema } from "../lib/seo";
+import ContactForm from "../components/ContactForm";
 
 const contactItems = [
   {
@@ -101,29 +102,7 @@ export default function ContactPage() {
               For faster assistance, include your purpose such as membership support, conference registration, research publication, or institutional collaboration.
             </p>
 
-            <form className="mt-6 grid gap-4 sm:grid-cols-2" action="mailto:help@opf.org.in" method="post" encType="text/plain">
-              <Input label="Full Name" name="name" placeholder="Your full name" />
-              <Input label="Email Address" name="email" type="email" placeholder="name@email.com" />
-              <Input label="Phone Number" name="phone" placeholder="10-digit mobile number" />
-              <Input label="Subject" name="subject" placeholder="Membership query" />
-              <label className="sm:col-span-2">
-                <span className="mb-2 block text-sm font-medium text-slate-700">Message</span>
-                <textarea
-                  name="message"
-                  rows={5}
-                  placeholder="Tell us how we can help"
-                  className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-slate-900"
-                />
-              </label>
-
-              <button
-                type="submit"
-                className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0a4ea3]"
-              >
-                Send Message
-                <SendHorizonal size={15} />
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </section>
@@ -153,29 +132,5 @@ export default function ContactPage() {
         </div>
       </section>
     </>
-  );
-}
-
-function Input({
-  label,
-  name,
-  type = "text",
-  placeholder,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  placeholder: string;
-}) {
-  return (
-    <label>
-      <span className="mb-2 block text-sm font-medium text-slate-700">{label}</span>
-      <input
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-slate-900"
-      />
-    </label>
   );
 }
