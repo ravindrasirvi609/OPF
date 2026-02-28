@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
-import Breadcrumbs from "./components/Breadcrumbs";
 import SchemaInjector from "./components/SchemaInjector";
 import {
   SITE_NAME,
@@ -92,19 +91,30 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://images.unsplash.com"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link
           rel="preconnect"
           href="https://firebasestorage.googleapis.com"
           crossOrigin=""
         />
-        <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com" />
+        <link
+          rel="dns-prefetch"
+          href="https://firebasestorage.googleapis.com"
+        />
       </head>
-      <body className={`${sora.variable} ${cormorant.variable} app-body flex min-h-screen flex-col`}>
+      <body
+        className={`${sora.variable} ${cormorant.variable} app-body flex min-h-screen flex-col`}
+      >
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema()),
+          }}
         />
         <script
           type="application/ld+json"
@@ -112,14 +122,15 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessSchema()),
+          }}
         />
         <SchemaInjector />
         <SmoothScroll>
           <header>
             <Header />
           </header>
-          <Breadcrumbs />
           <main className="flex-grow pt-14 sm:pt-20">{children}</main>
           <footer>
             <Footer />
